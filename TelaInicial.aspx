@@ -18,7 +18,7 @@
 
 <body class="texto-centro">
     <div class="falconDexPadrao">
-        <img class="imgLogo" src="img/LogoFalcon.png" alt width="102" height="102" />
+        <img class="imgLogo" src="img/LogoFalcon.png"  width="102" height="102" />
 
         <h1 class="nomeFalcon" >FALCON</h1>
 
@@ -28,11 +28,7 @@
 
        
 
-        <asp:TextBox ID="txbEmail" runat="server" CssClass="form-control" placeholder="E-mail ">
-
-            <span class="glyphicon ghyphicon-envelope form-control-feedback">  </span>
-
-        </asp:TextBox>
+        <asp:TextBox ID="txbEmail" runat="server" CssClass="form-control" placeholder="E-mail "></asp:TextBox>
 
         <asp:TextBox ID="txbSenha" runat="server" CssClass="form-control" placeholder="Senha"></asp:TextBox>
         
