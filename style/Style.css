@@ -1,0 +1,51 @@
+﻿.texto-centro {
+    background-color: white;
+    align-items: center;
+    display: inherit;
+    padding-top: 40px;
+    text-align:center!important;
+}
+.formulario {
+    margin: auto;
+    padding: 15px;
+    max-width: 330px;
+}
+.falconDexPadrao {
+    margin: auto;
+    padding: 15px;
+    max-width: 330px;
+}
+.imgLogo {
+    margin: 0;
+    vertical-align: middle;
+    border-style: none;
+    box-sizing: border-box;
+}
+.nomeFalcon {
+    font-weight: bold;
+    font-size: 3.5rem;
+    line-height: 1.3;
+    color: inherit;
+    letter-spacing: 2px;
+}
+.nomeDex {
+    color: inherit;
+    font-family: 'Segoe UI';
+    font-weight: bold;
+    font-size: 1rem;
+    letter-spacing: 2px;
+}
+.form-control {
+    border-radius: 1.5rem;
+    margin-bottom: 1.5rem !important;
+    font-family:Arial;
+    letter-spacing:2px;
+}
+.btn, .btn-primary, .btn-block {
+    margin-top:4rem;
+    border-radius: 1rem;
+}
+/*colocar icones dentro das texBox(como fazer?)
+.glyphicon-envelope:before{
+    content: "\2709"
+}*/ 
