@@ -18,23 +18,21 @@
 
 <body class="texto-centro">
     <div class="falconDexPadrao">
-        <img class="imgLogo" src="img/LogoFalcon.png"  width="102" height="102" />
+        <img class="imgLogo" src="img/LogoFalcon.png" width="102" height="102" alt="Logo do Falcon Dex" />
 
         <h1 class="nomeFalcon" >FALCON</h1>
 
         <h4 class="nomeDex">DEX</h4>
     </div>
     <form runat="server" class="formulario">
-
        
+        <asp:TextBox ID="txbEmail" runat="server" AutoCompleteType="Email" MaxLength="200" CssClass="form-control" placeholder="E-mail "></asp:TextBox>
 
-        <asp:TextBox ID="txbEmail" runat="server" CssClass="form-control" placeholder="E-mail "></asp:TextBox>
-
-        <asp:TextBox ID="txbSenha" runat="server" CssClass="form-control" placeholder="Senha"></asp:TextBox>
+        <asp:TextBox ID="txbSenha" TextMode="Password" runat="server" MaxLength="32" CssClass="form-control" placeholder="Senha"></asp:TextBox>
         
         <asp:Button ID="btnEntrar" runat="server" Text="ENTRAR" CssClass="btn btn-primary btn-block" />
 
-         <asp:Label ID="esqueciSenha" runat="server"  Text="esqueciSenha">
+        <asp:Label ID="esqueciSenha" runat="server"  Text="esqueciSenha">
 
             <a href="esqueci a senha">Esqueceu a senha</a>
 
