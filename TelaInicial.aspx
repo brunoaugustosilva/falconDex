@@ -28,9 +28,9 @@
 
        
 
-        <asp:TextBox ID="txbEmail" runat="server" CssClass="form-control" placeholder="E-mail "></asp:TextBox>
+        <asp:TextBox ID="txbEmail" runat="server" MaxLength="200" AutoCompleteType="Email" CssClass="form-control" placeholder="E-mail "></asp:TextBox>
 
-        <asp:TextBox ID="txbSenha" runat="server" CssClass="form-control" placeholder="Senha"></asp:TextBox>
+        <asp:TextBox ID="txbSenha" TextMode="Password" MaxLength="32" runat="server" CssClass="form-control" placeholder="Senha"></asp:TextBox>
         
         <asp:Button ID="btnEntrar" runat="server" Text="ENTRAR" CssClass="btn btn-primary btn-block" />
 
@@ -41,7 +41,7 @@
         </asp:Label>
 
     </form>
-    <script src="Scripts/jquery-3.0.0.slim.min.js"></script>
+    <script src="Scripts/jquery-3.5.1.slim.min.js"></script>
     <script src="Scripts/popper.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
 </body>
