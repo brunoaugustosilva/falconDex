@@ -1,9 +1,15 @@
-﻿.texto-centro {
+﻿html,body{
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+.texto-centro {
     background-color: white;
     align-items: center;
     display: inherit;
     padding-top: 40px;
-    text-align:center!important;
+    text-align: center!important;
 }
 .formulario {
     margin: auto;
@@ -52,24 +58,33 @@
     align-items: stretch;
     padding-right:inherit;
 }
-.col-md-3 weapper{
-    padding-right:inherit;
+.col-md-3, .weapper{
+    padding-right:0;
+    padding-bottom:0;
 }
 
  .navbar .container {
      display:block;
 }
- .imgSetaNome{
-   margin-top:auto;
-   padding-left:initial;
- }
-
-img-fluid{
-    vertical-align:middle;
+.imgSeta{
+    margin: 10px;
 }
-
-    /*colocar icones dentro das texBox(como fazer?)
-.glyphicon-envelope:before{
-    content: "\2709"
-}*/
+.aquarium{
+   margin-right: 0px;
+}
+.container-fluid{
+    display:flex;
+    justify-content: space-between;
+}
+.main{
+    height: 100vh;
+    margin-right:0px;
+}
+.menu {
+    background: #007bff!important;
+}
+.z-depth-0{
+    display:flex;
+    flex-wrap:wrap;
+}
 
