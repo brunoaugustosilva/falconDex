@@ -11,9 +11,15 @@
     padding-top: 40px;
     text-align: center!important;
 }
+
+.principal {
+    display: flex;
+    justify-content: center;
+}
+
 .formulario {
-    margin: auto;
     padding: 15px;
+    min-width: 330px;
     max-width: 330px;
 }
 .falconDexPadrao {
@@ -44,7 +50,7 @@
 }
 .form-control {
     border-radius: 1.5rem;
-    margin-bottom: 1.5rem !important;
+    /*margin-bottom: 1.5rem !important;*/
     font-family:Arial;
     letter-spacing:2px;
 }
@@ -88,3 +94,7 @@
     flex-wrap:wrap;
 }
 
+#loginAlert {
+    top: 10px;
+    left: 10px;
+}
