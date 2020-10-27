@@ -4,23 +4,23 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Descrição resumida de Class1
+/// Descrição resumida de Chamado
 /// </summary>
 /// 
 namespace falconDex.Models
 {
-    public class Login
+    public class Chamado
     {
-        public String Email { get; set; }
-        public String Senha { get; set; }
-        public String Ip { get; set; }
-        public DateTime Date { get; set; }
+        public String Nome { get; set; }
+        public String Descricao { get; set; }
+        public DateTime Data { get; set; }
 
-        public Login()
+        public Chamado()
         {
             //
             // TODO: Adicionar lógica do construtor aqui
             //
         }
     }
+
 }

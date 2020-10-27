@@ -6,6 +6,9 @@ using System.Data.SqlClient;
 
 using falconDex.Models;
 using System.Data;
+using MySql.Data;
+using MySql.Data.MySqlClient;
+using FATEC;
 
 /// <summary>
 /// Descrição resumida de Class1
@@ -16,7 +19,7 @@ namespace falconDex.Controller {
     public class UsuarioController
     {
 
-        /*public Usuario select(String email, String senha)
+        public Usuario select(String email, String senha)
         {
             Usuario Usuario = null;
             System.Data.IDbConnection objConexao;
@@ -42,7 +45,7 @@ namespace falconDex.Controller {
             return Usuario;
         }
 
-        public List<Usuario> selectAll() {
+        public DataSet selectAll() {
             DataSet ds = new DataSet();
             IDbConnection objConexao;
             IDbCommand objCommand;
@@ -89,6 +92,6 @@ namespace falconDex.Controller {
             objConexao.Close();
             objCommand.Dispose();
             objConexao.Dispose();
-        }*/
+        }
     }
 }
