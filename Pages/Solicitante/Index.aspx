@@ -32,6 +32,7 @@
             <button type="button" class="btn btn-primary" data-target="#novoChamado" data-toggle="modal">
                 Novo chamado
             </button>
+            <!-- Abrir chamado -->
             <div class="modal fade" id="novoChamado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -42,17 +43,23 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form id="form1">
+                            <form id="form1" runat="server">
                                 <div class="form-group">
-                                    <label for="nomeHelp">Título</label>
-                                    <input type="text" class="form-control" id="txtNome" aria-describedby="nomeHelp" 
-                                        placeholder="Titulo" required>
-                                    <small id="nomeHelp" class="form-text text-muted">Por exemplo, Projetor queimado, cabo de rede sem funcionamento</small>
+                                    <label for="cha_nome">Título</label>
+                                    <asp:TextBox ID="cha_nome" runat="server" placeholder="Título" CssClass="form-control" ValidateRequestMode="Enabled" MaxLength="100"/>
+                                    <small><asp:Label ID="nomeHelp" runat="server" CssClass="form-text text-muted" Text="Por exemplo, Projetor queimado, cabo de rede sem funcionamento"/></small>
+                                    <asp:RequiredFieldValidator id="RequiredFieldValidator1"
+                                        ControlToValidate="cha_nome"
+                                        Display="Dynamic"
+                                        ErrorMessage="Teste"
+                                        ForeColor="Gray"
+                                        runat="server"
+                                    />
                                 </div>
                                 <div class="form-group">
                                     <label for="descHelp">Descrição</label>
-                                    <textarea class="form-control" id="textArea" rows="3" required="required"></textarea>
-                                    <small id="descHelp" class="form-text text-muted">Descrição do chamado</small>
+                                    <asp:TextBox ID="cha_descricao" runat="server" CssClass="form-control" Rows="3" Columns="3" MaxLength="300" />
+                                    <small><asp:Label Id="descHelp" runat="server" CssClass="form-text text-muted" Text="Descrição do chamado" /></small>
                                 </div>
                                 <div class="form-group">
                                     <label for="equiTipo">Equipamento</label>
@@ -79,6 +86,7 @@
                                       <option>Crítica</option>
                                     </select>
                                 </div>
+                                <asp:Button ID="btnChamado" runat="server" Text="Solicitar" CssClass="btn btn-primary" />
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -109,7 +117,7 @@
         </div>
         <!-- Modal -->
         <div class="modal fade" id="encerrarModal" tabindex="-1" role="dialog" aria-labelledby="encerrarModal" aria-hidden="true">
-          <div class="modal-dialog" role="document">
+          <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="encerrarModalLabel">Deseja encerrar o chamado?</h5>

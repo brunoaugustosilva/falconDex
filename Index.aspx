@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Index.aspx.cs" Inherits="falconDex.Index" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Index.aspx.cs" Inherits="falconDex.Index"  MaintainScrollPositionOnPostback="true" %>
 
 <!DOCTYPE html>
 
@@ -31,6 +31,8 @@
 
     <link href="style/Style.css" rel="stylesheet" />
 
+    <link href="Content/font-awesome.min.css" rel="stylesheet" />
+
     <title>Falcon Dex | Soluções empresariais</title>
 </head>
 
@@ -43,33 +45,39 @@
         <h4 class="nomeDex">DEX</h4>
     </header>
     <main class="principal">
-        <form runat="server" class="formulario">
+        <form runat="server" class="formulario" id="form1">
 
             <div class="form-group">
-                <asp:TextBox ID="txtEmail" runat="server" MaxLength="200" AutoCompleteType="Email" CssClass="form-control" placeholder="E-mail"></asp:TextBox>
-                <small class="form-text text-left ml-3">
+                <asp:TextBox ID="txtEmail" runat="server" MaxLength="200" AutoCompleteType="Email" CssClass="form-control" placeholder="E-mail" OnTextChanged="txtEmail_TextChanged"></asp:TextBox>
+                <small class="form-text text-left ml-3 text-muted"><asp:Label ID="emailTip" runat="server" CssClass="d-none " Text="Digite um e-mail válido"/>
                     <asp:RequiredFieldValidator id="RequiredFieldValidator1" runat="server"
-                      ControlToValidate="txtEmail"
-                      ErrorMessage="Digite um e-mail válido."
-                      ForeColor="Gray">
+                        ControlToValidate="txtEmail"
+                        ErrorMessage="*"
+                        ForeColor="Gray"
+                        Display="Dynamic"
+                        >
                     </asp:RequiredFieldValidator>
                 </small>
                 <!--small id="emailHelp" class="form-text text-muted">Digite um e-mail válido</!--small-->
             </div>
 
             <div class="form-group">
-                <asp:TextBox ID="txtSenha" TextMode="Password" MaxLength="32" runat="server" CssClass="form-control" placeholder="Senha"></asp:TextBox>
-                <small class="form-text text-left ml-3">
-                     <asp:RequiredFieldValidator id="RequiredFieldValidator2" runat="server"
-                        ControlToValidate="txtSenha"
-                        ErrorMessage="Digite uma senha de 8 a 32 caracteres."
-                        ForeColor="Gray">
-                    </asp:RequiredFieldValidator>
-                </small>
+                
+                    <asp:TextBox ID="txtSenha" TextMode="Password" MaxLength="32" runat="server" CssClass="form-control" placeholder="Senha" OnTextChanged="txtSenha_TextChanged" ></asp:TextBox>
+                    <small class="form-text text-left ml-3 text-muted"><asp:Label ID="senhaTip" runat="server" CssClass="d-none " Text="Digite uma senha de 8 a 32 caracteres."/>
+                         <asp:RequiredFieldValidator id="RequiredFieldValidator2" runat="server"
+                            ControlToValidate="txtSenha"
+                            ErrorMessage="*"
+                            ForeColor="Gray"
+                            Display="Dynamic"
+                         
+                          >
+                        </asp:RequiredFieldValidator>
+                    </small>
                 <!--small id="passwordHelp" class="form-text text-muted">Digite uma senha de 8 a 32 caracteres</!--small-->
             </div>
 
-            <asp:Button ID="btnEntrar" runat="server" Text="ENTRAR" CssClass="btn btn-primary btn-block rounded" OnClick="btnEntrar_Click" />
+            <asp:Button ID="btnEntrar" runat="server" Text="Entrar" CssClass="btn btn-primary btn-block rounded mt-4 mb-4" OnClick="btnEntrar_Click" />
 
             <asp:Label ID="esqueciSenha" runat="server" Text="esqueciSenha" CssClass="mb-3">
 
@@ -87,12 +95,6 @@
     <script src="Scripts/jquery-3.5.1.slim.min.js"></script>
     <script src="Scripts/popper.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
-    <script type="text/javascript">
-            function showAlert() {
-                $(function () {
-                    $("div.alert-warning").show().removeClass("alert-warning").addClass("alert-danger");
-                });
-            }
-    </script>
+    <script src="misc/Validation.js"></script>
 </body>
 </html>

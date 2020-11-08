@@ -1,4 +1,5 @@
-﻿using FATEC;
+﻿using falconDex.Models;
+using FATEC;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -28,6 +29,75 @@ namespace falconDex.Controller
             objCommand.Dispose();
             objConexao.Dispose();
             return ds;
+        }
+
+        public Chamado select(int id)
+        {
+            Chamado Chamado = null;
+            System.Data.IDbConnection objConexao;
+            System.Data.IDbCommand objCommand;
+            System.Data.IDataReader objDataReader;
+            objConexao = Mapped.Connection();
+            objCommand = Mapped.Command(
+                "SELECT * FROM CHA_CHAMADO WHERE CHA_ID = ?id", objConexao);
+
+            objCommand.Parameters.Add(Mapped.Parameter("?id", id));
+            objDataReader = objCommand.ExecuteReader();
+            while (objDataReader.Read())
+            {
+                Chamado = new Chamado();
+                Chamado.Nome = Convert.ToString(objDataReader["cha_nome"]);
+                Chamado.Descricao = Convert.ToString(objDataReader["cha_descricao"]);
+                Chamado.abridor.Id = Convert.ToInt32(objDataReader["usu_id"]);
+                Chamado.equipamento.Id = Convert.ToInt32(objDataReader["equ_id"]);
+                Chamado.Local.Id = Convert.ToInt32(objDataReader["loc_id"]);
+                Chamado.Responsavel.Id = Convert.ToInt32(objDataReader["usu_resp"]);
+                Chamado.prioridade.Id = Convert.ToInt32(objDataReader["pri_id"]);
+                Chamado.Data = Convert.ToDateTime(objDataReader["cha_criacao"]);
+                Chamado.status.Id = Convert.ToInt32(objDataReader["cha_status"]);
+                Chamado.Feed = Convert.ToInt32(objDataReader["cha_feed"] == null ? 0 : objDataReader["cha_feed"]);
+
+            }
+            objDataReader.Close();
+            objConexao.Close();
+            objCommand.Dispose();
+            objConexao.Dispose();
+            objDataReader.Dispose();
+            return Chamado;
+        }
+
+        public Boolean insert(Chamado chamado)
+        {
+            try
+            {
+                IDbConnection objConexao;
+                IDbCommand objCommand;
+                string sql = "INSERT INTO cha_chamado" +
+                    "(cha_name, cha_descricao, usu_id, equ_id, loc_id, usu_resp, pri_id, cha_criacao) " +
+                    "VALUES (?name, ?descricao, ?abridor, ?equipamento, ?local, ?responsavel, ?prioridade, ?criacao)";
+                objConexao = Mapped.Connection();
+                objCommand = Mapped.Command(sql, objConexao);
+                objCommand.Parameters.Add(Mapped.Parameter("?name", chamado.Nome));
+                objCommand.Parameters.Add(Mapped.Parameter("?descricao", chamado.Descricao));
+                objCommand.Parameters.Add(Mapped.Parameter("?abridor", "1"));
+                objCommand.Parameters.Add(Mapped.Parameter("?equipamento", chamado.equipamento.Id));
+                objCommand.Parameters.Add(Mapped.Parameter("?local", chamado.Local.Id));
+                objCommand.Parameters.Add(Mapped.Parameter("?responsavel", chamado.Responsavel.Id));
+                objCommand.Parameters.Add(Mapped.Parameter("?prioridade", chamado.prioridade.Id));
+                objCommand.Parameters.Add(Mapped.Parameter("?criacao", chamado.Data));
+
+                objCommand.ExecuteNonQuery();
+                objConexao.Close();
+
+                objCommand.Dispose();
+                objConexao.Dispose();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
     }
 }

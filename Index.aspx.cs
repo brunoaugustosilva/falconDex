@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 
@@ -14,7 +15,8 @@ namespace falconDex
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            emailTip.Text = "Digite um E-mail";
+            senhaTip.Text = "Digite uma senha";
         }
 
         protected void btnEntrar_Click(object sender, EventArgs e)
@@ -33,9 +35,9 @@ namespace falconDex
             //int status = 0;
             Boolean status = loginController.login(login);
 
-            if(status == true)
+            if (status == true)
             {
-                Response.Redirect("/chamados");   
+                Response.Redirect("/chamados");
             }
             else
             {
@@ -53,6 +55,34 @@ namespace falconDex
             }
 
             return Request.ServerVariables["REMOTE_ADDR"];
+        }
+
+        protected void txtEmail_TextChanged(object sender, EventArgs e)
+        {
+            //validar e-mail
+            String pattern = "^([0-9a-zA-Z]([-\\.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$";
+
+            if (txtEmail.Text.Length == 0 || !Regex.IsMatch(txtEmail.Text, pattern))
+            {
+                emailTip.Text = "Digite um E-mail válido";
+            }
+            else
+            {
+                emailTip.Text = "Digite um E-mail";
+            }
+        }
+
+        protected void txtSenha_TextChanged(object sender, EventArgs e)
+        {
+
+            if (txtSenha.Text.Length < 8 || txtSenha.Text.Length > 32)
+            {
+                senhaTip.Text = "Minimo de 8 caracteres e máximo de 32 caracteres";
+            }
+            else
+            {
+                senhaTip.Text = "Digite uma senha";
+            }
         }
     }
 }
