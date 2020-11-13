@@ -48,8 +48,8 @@
         <form runat="server" class="formulario" id="form1">
 
             <div class="form-group">
-                <asp:TextBox ID="txtEmail" runat="server" MaxLength="200" AutoCompleteType="Email" CssClass="form-control" placeholder="E-mail" OnTextChanged="txtEmail_TextChanged"></asp:TextBox>
-                <small class="form-text text-left ml-3 text-muted"><asp:Label ID="emailTip" runat="server" CssClass="d-none " Text="Digite um e-mail válido"/>
+                <asp:TextBox ID="txtEmail" runat="server" MaxLength="200" AutoCompleteType="Email" CssClass="form-control" placeholder="E-mail" ></asp:TextBox>
+                <small class="form-text text-left ml-3 text-muted"><span id="emailTip" class="d-none" data-source="txtEmail"></span>
                     <asp:RequiredFieldValidator id="RequiredFieldValidator1" runat="server"
                         ControlToValidate="txtEmail"
                         ErrorMessage="*"
@@ -63,8 +63,8 @@
 
             <div class="form-group">
                 
-                    <asp:TextBox ID="txtSenha" TextMode="Password" MaxLength="32" runat="server" CssClass="form-control" placeholder="Senha" OnTextChanged="txtSenha_TextChanged" ></asp:TextBox>
-                    <small class="form-text text-left ml-3 text-muted"><asp:Label ID="senhaTip" runat="server" CssClass="d-none " Text="Digite uma senha de 8 a 32 caracteres."/>
+                    <asp:TextBox ID="txtSenha" TextMode="Password" MaxLength="32" runat="server" CssClass="form-control" placeholder="Senha" ></asp:TextBox>
+                    <small class="form-text text-left ml-3 text-muted"><span id="senhaTip" class="d-none" data-source="txtSenha"></span>
                          <asp:RequiredFieldValidator id="RequiredFieldValidator2" runat="server"
                             ControlToValidate="txtSenha"
                             ErrorMessage="*"

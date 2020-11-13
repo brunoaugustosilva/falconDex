@@ -43,77 +43,63 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form id="form1" runat="server">
+                            <form id="form1">
                                 <div class="form-group">
                                     <label for="cha_nome">Título</label>
-                                    <asp:TextBox ID="cha_nome" runat="server" placeholder="Título" CssClass="form-control" ValidateRequestMode="Enabled" MaxLength="100"/>
-                                    <small><asp:Label ID="nomeHelp" runat="server" CssClass="form-text text-muted" Text="Por exemplo, Projetor queimado, cabo de rede sem funcionamento"/></small>
-                                    <asp:RequiredFieldValidator id="RequiredFieldValidator1"
-                                        ControlToValidate="cha_nome"
-                                        Display="Dynamic"
-                                        ErrorMessage="Teste"
-                                        ForeColor="Gray"
-                                        runat="server"
-                                    />
+                                    <input type="text" id="cha_nome" placeholder="Título" class="form-control" maxlength="100" required="required"/>
+                                    <small class="form-text text-muted"><span id="nomeHelp" data-source="cha_nome">Por exemplo, Projetor queimado, cabo de rede sem funcionamento</span>
+                                    </small>
                                 </div>
                                 <div class="form-group">
                                     <label for="descHelp">Descrição</label>
-                                    <asp:TextBox ID="cha_descricao" runat="server" CssClass="form-control" Rows="3" Columns="3" MaxLength="300" />
-                                    <small><asp:Label Id="descHelp" runat="server" CssClass="form-text text-muted" Text="Descrição do chamado" /></small>
+                                    <textarea id="cha_descricao" class="form-control" maxlength="300" required="required"></textarea>
+                                    <small class="form-text text-muted"><span id="descHelp" data-source="cha_descricao">Descrição do chamado</span>
+                                    </small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="equiTipo">Equipamento</label>
-                                    <select class="form-control" id="equiTipo" required="required">
-                                      <option>Computador</option>
-                                      <option>Projetor</option>
-                                      <option>Cabo</option>
+                                    <label for="equiTipo">Equipamento</label>        
+                                    <select id="equiTipo" required="required" class="form-control">
+                                        <option value="1">Computador</option>
+                                        <option value="2">Cabo</option>
+                                        <option value="3">Projetor</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="locTipo">Local</label>
-                                    <select class="form-control" id="locTipo" required="required">
-                                      <option>Sala</option>
-                                      <option>Laboratório</option>
-                                      <option>Diretoria</option>
+                                    <select id="locTipo" required="required" class="form-control">
+                                        <option value="1">Sala</option>
+                                        <option value="2">Laboratório</option>
+                                        <option value="3">Diretoria</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="priTipo">Prioridade</label>
-                                    <select class="form-control" id="priTipo" required="required">
-                                      <option>Baixa</option>
-                                      <option>Média</option>
-                                      <option>Alta</option>
-                                      <option>Crítica</option>
+                                    <select id="priTipo" required="required" class="form-control">
+                                        <option value="1">Sala</option>
+                                        <option value="2">Laboratório</option>
+                                        <option value="3">Diretoria</option>
                                     </select>
                                 </div>
-                                <asp:Button ID="btnChamado" runat="server" Text="Solicitar" CssClass="btn btn-primary" />
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="submit" form="form1" class="btn btn-primary">Solicitar</button>
+                            <button type="submit" class="btn btn-primary" id="btnChamado" form="form1">Solicitar</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="p-3" id="chamados-cards">
-            <asp:Repeater ID="RepeaterChamados" runat="server">
-                <ItemTemplate>
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <asp:Label ID="lblTitle" runat="server" Text='<%#Eval("cha_name") %>' /></h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Chamado</h6>
-                            <p class="card-text">
-                                <asp:Label ID="lblDescricao" runat="server" Text='<%#Eval("cha_descricao") %>' />
-                            </p>
-                            <a href="#" class="card-link">Visualizar</a>
-                            <a href="#" class="card-link" data-toggle="modal" data-target="#encerrarModal">Encerrar</a>
-                        </div>
-                    </div>
-                </ItemTemplate>
-            </asp:Repeater>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title" id="cha_name_card"></h5>
+                    <h6 class="card-subtitle mb-2 text-muted" id="cha_descricao_card"></h6>
+                    <p class="card-text" id="cha_criacao_card"></p>
+                    <a href="#" class="card-link">Visualizar</a>
+                    <a href="#" class="card-link" data-toggle="modal" data-target="#encerrarModal">Encerrar</a>
+                </div>
+            </div>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="encerrarModal" tabindex="-1" role="dialog" aria-labelledby="encerrarModal" aria-hidden="true">
@@ -136,5 +122,6 @@
     <script src="Scripts/jquery-3.5.1.slim.min.js"></script>
     <script src="Scripts/popper.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
+    <script src="misc/Chamados.js"></script>
 </body>
 </html>

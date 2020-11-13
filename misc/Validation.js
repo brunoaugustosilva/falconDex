@@ -3,9 +3,7 @@
 
     //index
     var email = document.querySelector("#txtEmail");
-    var emailTip = document.querySelector("#emailTip");
     var senha = document.querySelector("#txtSenha");
-    var senhaTip = document.querySelector("#senhaTip");
 
     //BUTTONS
     var submit = document.querySelector("#btnEntrar");
@@ -14,17 +12,13 @@
     var form1 = document.querySelector("#form1");
 
     var validation = {
-        email: email.textContent.length > 0,
+        email: false,
         password: false
     };
 
     email.addEventListener("keyup", e => {
-
-        var text = "";
-        emailTip.textContent = "";
-
-        text = e.target.value;
-
+        var emailTip = document.querySelector("[data-source='" + e.target.id + "']");
+        var text = e.target.value;
 
         if (!validateEmail(text)) {
             emailTip.classList.remove("d-none");
@@ -48,6 +42,7 @@
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
     }
+
 
     senha.addEventListener("keyup", e => {
 

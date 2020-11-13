@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
 using System.Web;
+using System.Web.Http;
 
 /// <summary>
 /// Descrição resumida de ChamadoController
@@ -13,9 +15,9 @@ using System.Web;
 
 namespace falconDex.Controller
 {
-    public class ChamadoController
+    public class ChamadoController : ApiController
     {
-        public DataSet selectAll()
+        public DataSet SelectAll()
         {
             DataSet ds = new DataSet();
             IDbConnection objConexao;
@@ -31,7 +33,7 @@ namespace falconDex.Controller
             return ds;
         }
 
-        public Chamado select(int id)
+        public Chamado Select(int id)
         {
             Chamado Chamado = null;
             System.Data.IDbConnection objConexao;
@@ -49,7 +51,7 @@ namespace falconDex.Controller
                 Chamado.Nome = Convert.ToString(objDataReader["cha_nome"]);
                 Chamado.Descricao = Convert.ToString(objDataReader["cha_descricao"]);
                 Chamado.abridor.Id = Convert.ToInt32(objDataReader["usu_id"]);
-                Chamado.equipamento.Id = Convert.ToInt32(objDataReader["equ_id"]);
+                Chamado.equipamento.ID = Convert.ToInt32(objDataReader["equ_id"]);
                 Chamado.Local.Id = Convert.ToInt32(objDataReader["loc_id"]);
                 Chamado.Responsavel.Id = Convert.ToInt32(objDataReader["usu_resp"]);
                 Chamado.prioridade.Id = Convert.ToInt32(objDataReader["pri_id"]);
@@ -66,38 +68,31 @@ namespace falconDex.Controller
             return Chamado;
         }
 
-        public Boolean insert(Chamado chamado)
+        public HttpStatusCode Insert(Chamado chamado)
         {
-            try
-            {
-                IDbConnection objConexao;
-                IDbCommand objCommand;
-                string sql = "INSERT INTO cha_chamado" +
-                    "(cha_name, cha_descricao, usu_id, equ_id, loc_id, usu_resp, pri_id, cha_criacao) " +
-                    "VALUES (?name, ?descricao, ?abridor, ?equipamento, ?local, ?responsavel, ?prioridade, ?criacao)";
-                objConexao = Mapped.Connection();
-                objCommand = Mapped.Command(sql, objConexao);
-                objCommand.Parameters.Add(Mapped.Parameter("?name", chamado.Nome));
-                objCommand.Parameters.Add(Mapped.Parameter("?descricao", chamado.Descricao));
-                objCommand.Parameters.Add(Mapped.Parameter("?abridor", "1"));
-                objCommand.Parameters.Add(Mapped.Parameter("?equipamento", chamado.equipamento.Id));
-                objCommand.Parameters.Add(Mapped.Parameter("?local", chamado.Local.Id));
-                objCommand.Parameters.Add(Mapped.Parameter("?responsavel", chamado.Responsavel.Id));
-                objCommand.Parameters.Add(Mapped.Parameter("?prioridade", chamado.prioridade.Id));
-                objCommand.Parameters.Add(Mapped.Parameter("?criacao", chamado.Data));
+            IDbConnection objConexao;
+            IDbCommand objCommand;
+            string sql = "INSERT INTO cha_chamado" +
+                "(cha_name, cha_descricao, usu_id, equ_id, loc_id, usu_resp, pri_id, cha_criacao) " +
+                "VALUES (?name, ?descricao, ?abridor, ?equipamento, ?local, ?responsavel, ?prioridade, ?criacao)";
+            objConexao = Mapped.Connection();
+            objCommand = Mapped.Command(sql, objConexao);
+            objCommand.Parameters.Add(Mapped.Parameter("?name", chamado.Nome));
+            objCommand.Parameters.Add(Mapped.Parameter("?descricao", chamado.Descricao));
+            objCommand.Parameters.Add(Mapped.Parameter("?abridor", "1"));
+            objCommand.Parameters.Add(Mapped.Parameter("?equipamento", chamado.equipamento.ID));
+            objCommand.Parameters.Add(Mapped.Parameter("?local", chamado.Local.Id));
+            objCommand.Parameters.Add(Mapped.Parameter("?responsavel", chamado.Responsavel.Id));
+            objCommand.Parameters.Add(Mapped.Parameter("?prioridade", chamado.prioridade.Id));
+            objCommand.Parameters.Add(Mapped.Parameter("?criacao", chamado.Data));
 
-                objCommand.ExecuteNonQuery();
-                objConexao.Close();
+            int i = objCommand.ExecuteNonQuery();
+            objConexao.Close();
 
-                objCommand.Dispose();
-                objConexao.Dispose();
+            objCommand.Dispose();
+            objConexao.Dispose();
 
-                return true;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
+            return i > 0 ? HttpStatusCode.OK : HttpStatusCode.InternalServerError;
         }
     }
 }

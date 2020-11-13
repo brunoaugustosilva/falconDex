@@ -55,7 +55,6 @@ namespace FATEC
         }
 
 
-
         public Mapped()
         {
             //

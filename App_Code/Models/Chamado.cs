@@ -15,7 +15,7 @@ namespace falconDex.Models
         public String Nome { get; set; }
         public String Descricao { get; set; }
         public Usuario abridor { get; set; }
-        public Equipamento equipamento { get; set; }
+        public TipoEquipamento equipamento { get; set; }
         public Local Local { get; set; }
         public Usuario Responsavel { get; set; }
         public Prioridade prioridade { get; set; }
