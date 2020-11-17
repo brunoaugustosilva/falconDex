@@ -27,7 +27,11 @@
     <meta name="msapplication-TileImage" content="/img/ms-icon-144x144.png" />
     <meta name="theme-color" content="#ffffff" />
 
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    
+
+    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet"/>
+
+     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
     <link href="~/style/Style.css" rel="stylesheet" />
 
@@ -119,12 +123,18 @@
 
     </div>
     <script src="Scripts/popper.min.js"></script>
-    <script src="Scripts/jquery-3.5.1.slim.min.js"></script>
-    <script src="Scripts/bootstrap.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-          $('[data-toggle="tooltip"]').tooltip()
-        })
-    </script>
+    <script src="Scripts/jquery-3.5.1.slim.min.js"></script> 
+    <script src="Scripts/bootstrap.min.js"></script> 
+     <script type="text/javascript">
+          $(function () {
+              $('[data-toggle="tooltip"]').tooltip()
+          })
+     </script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#table_id').DataTable();
+            });
+        </script>
 </body>
 </html>

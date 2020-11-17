@@ -11,6 +11,7 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
     <link href="~/style/Style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <title>Chamados</title>
 </head>
 <body>
@@ -30,7 +31,7 @@
         </div>
         <div class="p-3">
             <button type="button" class="btn btn-primary" data-target="#novoChamado" data-toggle="modal">
-                Novo chamado
+                <span class="fa fa-plus"> </span>  Novo chamado
             </button>
             <!-- Abrir chamado -->
             <div class="modal fade" id="novoChamado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -90,17 +91,7 @@
                 </div>
             </div>
         </div>
-        <div class="p-3" id="chamados-cards">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title" id="cha_name_card"></h5>
-                    <h6 class="card-subtitle mb-2 text-muted" id="cha_descricao_card"></h6>
-                    <p class="card-text" id="cha_criacao_card"></p>
-                    <a href="#" class="card-link">Visualizar</a>
-                    <a href="#" class="card-link" data-toggle="modal" data-target="#encerrarModal">Encerrar</a>
-                </div>
-            </div>
-        </div>
+        <div class="p-3 d-flex flex-wrap" id="chamados-cards"></div>
         <!-- Modal -->
         <div class="modal fade" id="encerrarModal" tabindex="-1" role="dialog" aria-labelledby="encerrarModal" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
@@ -118,10 +109,18 @@
             </div>
           </div>
         </div>
+        <div class="slider" id="slider">
+            Conteúdo
+        </div>
     </div>
     <script src="Scripts/jquery-3.5.1.slim.min.js"></script>
     <script src="Scripts/popper.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="misc/Chamados.js"></script>
+    <script type="text/javascript">
+        $("#form1").submit(function (e) {
+            $('#novoChamado').modal('hide');
+        });
+    </script>
 </body>
 </html>
