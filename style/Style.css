@@ -23,6 +23,10 @@ html, body {
     text-align: center!important;
 }
 
+.card-body {
+    box-shadow: 2px 4px 9px #0000003d;
+}
+
 .principal {
     display: flex;
     justify-content: center;
@@ -61,30 +65,84 @@ html, body {
 }
 .form-control {
     border-radius: 1.5rem;
-    /*margin-bottom: 1.5rem !important;*/
     font-family:Arial;
     letter-spacing:2px;
-}
-.btn, .btn-primary, .btn-block {
-    /*margin-top:4rem;
-    border-radius: 1rem;*/
-}
-
- .navbar .container {
-     display:block;
-}
-.imgSeta{
-    margin: 10px;
-}
-.aquarium{
-   margin-right: 0px;
-}
-.z-depth-0{
-    display:flex;
-    flex-wrap:wrap;
 }
 
 #loginAlert {
     top: 10px;
     left: 10px;
+}
+
+#slider {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    left: 0;
+    transform: translateX(-100%);
+    overflow: hidden;
+    -webkit-transform: translateX(-100%);
+    z-index: 1000;
+}
+
+
+.slider-content {
+    /* other stuff we already covered */
+    background-color: white;
+    /* cover the modal */
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    /* let it scroll */
+    overflow: auto;
+}
+
+.slider-body {
+    /* spacing as needed */
+    padding: 0 0 0 20px;
+}
+
+.slide-in {
+    animation: slide-in 0.5s forwards;
+    -webkit-animation: slide-in 0.5s forwards;
+}
+
+.slide-out {
+    animation: slide-out 0.5s forwards;
+    -webkit-animation: slide-out 0.5s forwards;
+}
+
+@keyframes slide-in {
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+@-webkit-keyframes slide-in {
+    100% {
+        -webkit-transform: translateX(0%);
+    }
+}
+
+@keyframes slide-out {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@-webkit-keyframes slide-out {
+    0% {
+        -webkit-transform: translateX(0%);
+    }
+
+    100% {
+        -webkit-transform: translateX(-100%);
+    }
 }

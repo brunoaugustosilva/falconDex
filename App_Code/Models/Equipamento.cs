@@ -14,8 +14,8 @@ namespace falconDex.Models
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Patrimonio { get; set; }
-        public int Tipo { get; set; }
-        public Boolean Status { get; set; }
+        public TipoEquipamento Tipo { get; set; }
+        public Status Status { get; set; }
 
         public Equipamento()
         {
