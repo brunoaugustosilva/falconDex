@@ -53,13 +53,18 @@
             <div class="nav collapse navbar-collapse w-100 p-3 align-items-start" id="navbarMenu">
                 <ul class="navbar-nav nav flex-column">
                     <li class="nav-item">
-                        <a href="#" class="nav-link lead row">
+                        <a href="/perfil" class="nav-link lead row">
                             <i class="fa fa-user mr-3 col-1"></i><span class="col-1">Perfil</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link lead row">
+                        <a href="/chamado" class="nav-link lead row">
                             <i class="fa fa-book mr-3 col-1"></i><span class="col-1">Chamados</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/local" class="nav-link lead row">
+                            <i class="fa fa-map-marker mr-3 col-1"></i><span class="col-1">Local</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -83,8 +88,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link lead row">
+                        <a href="/graficos" class="nav-link lead row">
                             <i class="fa fa-dashboard mr-3 col-1"></i><span class="col-1">Gráficos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/relatorios" class="nav-link lead row">
+                            <i class="fa fa-clipboard mr-3 col-1"></i><span class="col-1">Relatórios
                         </a>
                     </li>
                     <li class="nav-item">
@@ -110,19 +120,19 @@
             </div>
 
 
-            <div id="con" class="d-flex p-2 flex-wrap">
+            <div id="con" class="d-flex p-2 flex-wrap flex-column">
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
             </div>
 
 
-            <footer id="footer p-3">
+            <footer id="footer" class="p-3 mt-3 text-center">
                 <span class="text-center">Falcon-dex. Todos os direitos reservados &copy; 2020</span>
             </footer>
         </div>
 
     </div>
-    <script src="Scripts/popper.min.js"></script>
+    <script type="module" src="Scripts/popper.min.js"></script>
     <script src="Scripts/jquery-3.5.1.slim.min.js"></script> 
     <script src="Scripts/bootstrap.min.js"></script> 
      <script type="text/javascript">
@@ -130,11 +140,5 @@
               $('[data-toggle="tooltip"]').tooltip()
           })
      </script>
-    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#table_id').DataTable();
-            });
-        </script>
 </body>
 </html>

@@ -51,8 +51,34 @@ public class EquipamentoController : ApiController
     }
 
     // POST api/<controller>
-    public void Post([FromBody] string value)
+    public void Post([FromBody] Equipamento equipamento)
     {
+
+        Equipamento equ = new Equipamento
+        {
+            Nome = equipamento.Nome,
+            Patrimonio = equipamento.Patrimonio,
+            Local = new Local { Id = equipamento.Local.Id },
+            Tipo = new TipoEquipamento { ID = equipamento.Tipo.ID},
+            Usuario = new Usuario { Id = equipamento.Usuario.Id}
+        };
+
+        IDbConnection objConexao;
+        IDbCommand objCommand;
+        string sql = "CALL INSERE_EQUIPAMENTO(?nome, ?patrimonio, ?local, ?tipo, ?usuario);";
+        objConexao = Mapped.Connection();
+        objCommand = Mapped.Command(sql, objConexao);
+        objCommand.Parameters.Add(Mapped.Parameter("?nome", equ.Nome));
+        objCommand.Parameters.Add(Mapped.Parameter("?patrimonio", equ.Patrimonio));
+        objCommand.Parameters.Add(Mapped.Parameter("?local", equ.Local.Id));
+        objCommand.Parameters.Add(Mapped.Parameter("?tipo", equ.Tipo.ID));
+        objCommand.Parameters.Add(Mapped.Parameter("?usuario", equ.Usuario.Id));
+
+        int i = objCommand.ExecuteNonQuery();
+        objConexao.Close();
+
+        objCommand.Dispose();
+        objConexao.Dispose();
     }
 
     // PUT api/<controller>/5

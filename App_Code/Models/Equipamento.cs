@@ -16,6 +16,8 @@ namespace falconDex.Models
         public string Patrimonio { get; set; }
         public TipoEquipamento Tipo { get; set; }
         public Status Status { get; set; }
+        public Local Local { get; set; }
+        public Usuario Usuario { get; set; }
 
         public Equipamento()
         {

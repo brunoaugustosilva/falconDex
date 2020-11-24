@@ -11,5 +11,18 @@
     runat="server"
     contentplaceholderid="ContentPlaceHolder1" >
 
+    <div class="row">
+        <h4>Boa noite, Joãzinho</h4>
+        <hr/>
+        <div class="col-md-3">
+                Quantidade de atendimentos: 10
+        </div>
+        <div class="col-md-3">
+                Feedback médio: 5
+        </div>
+        <div class="col-md-3">
+                Chamados hoje: 5
+        </div>
+    </div>
 </asp:content>
 
