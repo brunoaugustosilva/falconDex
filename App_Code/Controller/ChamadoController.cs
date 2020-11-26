@@ -7,190 +7,94 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
-public class ChamadoController : ApiController
+/// <summary>
+/// Descrição resumida de ChamadoController
+/// </summary>
+/// 
+
+namespace falconDex.Controller
 {
-    // GET api/<controller>
-    [HttpGet]
-    public IEnumerable<Chamado> Get()
+    public class ChamadoController : ApiController
     {
-        DataSet ds = new DataSet();
-        DataTable dt = new DataTable();
-        IDbConnection objConexao;
-        IDbCommand objCommand;
-        IDataAdapter objDataAdapter;
-        objConexao = Mapped.Connection();
-        objCommand = Mapped.Command("SELECT * FROM cha_chamado WHERE cha_status <> 2", objConexao);
-        objDataAdapter = Mapped.Adapter(objCommand);
-        objDataAdapter.Fill(ds);
-        dt = ds.Tables[0];
-
-        List<Chamado> data = dt.AsEnumerable()
-                      .Select(r => new Chamado {
-                          Id = r.Field<int>("cha_id"),
-                          Nome = r.Field<string>("cha_name"),
-                          Descricao = r.Field<string>("cha_descricao"),
-                          Data = r.Field<DateTime>("cha_criacao"),
-                          abridor = new Usuario{ 
-                               Id = r.Field<Int32>("USU_ID") 
-                          },
-                          equipamento = new TipoEquipamento {
-                              ID = r.Field<Int32>("EQU_ID")
-                          },
-                          Local = new Local {
-                              Id = r.Field<Int32>("LOC_ID")
-                          },
-                          Responsavel = new Usuario {
-                              Id = r.Field<Int32>("USU_RESP")
-                          },
-                          prioridade = new Prioridade
-                          {
-                              Id = r.Field<Int32>("PRI_ID")
-                          },
-                          status = new Status {
-                              Id = r.Field<Int32>("CHA_STATUS")
-                          }
-                      })
-                      .ToList();
-
-        return data;
-    }
-
-    // GET api/<controller>/5
-    [HttpGet]
-    public IEnumerable<Chamado> Get(int id)
-    {
-        DataSet ds = new DataSet();
-        DataTable dt = new DataTable();
-        IDbConnection objConexao;
-        IDbCommand objCommand;
-        IDataAdapter objDataAdapter;
-        objConexao = Mapped.Connection();
-        objCommand = Mapped.Command("SELECT *  FROM cha_chamado WHERE cha_id = ? AND cha_status <> 2", objConexao);
-        objCommand.Parameters.Add(Mapped.Parameter("?id", id));
-        objDataAdapter = Mapped.Adapter(objCommand);
-        objDataAdapter.Fill(ds);
-        dt = ds.Tables[0];
-
-        List<Chamado> data = dt.AsEnumerable()
-                      .Select(r => new Chamado
-                      {
-                          Id = r.Field<int>("cha_id"),
-                          Nome = r.Field<string>("cha_name"),
-                          Descricao = r.Field<string>("cha_descricao"),
-                          Data = r.Field<DateTime>("cha_criacao"),
-                          abridor = new Usuario
-                          {
-                              Id = r.Field<Int32>("USU_ID")
-                          },
-                          equipamento = new TipoEquipamento
-                          {
-                              ID = r.Field<Int32>("EQU_ID")
-                          },
-                          Local = new Local
-                          {
-                              Id = r.Field<Int32>("LOC_ID")
-                          },
-                          Responsavel = new Usuario
-                          {
-                              Id = r.Field<Int32>("USU_RESP")
-                          },
-                          prioridade = new Prioridade
-                          {
-                              Id = r.Field<Int32>("PRI_ID")
-                          },
-                          status = new Status
-                          {
-                              Id = r.Field<Int32>("CHA_STATUS")
-                          }
-                      })
-                      .ToList();
-
-        return data;
-    }
-
-    // POST api/<controller>
-    public void Post([FromBody] Chamado value)
-    {
-        var response = value;
-
-        Chamado chamado = new Chamado
+        public DataSet SelectAll()
         {
-            Nome = response.Nome,
-            Descricao = response.Descricao,
-            abridor = new Usuario { Id = 1 },
-            equipamento = new TipoEquipamento { ID = response.equipamento.ID },
-            Local = new Local { Id = response.Local.Id },
-            prioridade = new Prioridade { Id = response.prioridade.Id},
-            Data = response.Data
-        };
+            DataSet ds = new DataSet();
+            IDbConnection objConexao;
+            IDbCommand objCommand;
+            IDataAdapter objDataAdapter;
+            objConexao = Mapped.Connection();
+            objCommand = Mapped.Command("SELECT * FROM cha_chamado", objConexao);
+            objDataAdapter = Mapped.Adapter(objCommand);
+            objDataAdapter.Fill(ds);
+            objConexao.Close();
+            objCommand.Dispose();
+            objConexao.Dispose();
+            return ds;
+        }
 
-        DateTime dateValue = DateTime.Now;
-
-        IDbConnection objConexao;
-        IDbCommand objCommand;
-        string sql = "INSERT INTO cha_chamado" +
-            "(cha_name, cha_descricao, usu_id, equ_id, loc_id, pri_id, cha_criacao) " +
-            "VALUES (?name, ?descricao, ?abridor, ?equipamento, ?local, ?prioridade, ?criacao)";
-        objConexao = Mapped.Connection();
-        objCommand = Mapped.Command(sql, objConexao);
-        objCommand.Parameters.Add(Mapped.Parameter("?name", chamado.Nome));
-        objCommand.Parameters.Add(Mapped.Parameter("?descricao", chamado.Descricao));
-        objCommand.Parameters.Add(Mapped.Parameter("?abridor", "1"));
-        objCommand.Parameters.Add(Mapped.Parameter("?equipamento", chamado.equipamento.ID));
-        objCommand.Parameters.Add(Mapped.Parameter("?local", chamado.Local.Id));
-        objCommand.Parameters.Add(Mapped.Parameter("?prioridade", chamado.prioridade.Id));
-        objCommand.Parameters.Add(Mapped.Parameter("?criacao", dateValue));
-
-        int i = objCommand.ExecuteNonQuery();
-        objConexao.Close();
-
-        objCommand.Dispose();
-        objConexao.Dispose();
-    }
-
-    // PUT api/<controller>/5
-    public void Put(int id, [FromBody] Chamado value)
-    {
-        var response = value;
-
-        Chamado chamado = new Chamado
+        public Chamado Select(int id)
         {
-            Nome = response.Nome,
-            Descricao = response.Descricao,
-            abridor = new Usuario { Id = 1 },
-            equipamento = new TipoEquipamento { ID = response.equipamento.ID },
-            Local = new Local { Id = response.Local.Id },
-            prioridade = new Prioridade { Id = response.prioridade.Id },
-            status = new Status { Id = response.status.Id}
-        };
+            Chamado Chamado = null;
+            System.Data.IDbConnection objConexao;
+            System.Data.IDbCommand objCommand;
+            System.Data.IDataReader objDataReader;
+            objConexao = Mapped.Connection();
+            objCommand = Mapped.Command(
+                "SELECT * FROM CHA_CHAMADO WHERE CHA_ID = ?id", objConexao);
 
+            objCommand.Parameters.Add(Mapped.Parameter("?id", id));
+            objDataReader = objCommand.ExecuteReader();
+            while (objDataReader.Read())
+            {
+                Chamado = new Chamado();
+                Chamado.Nome = Convert.ToString(objDataReader["cha_nome"]);
+                Chamado.Descricao = Convert.ToString(objDataReader["cha_descricao"]);
+                Chamado.abridor.Id = Convert.ToInt32(objDataReader["usu_id"]);
+                Chamado.equipamento.ID = Convert.ToInt32(objDataReader["equ_id"]);
+                Chamado.Local.Id = Convert.ToInt32(objDataReader["loc_id"]);
+                Chamado.Responsavel.Id = Convert.ToInt32(objDataReader["usu_resp"]);
+                Chamado.prioridade.Id = Convert.ToInt32(objDataReader["pri_id"]);
+                Chamado.Data = Convert.ToDateTime(objDataReader["cha_criacao"]);
+                Chamado.status.Id = Convert.ToInt32(objDataReader["cha_status"]);
+                Chamado.Feed = Convert.ToInt32(objDataReader["cha_feed"] == null ? 0 : objDataReader["cha_feed"]);
 
-        System.Data.IDbConnection objConexao;
-        System.Data.IDbCommand objCommand;
-        string sql = "UPDATE cha_chamado SET " +
-            "cha_name = ?name, cha_descricao = ?descricao, " +
-            "equ_id = ?equipamento, loc_id = ?local, pri_id = ?prioridade, cha_status = ?status" +
-            " WHERE cha_id = ?codigo";
-        objConexao = Mapped.Connection();
-        objCommand = Mapped.Command(sql, objConexao);
-        objCommand.Parameters.Add(Mapped.Parameter("?codigo", id));
-        objCommand.Parameters.Add(Mapped.Parameter("?name", chamado.Nome));
-        objCommand.Parameters.Add(Mapped.Parameter("?descricao", chamado.Descricao));
-        objCommand.Parameters.Add(Mapped.Parameter("?equipamento", chamado.equipamento.ID));
-        objCommand.Parameters.Add(Mapped.Parameter("?local", chamado.Local.Id));
-        objCommand.Parameters.Add(Mapped.Parameter("?prioridade", chamado.prioridade.Id));
-        objCommand.Parameters.Add(Mapped.Parameter("?status", chamado.status.Id));
-        objCommand.ExecuteNonQuery();
-        objConexao.Close();
-        objCommand.Dispose();
-        objConexao.Dispose();
-    }
+            }
+            objDataReader.Close();
+            objConexao.Close();
+            objCommand.Dispose();
+            objConexao.Dispose();
+            objDataReader.Dispose();
+            return Chamado;
+        }
 
-    // DELETE api/<controller>/5
-    public void Delete(int id)
-    {
+        public HttpStatusCode Insert(Chamado chamado)
+        {
+            IDbConnection objConexao;
+            IDbCommand objCommand;
+            string sql = "INSERT INTO cha_chamado" +
+                "(cha_name, cha_descricao, usu_id, equ_id, loc_id, usu_resp, pri_id, cha_criacao) " +
+                "VALUES (?name, ?descricao, ?abridor, ?equipamento, ?local, ?responsavel, ?prioridade, ?criacao)";
+            objConexao = Mapped.Connection();
+            objCommand = Mapped.Command(sql, objConexao);
+            objCommand.Parameters.Add(Mapped.Parameter("?name", chamado.Nome));
+            objCommand.Parameters.Add(Mapped.Parameter("?descricao", chamado.Descricao));
+            objCommand.Parameters.Add(Mapped.Parameter("?abridor", "1"));
+            objCommand.Parameters.Add(Mapped.Parameter("?equipamento", chamado.equipamento.ID));
+            objCommand.Parameters.Add(Mapped.Parameter("?local", chamado.Local.Id));
+            objCommand.Parameters.Add(Mapped.Parameter("?responsavel", chamado.Responsavel.Id));
+            objCommand.Parameters.Add(Mapped.Parameter("?prioridade", chamado.prioridade.Id));
+            objCommand.Parameters.Add(Mapped.Parameter("?criacao", chamado.Data));
+
+            int i = objCommand.ExecuteNonQuery();
+            objConexao.Close();
+
+            objCommand.Dispose();
+            objConexao.Dispose();
+
+            return i > 0 ? HttpStatusCode.OK : HttpStatusCode.InternalServerError;
+        }
     }
 }
