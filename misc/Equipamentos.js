@@ -104,16 +104,16 @@
         cardText.classList.add("card-text");
         cardText.textContent = "Patrimônio: " + data.Patrimonio;
 
-        let cardLink = document.createElement("a");
+        /*let cardLink = document.createElement("a");
         cardLink.href = "#";
         cardLink.classList.add("btn");
         cardLink.classList.add("btn-primary");
         cardLink.setAttribute("data-target", data.Id);
-        cardLink.textContent = "Visualizar informações";
+        cardLink.textContent = "Visualizar informações";*/
 
         cardBody.appendChild(cardTitle);
         cardBody.appendChild(cardText);
-        cardBody.appendChild(cardLink);
+        //cardBody.appendChild(cardLink);
 
         card.appendChild(img);
         card.appendChild(cardBody);

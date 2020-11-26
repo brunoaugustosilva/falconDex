@@ -35,7 +35,17 @@ namespace falconDex
 
             if (status == true)
             {
-                Response.Redirect("/chamados");
+                int permissao = loginController.getPermissao(login).First();
+
+                if(permissao == 3 || permissao == 2)
+                {
+                    Response.Redirect("/inicio");
+                }
+                else
+                {
+                    Response.Redirect("/chamados");
+                }
+
             }
             else
             {

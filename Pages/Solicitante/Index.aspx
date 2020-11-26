@@ -85,9 +85,9 @@
                             <div class="form-group">
                                 <label for="priTipo">Prioridade</label>
                                 <select id="priTipo" required="required" class="form-control">
-                                    <option value="1">Sala</option>
-                                    <option value="2">Laboratório</option>
-                                    <option value="3">Diretoria</option>
+                                    <option value="1">Baixa</option>
+                                    <option value="2">Média</option>
+                                    <option value="3">Alta</option>
                                 </select>
                             </div>
                         </form>

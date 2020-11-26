@@ -11,18 +11,26 @@
     runat="server"
     contentplaceholderid="ContentPlaceHolder1" >
 
-    <div class="row">
-        <h4>Boa noite, Joãzinho</h4>
-        <hr/>
-        <div class="col-md-3">
-                Quantidade de atendimentos: 10
+    <h4>Boa noite, Bruno</h4>
+    <hr />
+    <div class="d-flex">
+       <div class="col-md-3 border rounded p-3">
+                <p class="font-weight-bold">Quantidade de atendimentos</p>
+                10
         </div>
-        <div class="col-md-3">
-                Feedback médio: 5
+        <div class="col-md-3 border rounded ml-3 p-3">
+                <p class="font-weight-bold">Feedback médio</p> 5 estrelas
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
         </div>
-        <div class="col-md-3">
-                Chamados hoje: 5
+        <div class="col-md-3 border rounded ml-3 p-3">
+                <p class="font-weight-bold">Chamados hoje</p> 5
         </div>
+        
     </div>
 </asp:content>
 

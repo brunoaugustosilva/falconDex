@@ -134,11 +134,11 @@
     </div>
     <script type="module" src="Scripts/popper.min.js"></script>
     <script src="Scripts/jquery-3.5.1.slim.min.js"></script> 
-    <script src="Scripts/bootstrap.min.js"></script> 
-     <script type="text/javascript">
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript">
           $(function () {
               $('[data-toggle="tooltip"]').tooltip()
           })
-     </script>
+    </script>
 </body>
 </html>

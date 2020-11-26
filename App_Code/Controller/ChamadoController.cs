@@ -22,7 +22,7 @@ public class ChamadoController : ApiController
         IDbCommand objCommand;
         IDataAdapter objDataAdapter;
         objConexao = Mapped.Connection();
-        objCommand = Mapped.Command("SELECT * FROM cha_chamado WHERE cha_status <> 2", objConexao);
+        objCommand = Mapped.Command("SELECT * FROM cha_chamado", objConexao);
         objDataAdapter = Mapped.Adapter(objCommand);
         objDataAdapter.Fill(ds);
         dt = ds.Tables[0];
@@ -68,7 +68,7 @@ public class ChamadoController : ApiController
         IDbCommand objCommand;
         IDataAdapter objDataAdapter;
         objConexao = Mapped.Connection();
-        objCommand = Mapped.Command("SELECT *  FROM cha_chamado WHERE cha_id = ? AND cha_status <> 2", objConexao);
+        objCommand = Mapped.Command("SELECT *  FROM cha_chamado WHERE cha_id = ?", objConexao);
         objCommand.Parameters.Add(Mapped.Parameter("?id", id));
         objDataAdapter = Mapped.Adapter(objCommand);
         objDataAdapter.Fill(ds);

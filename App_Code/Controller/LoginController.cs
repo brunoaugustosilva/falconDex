@@ -36,6 +36,31 @@ namespace falconDex.Controller
             return false;
         }
 
+        public IEnumerable<int> getPermissao(Login login)
+        {
+            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
+            System.Data.IDbConnection objConexao;
+            System.Data.IDbCommand objCommand;
+            System.Data.IDataAdapter objDataAdapter;
+            objConexao = Mapped.Connection();
+            objCommand = Mapped.Command("SELECT usu_permissao FROM usu_usuario WHERE usu_email = ?email " +
+                "AND usu_senha = ?senha", objConexao);
+
+            objCommand.Parameters.Add(Mapped.Parameter("?email", login.Email));
+            objCommand.Parameters.Add(Mapped.Parameter("?senha", login.Senha));
+
+            objDataAdapter = Mapped.Adapter(objCommand);
+            objDataAdapter.Fill(ds);
+
+            dt = ds.Tables[0];
+
+            objConexao.Close();
+            objCommand.Dispose();
+            objConexao.Dispose();
+
+            return dt.AsEnumerable().Select(r => r.Field<int>("usu_permissao")).ToList();
+        }
 
         public Boolean insert(Login login)
         {

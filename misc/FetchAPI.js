@@ -10,12 +10,12 @@ export function getAll(url = "string") {
             item.map(e => {
                 DATA.push(e);
             })
-
-            return DATA;
         }
     ).catch(
         error => console.error('Erro ao obter dados:', error)
     );
+
+    return DATA;
 };
 
 //POST
