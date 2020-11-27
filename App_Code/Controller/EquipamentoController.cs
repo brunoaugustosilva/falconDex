@@ -59,8 +59,8 @@ public class EquipamentoController : ApiController
             Nome = equipamento.Nome,
             Patrimonio = equipamento.Patrimonio,
             Local = new Local { Id = equipamento.Local.Id },
-            Tipo = new TipoEquipamento { ID = equipamento.Tipo.ID},
-            Usuario = new Usuario { Id = equipamento.Usuario.Id}
+            Tipo = new TipoEquipamento { ID = equipamento.Tipo.ID },
+            Usuario = new Usuario { Id = equipamento.Usuario.Id }
         };
 
         IDbConnection objConexao;

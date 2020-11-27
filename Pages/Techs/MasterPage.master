@@ -40,9 +40,9 @@
 </head>
 <body>
     <div class="row main">
-        <nav class="col-md-3 weapper menu navbar navbar-expand-md navbar-dark bg-primary flex-column">
+        <nav class="col-lg-3 weapper menu navbar navbar-expand-lg navbar-dark bg-primary flex-column">
             <div class="container-fluid p-3">
-                <a href="/inicio" class="d-md-none badge text-white"><i class="fa fa-arrow-left fa-2x text-white font-weight-lighter"></i></a>
+                <a href="/inicio" class="d-lg-none badge text-white"><i class="fa fa-arrow-left fa-2x text-white font-weight-lighter"></i></a>
                 <div class="sidebar-header">
                     <a class="navbar-brand " href="#"><asp:Label ID="lblTitle" runat="server" Text="Nada"/></a>
                 </div>
@@ -106,8 +106,8 @@
             </div>
 
         </nav>
-        <div class="col-md-9 ">
-            <div class="row p-3 d-none d-none d-md-flex align-items-center border-bottom">
+        <div class="col-lg-9 ">
+            <div class="row p-3 d-none d-none d-lg-flex align-items-center border-bottom">
                 <div class="col-1">
                     <a href="/inicio" class="badge badge-light"><i class="fa fa-arrow-left fa-2x text-black font-weight-lighter"></i></a>
                 </div>

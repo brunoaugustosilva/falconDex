@@ -38,26 +38,27 @@
                                 <div class="form-group">
                                     <label for="tipoBloco">Bloco</label>
                                     <select class="form-control" id="tipoBloco" required="required">
-                                        <option value="1">Bloco A</option>
-                                        <option value="2">Bloco B</option>
-                                        <option value="3">Bloco C</option>
+                                        <option value="Bloco A">Bloco A</option>
+                                        <option value="Bloco B">Bloco B</option>
+                                        <option value="Bloco C">Bloco C</option>
                                     </select>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="submit" form="form1" class="btn btn-primary" id="btnLocal">Criar</button>
+                            <button type="submit" form="form2" class="btn btn-primary" id="btnLocal">Criar</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="p-3 d-flex flex-wrap" id="local-label"></div>
-        <table id="table_id" class=" p-3  flex-wrap display">
+        <table id="table_id" class=" p-3  flex-wrap display table">
             <thead>
-                <tr>
-                    <th>Name</th>
+                <tr class="odd">
+                    <th>Número</th>
+                    <th>Nome</th>
                     <th>Bloco</th>
                     <th>Status</th>
 
@@ -68,7 +69,8 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <th>Name</th>
+                    <th>Número</th>
+                    <th>Nome</th>
                     <th>Bloco</th>
                     <th>Status</th>
                 </tr>
@@ -76,11 +78,6 @@
         </table>
     </div>
 
-  <!--  <script src="misc/Local.js"></script>
-    <script type="text/javascript">
-        $("#form2").submit(function (e) {
-            $('#novoLocal').modal('hide');
-        });
-    </script> -->
+   <script src="misc/Local.js"></script>
 
 </asp:Content>

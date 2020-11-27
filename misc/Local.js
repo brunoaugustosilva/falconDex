@@ -1,24 +1,14 @@
 ﻿(function () {
     'use strict';
 
-    var titulo = document.querySelector("#loc_nome");
-
-    var button = document.querySelector("#btnLocal");
-
-    var bloco = document.querySelector("#tipoBloco");
-
-    var tr = document.createElement("tr")
-
-    var pri_td = document.createElement("td")
+     // var button = document.querySelector("#btnLocal");
 
     var form2 = document.querySelector("#form2");
+    var titulo = document.querySelector("#loc_nome");
+    var bloco = document.querySelector("#tipoBloco");
 
-    var LocalLabel = document.querySelector("#local-label");
-    var ID = 0;
 
-    var validation = {
-        Nome: false
-    }
+    var LocalLabel = document.querySelector("#label_bory");
 
     async function getLocal() {
         //http://localhost:58052/api/local/
@@ -29,7 +19,6 @@
             local => {
                 local.map(e => {
                     createLabel(e);
-                    ID++;
                 })
             }
         ).
@@ -38,18 +27,46 @@
             );
     };
 
+    getLocal();
+
+    function createLabel(local) {
+
+        let tr = document.createElement("tr");
+        
+
+        let pri_td = document.createElement("td");
+        pri_td.setAttribute('id', 'loc_id' + local.Id);
+        pri_td.textContent = local.Id;
+
+        let nome = document.createElement("td");
+        nome.setAttribute('id', 'loc_nome' + local.Id);
+        nome.textContent = local.Nome;
+
+        let bloco = document.createElement("td");
+        bloco.setAttribute('id', 'loc_bloco' + local.Id);
+        bloco.textContent = local.Bloco;
+
+        let status = document.createElement("td");
+        status.setAttribute('id', 'loc_Status' + local.Id);
+        status.textContent = local.status.Id;
+        
+        tr.appendChild(pri_td);
+        tr.appendChild(nome);
+        tr.appendChild(bloco);
+        tr.appendChild(status);
+
+        LocalLabel.appendChild(tr);
+    }
 
 
     form2.addEventListener("submit", e => {
         e.preventDefault();
 
         //ASSINCRONO
-        ID++;
 
         var local = {
-            Id: ID,
             Nome: titulo.value,
-            bloco: { Id: bloco.optionslocal.selectedIndex].value },
+            bloco: bloco.options[bloco.selectedIndex].value
 
         }
 
@@ -79,3 +96,4 @@
         //createLabel(local);
     })
 })();
+ 

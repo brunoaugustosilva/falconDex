@@ -9,6 +9,7 @@
     var prioridade = document.querySelector("#priTipo");
     //button
     var button = document.querySelector("#btnChamado");
+    var btnEncerrar = document.querySelector("#chamado-encerrar");
     //forms
     var form1 = document.querySelector("#form1");
     var form2 = document.querySelector("#form2");
@@ -22,11 +23,15 @@
     //alert
     var message = document.querySelector("#alert-message");
 
+    //chamados
+    var chamadoSelecionado = [];
+
     //statics
     var locais = [];
     var equipamentos = [];
     var statu = [];
     var prioridades = [];
+    var CHAMADOS = [];
 
     var validation = {
         Nome: false,
@@ -43,6 +48,7 @@
             chamados => {
                 chamados.map(e => {
                     createCard(e);
+                    CHAMADOS.push(e);
                 })
             }
         ).
@@ -276,10 +282,12 @@
 
     btnEncerrar.addEventListener('click', e => {
         putChamado(chamadoSelecionado[0]);
-        document.location.reload();
         var message = document.querySelector("#alert-message");
         message.classList.remove("hide");
         message.classList.add("show");
+
+
+        document.location.reload();
     });
 
     async function putChamado(chamado) {

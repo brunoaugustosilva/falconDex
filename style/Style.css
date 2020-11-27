@@ -76,33 +76,14 @@ html, body {
 
 #slider {
     position: fixed;
-    width: 100vw;
+    width: 50vw;
     height: 100vh;
     top: 0;
-    background-color: rgba(0, 0, 0, 0.6);
     left: 0;
-    transform: translateX(-100%);
-    overflow: hidden;
-    -webkit-transform: translateX(-100%);
-    z-index: 1000;
-}
-
-
-.slider-content {
-    /* other stuff we already covered */
     background-color: white;
-    /* cover the modal */
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    /* let it scroll */
-    overflow: auto;
-}
-
-.slider-body {
-    /* spacing as needed */
-    padding: 0 0 0 20px;
+    box-shadow: 2px 4px 9px #0000003d;
+    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
 }
 
 .slide-in {

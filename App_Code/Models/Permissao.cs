@@ -4,20 +4,20 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Descrição resumida de Locais
+/// Descrição resumida de Permissao
 /// </summary>
 /// 
+
 namespace falconDex.Models
 {
-    public class Local
+    public class Permissao
     {
         public int Id { get; set; }
-        public String Nome { get; set; }
-
-        public String Bloco { get; set; }
+        public string Nome { get; set; }
         public Status status { get; set; }
+        public DateTime data { get; set; }
 
-        public Local()
+        public Permissao()
         {
             //
             // TODO: Adicionar lógica do construtor aqui

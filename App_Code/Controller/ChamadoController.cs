@@ -28,28 +28,34 @@ public class ChamadoController : ApiController
         dt = ds.Tables[0];
 
         List<Chamado> data = dt.AsEnumerable()
-                      .Select(r => new Chamado {
+                      .Select(r => new Chamado
+                      {
                           Id = r.Field<int>("cha_id"),
                           Nome = r.Field<string>("cha_name"),
                           Descricao = r.Field<string>("cha_descricao"),
                           Data = r.Field<DateTime>("cha_criacao"),
-                          abridor = new Usuario{ 
-                               Id = r.Field<Int32>("USU_ID") 
+                          abridor = new Usuario
+                          {
+                              Id = r.Field<Int32>("USU_ID")
                           },
-                          equipamento = new TipoEquipamento {
+                          equipamento = new TipoEquipamento
+                          {
                               ID = r.Field<Int32>("EQU_ID")
                           },
-                          Local = new Local {
+                          Local = new Local
+                          {
                               Id = r.Field<Int32>("LOC_ID")
                           },
-                          Responsavel = new Usuario {
+                          Responsavel = new Usuario
+                          {
                               Id = r.Field<Int32>("USU_RESP")
                           },
                           prioridade = new Prioridade
                           {
                               Id = r.Field<Int32>("PRI_ID")
                           },
-                          status = new Status {
+                          status = new Status
+                          {
                               Id = r.Field<Int32>("CHA_STATUS")
                           }
                       })
@@ -123,7 +129,7 @@ public class ChamadoController : ApiController
             abridor = new Usuario { Id = 1 },
             equipamento = new TipoEquipamento { ID = response.equipamento.ID },
             Local = new Local { Id = response.Local.Id },
-            prioridade = new Prioridade { Id = response.prioridade.Id},
+            prioridade = new Prioridade { Id = response.prioridade.Id },
             Data = response.Data
         };
 
@@ -164,7 +170,7 @@ public class ChamadoController : ApiController
             equipamento = new TipoEquipamento { ID = response.equipamento.ID },
             Local = new Local { Id = response.Local.Id },
             prioridade = new Prioridade { Id = response.prioridade.Id },
-            status = new Status { Id = response.status.Id}
+            status = new Status { Id = response.status.Id }
         };
 
 

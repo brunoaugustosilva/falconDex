@@ -36,6 +36,7 @@ namespace falconDex.Controller
                       {
                           Id = r.Field<int>("loc_id"),
                           Nome = r.Field<string>("loc_nome"),
+                          Bloco = r.Field<string>("loc_bloco"),
                           status = new Status
                           {
                               Id = r.Field<Int32>("LOC_STATUS")
@@ -51,21 +52,24 @@ namespace falconDex.Controller
     {
         var response = value;
 
-        Local local = new Local
-        {
-            Nome = response.Nome
+            Local local = new Local
+            {
+                Nome = response.Nome,
+                Bloco = response.Bloco
         };
 
         IDbConnection objConexao;
         IDbCommand objCommand;
-        string sql = "INSERT INTO loc_local" +
-                     "(loc_nome, loc_id) " +
-                     "VALUES (?nome)";
+            string sql = "INSERT INTO loc_local" +
+                         "(loc_nome, loc_bloco) " +
+                         "VALUES (?nome, ?bloco)";
+                     
         objConexao = Mapped.Connection();
         objCommand = Mapped.Command(sql, objConexao);
         objCommand.Parameters.Add(Mapped.Parameter("?nome", local.Nome));
+        objCommand.Parameters.Add(Mapped.Parameter("?bloco", local.Bloco));
 
-        int i = objCommand.ExecuteNonQuery();
+            int i = objCommand.ExecuteNonQuery();
         objConexao.Close();
 
         objCommand.Dispose();
@@ -75,19 +79,23 @@ namespace falconDex.Controller
         // PUT api/<controller>/5
         public void Put(int id, [FromBody] Local local)
         {
-            System.Data.IDbConnection objConexao;
-            System.Data.IDbCommand objCommand;
+            IDbConnection objConexao;
+            IDbCommand objCommand;
             string sql = "UPDATE loc_local SET " +
                          "loc_nome = ?nome," +
+                         "loc_bloco = ?bloco"+
                          "WHERE loc_id =? codigo";
             objConexao = Mapped.Connection();
             objCommand = Mapped.Command(sql, objConexao);
             objCommand.Parameters.Add(Mapped.Parameter("?nome", local.Nome));
             objCommand.Parameters.Add(Mapped.Parameter("?codigo", local.Id));
+            objCommand.Parameters.Add(Mapped.Parameter("?bloco", local.Bloco));
             objCommand.ExecuteNonQuery();
             objConexao.Close();
             objCommand.Dispose();
             objConexao.Dispose();
+
+           
         }
 
         // DELETE api/<controller>/5
