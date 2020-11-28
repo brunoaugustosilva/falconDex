@@ -11,14 +11,26 @@
     runat="server"
     ContentPlaceHolderID="ContentPlaceHolder1">
     <form class="form-row" id="form2">
-        <div class="col-md-5 mt-2">
+        <div class="col-lg-3">
             <button type="button" class="btn btn-primary" data-target="#novoChamado" data-toggle="modal">
                 <i class="fa fa-plus"> </i>  Novo chamado
             </button>
         </div>
-        <div class="col-md-7 mt-2 form-group">
-            <label for="searchInput" class="sr-only">Password</label>
-            <input id="searchInput" type="search" class="form-control" placeholder="Digite para pesquisar"/>
+        <div class="col-lg-2 form-group">
+            <select id="tipoFiltro" class="form-control">
+                <option value="1">Ativo</option>
+                <option value="2">Inativo</option>
+                <option value="3">Encerrado</option>
+                <option value="3">Cancelado</option>
+            </select>
+        </div>
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input id="searchInput" type="search" class="form-control" placeholder="Digite para pesquisar"/>
+                <div class="input-group-append">
+                    <div class="input-group-text"><i class="fa fa-search"></i></div>
+                </div>
+            </div>
         </div>
     </form>
     <!-- Abrir chamado -->
@@ -104,7 +116,7 @@
         </div>
     </div>
     <div class="slider row" id="slider">
-        <div class="slider-content col-md-6">
+        <div class="slider-content col-lg-6">
             <div class="slider-body">
                 <div class="slider-header d-flex justify-content-between pt-2">
                     <div class="slider-header-text">

@@ -46,6 +46,8 @@ namespace falconDex
                     Response.Redirect("/chamados");
                 }
 
+                //Response.Cookies.Set(MyCookie);
+
             }
             else
             {

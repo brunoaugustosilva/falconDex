@@ -19,6 +19,8 @@
 
     //search
     var search = document.querySelector("#searchInput");
+    //status
+    var statusSelected = document.querySelector("#tipoFiltro");
 
     //alert
     var message = document.querySelector("#alert-message");
@@ -51,55 +53,32 @@
                     CHAMADOS.push(e);
                 })
             }
-        ).
-            catch(
-                error => console.error('Erro ao obter chamados:', error)
-            );
+        ).catch(
+            error => console.error('Erro ao obter chamados:', error)
+        );
     };
 
     getChamados();
 
     async function getChamado(id) {
-        //http://localhost:58052/api/test/{id}
-        await fetch("/api/chamado/" + id
-        ).then(
-            chamados => chamados.json()
-        ).then(
-            chamados => {
-                chamados.map(e => {
-                    setSlider(e);
-                })
-            }
-        ).catch(
-            error => console.error('Erro ao obter chamados:', error)
-        );
+        var result = CHAMADOS.filter(e => e.Id == id);
+
+        setSlider(result[0]);
     }
 
-
     async function searchChamado(term) {
-        //http://localhost:58052/api/test/{id}
+        ChamadosCards.innerHTML = null;
 
-        await fetch("/api/chamado/"
-        ).then(
-            chamados => chamados.json()
-        ).then(
-            chamados => {
-                ChamadosCards.innerHTML = null;
+        var result = CHAMADOS.filter(e =>
+            searching(term, [e.Nome, e.Descricao]))
 
-                var result = chamados.filter(e =>
-                    searching(term, [e.Nome, e.Descricao]))
+        result.map(e => {
+            createCard(e);
+        })
 
-                result.map(e => {
-                    createCard(e);
-                })
-
-                if (result.length == 0) {
-                    ChamadosCards.textContent = "Sem Resultados";
-                }
-            }
-        ).catch(
-            error => console.error('Erro ao obter chamados:', error)
-        );
+        if (result.length == 0) {
+            ChamadosCards.textContent = "Sem Resultados";
+        }
     }
 
     function searching(params, compare = []) {
@@ -150,7 +129,7 @@
                 })
             }
         ).catch(
-            error => console.error('Erro ao obter equipamentos:', error)
+            error => console.error('Erro ao obter status:', error)
         );
     };
 
@@ -168,7 +147,7 @@
                 })
             }
         ).catch(
-            error => console.error('Erro ao obter equipamentos:', error)
+            error => console.error('Erro ao obter prioridade:', error)
         );
     };
 
@@ -186,7 +165,7 @@
                 })
             }
         ).catch(
-            error => console.error('Erro ao obter equipamentos:', error)
+            error => console.error('Erro ao obter local:', error)
         );
     };
 
@@ -493,4 +472,10 @@
             message.classList.add("hide");
         }, 2000)
     }
+
+    //select
+    statusSelected.addEventListener('change', e => {
+        console.log("Reconhecido");
+    });
+
 })();

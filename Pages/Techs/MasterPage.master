@@ -84,12 +84,12 @@
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link lead row">
-                            <i class="fa fa-hand-lizard-o mr-3 col-1"></i><span class="col-1">Empréstimos</span>
+                            <i class="fa fa-hand-o-up mr-3 col-1"></i><span class="col-1">Empréstimos</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="/graficos" class="nav-link lead row">
-                            <i class="fa fa-dashboard mr-3 col-1"></i><span class="col-1">Gráficos
+                            <i class="fa fa-bar-chart mr-3 col-1"></i><span class="col-1">Gráficos
                         </a>
                     </li>
                     <li class="nav-item">

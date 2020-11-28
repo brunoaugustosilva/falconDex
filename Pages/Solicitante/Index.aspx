@@ -126,7 +126,7 @@
           </div>
         </div>
         <div class="slider row" id="slider">
-            <div class="slider-content col-md-6">
+            <div class="slider-content col-lg-6">
                 <div class="slider-body">
                     <div class="slider-header d-flex justify-content-between pt-2">
                         <div class="slider-header-text">
