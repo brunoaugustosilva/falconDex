@@ -35,6 +35,11 @@
     var prioridades = [];
     var CHAMADOS = [];
 
+    //terms
+    var term = null;
+    var status = 1;
+
+
     var validation = {
         Nome: false,
         Descricao: false
@@ -66,18 +71,24 @@
         setSlider(result[0]);
     }
 
-    async function searchChamado(term) {
+    async function searchChamado() {
         ChamadosCards.innerHTML = null;
 
-        var result = CHAMADOS.filter(e =>
-            searching(term, [e.Nome, e.Descricao]))
+        var result = CHAMADOS;
 
-        result.map(e => {
+        if (term != null) {
+            result = CHAMADOS.filter(e =>
+                searching(term, [e.Nome, e.Descricao]))
+        }
+
+        var query = result.filter(e => e.status.Id == status);
+
+        query.map(e => {
             createCard(e);
         })
 
-        if (result.length == 0) {
-            ChamadosCards.textContent = "Sem Resultados";
+        if (query.length == 0) {
+            createEmpty("Sem resultados: Limpe os filtros e tente novamente", ChamadosCards);
         }
     }
 
@@ -172,7 +183,9 @@
     getLocal();
 
     search.addEventListener("search", e => {
-        searchChamado(search.value);
+        term = search.value;
+
+        searchChamado();
     });
 
     function setSlider(data) {
@@ -291,7 +304,6 @@
 
         } else if (statusId == 2) {
             card.classList.add("border-danger");
-            card.style.opacity = '0.5';
         }
 
 
@@ -342,7 +354,10 @@
         modal.classList.add('card-link');
         modal.setAttribute('data-toggle', 'modal');
         modal.setAttribute('data-target', '#encerrarModal');
-        modal.textContent = 'Encerrar';
+        
+        if (statusId == 1) {
+            modal.textContent = 'Encerrar';
+        }
 
         encerrarChamado(modal);
 
@@ -392,7 +407,7 @@
         else {
             e.target.classList.add("is-valid");
             e.target.classList.remove("is-invalid");
-            tip.textContent = "DescriÃ§Ã£o do chamado";
+            tip.textContent = "Descrição do chamado";
             validation.Descricao = true;
         }
 
@@ -407,6 +422,7 @@
     form1.addEventListener("submit", e => {
         e.preventDefault();
 
+        //na atualização usar formData
         var chamado = {
             Nome: titulo.value,
             Descricao: descricao.value,
@@ -475,7 +491,36 @@
 
     //select
     statusSelected.addEventListener('change', e => {
-        console.log("Reconhecido");
+        status = e.target.options[e.target.selectedIndex].value;
+
+        searchChamado();
     });
+
+    function createEmpty(textNode = "Base", element) {
+        var content = document.createElement("div");
+        content.classList.add("w-100");
+        content.classList.add("mt-3");
+        content.classList.add("text-center");
+        content.classList.add("bg-warning");
+        content.classList.add("rounded");
+        content.classList.add("p-5");
+
+        var faFilter = document.createElement("i");
+        faFilter.classList.add("fa");
+        faFilter.classList.add("fa-info");
+        faFilter.classList.add("fa-5x");
+
+        var textDiv = document.createElement("div");
+        textDiv.classList.add("font-weight-bold");
+
+        var textNode = document.createTextNode(textNode);
+
+        textDiv.appendChild(textNode);
+
+        content.appendChild(faFilter);
+        content.appendChild(textDiv);
+
+        element.appendChild(content);
+    }
 
 })();

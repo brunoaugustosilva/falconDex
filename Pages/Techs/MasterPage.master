@@ -89,17 +89,17 @@
                     </li>
                     <li class="nav-item">
                         <a href="/graficos" class="nav-link lead row">
-                            <i class="fa fa-bar-chart mr-3 col-1"></i><span class="col-1">Gráficos
+                            <i class="fa fa-bar-chart mr-3 col-1"></i><span class="col-1">Gráficos</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="/relatorios" class="nav-link lead row">
-                            <i class="fa fa-clipboard mr-3 col-1"></i><span class="col-1">Relatórios
+                            <i class="fa fa-clipboard mr-3 col-1"></i><span class="col-1">Relatórios</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="/index" class="nav-link lead row">
-                            <i class="fa fa-sign-out mr-3 col-1"></i><span class="col-1">SAIR
+                            <i class="fa fa-sign-out mr-3 col-1"></i><span class="col-1">SAIR</span>
                         </a>
                     </li>
                 </ul>

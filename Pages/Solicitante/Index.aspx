@@ -146,7 +146,7 @@
                     <i class="fa fa-warning mr-1"></i><span class="font-weight-light">Prioridade: </span><p id="slider-prioridade" class="border-bottom">{prioridade}</p>
                     <i class="fa fa-calendar mr-1"></i><span class="font-weight-light">Data de abertura: </span><p class="border-bottom"><time id="slider-data">{Data}</time></p>
                     <i class="fa fa-eye mr-1"></i><span class="font-weight-light">Status: </span><p id="slider-status" class="border-bottom">{status}</p>
-                    <i class="fa fa-mouse-pointer mr-1"></i><span class="font-weight-light">Feedback </span><input type="range" id="slider-feed" min="0" max="5" step="1" disabled>
+                    <i class="fa fa-mouse-pointer mr-1"></i><span class="font-weight-light">Feedback </span><input type="range" id="slider-feed" min="0" max="5" step="1" disabled="disabled" />
                 </div>
             </div>
         </div>
