@@ -1,24 +1,55 @@
-﻿(function () {
+﻿
+(function () {
     'use strict';
 
     // var button = document.querySelector("#btnLocal");
 
-    var form2 = document.querySelector("#form2");
-    var titulo = document.querySelector("#loc_nome");
-    var bloco = document.querySelector("#tipoBloco");
+    var form3 = document.querySelector("#form3");
+    var titulo = document.querySelector("#equ_nome");
+    var patrimonio = document.querySelector("#equi_patrimonio");
+    var tipo = document.querySelector("#equiTipo");
+    var EquipamentoLabel = document.querySelector("#label_equipamento");
+    var local = document.querySelector("#equ_local");
 
-    var LocalLabel = document.querySelector("#label_bory");
+    // variaveis 
 
-    async function getLocal() {
-        //http://localhost:58052/api/local/
-        fetch("/api/local/"
+    var TIPO = [];
+    var status = [];
+    var EQUIPAMENTOS = [];
+
+
+    async function getEquipamento() {
+        //http://localhost:58052/api/equipamento/
+        fetch("/api/equipamento/"
         ).then(
-            local => local.json()
+            equipamento => equipamento.json()
         ).then(
-            local => {
+            equipamento => {
+                equipamento.map(e => {
+                   // createLabel(e);
+                    EQUIPAMENTOS.push(e);
+                })
+            }
+        ).catch(
+                error => console.error('Erro ao obter equipamento:', error)
+            );
+    };
+
+    getEquipamento();
+
+    async function getTipo() {
+        //http://localhost:58052/api/equipamento/
+        fetch("/api/tipoequipamento/"
+        ).then(
+            tipos => tipos.json()
+        ).then(
+            tipos => {
+                tipos.map(e => {
+                    TIPO.push(e);
+                 
+                })
                 $(document).ready(function () {
-                     $("#table_Local").DataTable({
-                        "processing": true,
+                 var  table =  $('#table_Equipamento').DataTable({
                         language: {
                             "emptyTable": "Nenhum registro encontrado",
                             "info": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -57,71 +88,71 @@
                             }
                         },
                         ajax: {
-                            url: '/api/local',
+                            url: '/api/equipamento',
                             dataSrc: ''
                         },
                         columns: [
-                            { data: 'Id' },
                             { data: 'Nome' },
-                            { data: 'Bloco' },
-                            { data: 'status.Id' }
-                            
-                        ]
+                            { data: 'Patrimonio' },
+                            { data: 'Tipo.Nome' },
+                            { data: 'Status.Id' }
+                     ]
+  
                     });
-                });
+                })
             }
-                
         ).catch(
-            error => console.error('Erro ao obter local:', error)
-            )
-    };
-    
-    getLocal();
+            error => console.error('Erro ao obter equipamento:', error)
+        );
 
-    function createLabel(local) {
+    };
+    getTipo();
+    function createLabel(equipamento) {
 
         let tr = document.createElement("tr");
 
-
-        let pri_td = document.createElement("td");
-        pri_td.setAttribute('id', 'loc_id' + local.Id);
-        pri_td.textContent = local.Id;
-
         let nome = document.createElement("td");
-        nome.setAttribute('id', 'loc_nome' + local.Id);
-        nome.textContent = local.Nome;
+        nome.setAttribute('id', 'equ_nome' + equipamento.Id);
+        nome.textContent = equipamento.Nome;
 
-        let bloco = document.createElement("td");
-        bloco.setAttribute('id', 'loc_bloco' + local.Id);
-        bloco.textContent = local.Bloco;
+        let patrimonio = document.createElement("td");
+        patrimonio.setAttribute('id', 'equi_patrimonio' + equipamento.Id);
+        patrimonio.textContent = equipamento.Patrimonio;
+
+        let tipo = document.createElement("td");
+        tipo.setAttribute('id', 'equiTipo' + equipamento.Id);
+        tipo.textContent = equipamento.Tipo.ID;
 
         let status = document.createElement("td");
-        status.setAttribute('id', 'loc_Status' + local.Id);
-        status.textContent = local.status.Id;
+        status.setAttribute('id', 'equ_Status' + equipamento.Id);
+        status.textContent = equipamento.Status.Id;
 
-        tr.appendChild(pri_td);
         tr.appendChild(nome);
-        tr.appendChild(bloco);
+        tr.appendChild(patrimonio);
+        tr.appendChild(tipo);
         tr.appendChild(status);
 
-        LocalLabel.appendChild(tr);
+        EquipamentoLabel.appendChild(tr);
     }
 
 
-    form2.addEventListener("submit", e => {
+    form3.addEventListener("submit", e => {
         e.preventDefault();
 
         //ASSINCRONO
 
-        var local = {
+        var equipamento = {
             Nome: titulo.value,
-            bloco: bloco.options[bloco.selectedIndex].value
+            Patrimonio: patrimonio.value,
+            Tipo: { ID: tipo.options[tipo.selectedIndex].value },
+            local: { Id: local.options[local.selectedIndex].value },
+            Usuario: { Id: 1}
 
         }
 
-        fetch("api/local/", {
+        fetch("api/equipamento", {
             method: "POST",
-            body: JSON.stringify(local),
+            body: JSON.stringify(equipamento),
             headers: {
                 'Accept': 'application/json; charset=utf-8',
                 'Content-Type': 'application/json;charset=UTF-8'
@@ -131,12 +162,12 @@
         ).then(
             response => {
                 //console.log('Success:', response)
-                LocalLabel.textContent = null;
-                getLocal();
+                EquipamentoLabel.textContent = null;
+                getEquipamento();
                 createLabel(response);
             }
         ).catch(
-            error => console.error('Error:', error)
+            error => console.error('Erro ao obter equipamento:', error)
         );
         //LIMPAR CAMPOS
         clean();
