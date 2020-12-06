@@ -54,7 +54,7 @@
             </div>
         </div>
         <div class="p-3 d-flex flex-wrap" id="local-label"></div>
-        <table id="table_id" class=" p-3  flex-wrap display table">
+        <table id="table_Local" class=" p-3  flex-wrap display table">
             <thead>
                 <tr class="odd">
                     <th>Número</th>
@@ -79,5 +79,6 @@
     </div>
 
    <script src="misc/Local.js"></script>
+
 
 </asp:Content>
