@@ -93,7 +93,7 @@
         </form>
     </main>
     <script src="Scripts/jquery-3.5.1.slim.min.js"></script>
-    <script src="Scripts/popper.min.js"></script>
+    <script type="module" src="Scripts/popper.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="misc/Validation.js"></script>
 </body>

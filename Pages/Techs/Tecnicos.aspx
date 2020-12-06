@@ -60,13 +60,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="senhaHelp">Senha</label>
-                                    <input type="password" minlength="8" maxlength="32" class="form-control" id="txtSenha" aria-describedby="senhaHelp" 
+                                    <input type="password" maxlength="32" class="form-control" id="txtSenha" aria-describedby="senhaHelp" 
                                         placeholder="Senha" required>
                                     <small id="senhaHelp" class="form-text text-muted">Digite uma senha de 8 a 32 caracteres</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="senhaHelp2">Repita a senha</label>
-                                    <input type="password" minlength="8" maxlength="32" class="form-control" id="txtSenha2" aria-describedby="senhaHelp2" 
+                                    <input type="password" maxlength="32" class="form-control" id="txtSenha2" aria-describedby="senhaHelp2" 
                                         placeholder="Senha" required>
                                 </div>
                                 <div class="form-group">

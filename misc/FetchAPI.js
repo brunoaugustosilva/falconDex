@@ -1,21 +1,13 @@
 ﻿//GET
 export function getAll(url = "string") {
-    let DATA = [];
-
-    fetch(url
+    return fetch(url
     ).then(
         item => item.json()
     ).then(
-        item => {
-            item.map(e => {
-                DATA.push(e);
-            })
-        }
+        item => {return item }
     ).catch(
         error => console.error('Erro ao obter dados:', error)
     );
-
-    return DATA;
 };
 
 //POST
@@ -53,3 +45,12 @@ export function Put(data = {}, url = 'string', id = 1) {
         error => console.error('Error:', error)
     );
 }
+
+export const toDataURL = url => fetch(url)
+    .then(response => response.blob())
+    .then(blob => new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onloadend = () => resolve(reader.result)
+        reader.onerror = reject
+        reader.readAsDataURL(blob)
+    }))

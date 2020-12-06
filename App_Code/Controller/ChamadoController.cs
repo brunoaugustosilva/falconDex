@@ -126,7 +126,7 @@ public class ChamadoController : ApiController
         {
             Nome = response.Nome,
             Descricao = response.Descricao,
-            abridor = new Usuario { Id = 1 },
+            abridor = new Usuario { Id = response.abridor.Id },
             equipamento = new TipoEquipamento { ID = response.equipamento.ID },
             Local = new Local { Id = response.Local.Id },
             prioridade = new Prioridade { Id = response.prioridade.Id },
@@ -144,7 +144,7 @@ public class ChamadoController : ApiController
         objCommand = Mapped.Command(sql, objConexao);
         objCommand.Parameters.Add(Mapped.Parameter("?name", chamado.Nome));
         objCommand.Parameters.Add(Mapped.Parameter("?descricao", chamado.Descricao));
-        objCommand.Parameters.Add(Mapped.Parameter("?abridor", "1"));
+        objCommand.Parameters.Add(Mapped.Parameter("?abridor", chamado.abridor.Id));
         objCommand.Parameters.Add(Mapped.Parameter("?equipamento", chamado.equipamento.ID));
         objCommand.Parameters.Add(Mapped.Parameter("?local", chamado.Local.Id));
         objCommand.Parameters.Add(Mapped.Parameter("?prioridade", chamado.prioridade.Id));
@@ -166,8 +166,9 @@ public class ChamadoController : ApiController
         {
             Nome = response.Nome,
             Descricao = response.Descricao,
-            abridor = new Usuario { Id = 1 },
+            abridor = new Usuario { Id = response.abridor.Id },
             equipamento = new TipoEquipamento { ID = response.equipamento.ID },
+            Responsavel = new Usuario { Id = response.Responsavel.Id},
             Local = new Local { Id = response.Local.Id },
             prioridade = new Prioridade { Id = response.prioridade.Id },
             status = new Status { Id = response.status.Id }
@@ -177,16 +178,18 @@ public class ChamadoController : ApiController
         System.Data.IDbConnection objConexao;
         System.Data.IDbCommand objCommand;
         string sql = "UPDATE cha_chamado SET " +
-            "cha_name = ?name, cha_descricao = ?descricao, " +
-            "equ_id = ?equipamento, loc_id = ?local, pri_id = ?prioridade, cha_status = ?status" +
+            "cha_name = ?name, cha_descricao = ?descricao, usu_id = ?abridor, " +
+            "equ_id = ?equipamento, loc_id = ?local, usu_resp = ?responsavel, pri_id = ?prioridade, cha_status = ?status" +
             " WHERE cha_id = ?codigo";
         objConexao = Mapped.Connection();
         objCommand = Mapped.Command(sql, objConexao);
         objCommand.Parameters.Add(Mapped.Parameter("?codigo", id));
         objCommand.Parameters.Add(Mapped.Parameter("?name", chamado.Nome));
         objCommand.Parameters.Add(Mapped.Parameter("?descricao", chamado.Descricao));
+        objCommand.Parameters.Add(Mapped.Parameter("?abridor", chamado.abridor.Id));
         objCommand.Parameters.Add(Mapped.Parameter("?equipamento", chamado.equipamento.ID));
         objCommand.Parameters.Add(Mapped.Parameter("?local", chamado.Local.Id));
+        objCommand.Parameters.Add(Mapped.Parameter("?responsavel", chamado.Responsavel.Id));
         objCommand.Parameters.Add(Mapped.Parameter("?prioridade", chamado.prioridade.Id));
         objCommand.Parameters.Add(Mapped.Parameter("?status", chamado.status.Id));
         objCommand.ExecuteNonQuery();

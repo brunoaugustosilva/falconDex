@@ -104,7 +104,9 @@ getAll("/api/local/").then(locais =>
 
 getAll("/api/chamado/").then(chamados => {
     chamados.map(chamado => {
-        CHAMADOS.push(chamado);
+        if (chamado.abridor.Id == 4) {
+            CHAMADOS.push(chamado);
+        }
     });
     searchChamado()
 })
@@ -231,6 +233,12 @@ btnEncerrar.addEventListener('click', e => {
         statusS = "5";
 
         searchChamado()
+
+        var isEmpty = ChamadosCards.querySelector(".card");
+        if (isEmpty == null) {
+            ChamadosCards.innerHTML = null;
+        }
+
         createCard(chamadoSelecionado[0]);
         createAlert("Chamado selecionado com sucesso");
     })
@@ -238,8 +246,6 @@ btnEncerrar.addEventListener('click', e => {
 
 async function putChamado(chamado) {
     chamado.status.Id = '5';
-    chamado.Responsavel.Id = '3';
-    //console.log(JSON.stringify(chamado));
     Put(chamado, "api/chamado/", chamado.Id);
 }
 
@@ -311,12 +317,9 @@ function createCard(chamado) {
     modal.setAttribute('data-toggle', 'modal');
     modal.setAttribute('data-target', '#encerrarModal');//data-chamado
     modal.setAttribute('data-chamado', chamado.Id)
-        
-    if (statusId == 1) {
-        modal.textContent = 'Atender';
-    }
-    else if (statusId == 5) {
-        modal.textContent = 'Encerrar';
+
+    if (statusId == 5) {
+        modal.textContent = 'Dar Feedback';
     }
 
     encerrarChamado(modal);
@@ -382,16 +385,6 @@ function isSentence(entry) {
 form1.addEventListener("submit", e => {
     e.preventDefault();
 
-    let formData = new FormData(form1);
-
-    /*var object = {};
-    formData.forEach((value, key) => object[key] = value);
-
-    object["abridor.Id"] = 3;
-    object["Data"] = Date.now();
-
-    console.log(object);*/
-
     var Id = 0;
     //na atualização usar formData
     getAll("/api/chamado/").then(chamados => {
@@ -405,7 +398,7 @@ form1.addEventListener("submit", e => {
         Id: Id,
         Nome: titulo.value,
         Descricao: descricao.value,
-        abridor: { Id: "3" },
+        abridor: { Id: "4" },
         equipamento: { ID: equipamento.options[equipamento.selectedIndex].value },
         Local: { Id: localItem.options[localItem.selectedIndex].value },
         prioridade: { Id: prioridadeItem.options[prioridadeItem.selectedIndex].value },
@@ -466,11 +459,9 @@ statusSelected.addEventListener('change', e => {
 
 function createEmpty(textNode = "Base", element) {
     var content = document.createElement("div");
-
     appendClass(content, ["w-100", "mt-3", "text-center", "bg-warning", "rounded", "p-5"]);
 
     var faFilter = document.createElement("i");
-
     appendClass(faFilter, ["fa", "fa-info", "fa-5x"]);
 
     var textDiv = document.createElement("div");

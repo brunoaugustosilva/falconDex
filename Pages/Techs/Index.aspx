@@ -13,7 +13,11 @@
 
     <h4>Boa noite, Bruno</h4>
     <hr />
-    <div class="d-flex">
+    <div id="chamados-cards" class="d-flex">
+
+    </div>
+    <div class="d-flex mt-2">
+       
        <div class="col-md-3 border rounded p-3">
                 <p class="font-weight-bold">Quantidade de atendimentos</p>
                 10
@@ -32,5 +36,6 @@
         </div>
         
     </div>
+    <script type="module" src="misc/Inicio.js"></script>
 </asp:content>
 

@@ -44,7 +44,9 @@
             <div class="container-fluid p-3">
                 <a href="/inicio" class="d-lg-none badge text-white"><i class="fa fa-arrow-left fa-2x text-white font-weight-lighter"></i></a>
                 <div class="sidebar-header">
-                    <a class="navbar-brand " href="#"><asp:Label ID="lblTitle" runat="server" Text="Nada"/></a>
+                    <a class="navbar-brand " href="#">
+                        <h3><asp:Label ID="lblTitle" runat="server" Text="Nada"/></h3>
+                    </a>
                 </div>
                 <button class="navbar navbar-toggler" type="button" data-target="#navbarMenu" data-toggle="collapse">
                     <span class="navbar-toggler-icon"></span>
@@ -118,7 +120,18 @@
                     <img class="img-fluid rounded" src="img/android-icon-36x36.png" alt="Logo da Falcon Dex" />
                 </div>
             </div>
-
+            <nav aria-label="breadcrumb" class="mt-2">
+              <ol class="breadcrumb">
+                    <span class="mr-2">Você está em:</span>
+                    <% if(this.Page.Title == "Página Inicial") { %>
+                        <li class="breadcrumb-item active" aria-current="page">Home</li>
+                    <% }
+                    else { %>
+                        <li class="breadcrumb-item"><a href="/inicio">Home</a></li>
+                         <li class="breadcrumb-item active" aria-current="page"><%= this.Page.Title %></li>
+                    <% } %>
+              </ol>
+            </nav>
 
             <div id="con" class="d-flex p-2 flex-wrap flex-column">
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">

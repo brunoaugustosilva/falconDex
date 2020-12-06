@@ -17,12 +17,7 @@
             </button>
         </div>
         <div class="col-lg-2 form-group">
-            <select id="tipoFiltro" class="form-control">
-                <option value="1">Ativo</option>
-                <option value="2">Inativo</option>
-                <option value="3">Encerrado</option>
-                <option value="3">Cancelado</option>
-            </select>
+            <select id="tipoFiltro" class="form-control"></select>
         </div>
         <div class="col-lg-6">
             <div class="input-group">
@@ -44,22 +39,22 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="form1">
+                    <form id="form1" name="form1">
                         <div class="form-group">
                             <label for="cha_nome">Título</label>
-                            <input type="text" id="cha_nome" placeholder="Título" class="form-control" maxlength="100" required="required"/>
+                            <input type="text" id="cha_nome" name="Nome" placeholder="Título" class="form-control" maxlength="100" required="required"/>
                             <small class="form-text text-muted"><span id="nomeHelp" data-source="cha_nome">Por exemplo, Projetor queimado, cabo de rede sem funcionamento</span>
                             </small>
                         </div>
                         <div class="form-group">
                             <label for="descHelp">Descrição</label>
-                            <textarea id="cha_descricao" class="form-control" maxlength="300" required="required"></textarea>
+                            <textarea id="cha_descricao" name="Descricao" class="form-control" maxlength="300" required="required"></textarea>
                             <small class="form-text text-muted"><span id="descHelp" data-source="cha_descricao">Descrição do chamado</span>
                             </small>
                         </div>
                         <div class="form-group">
                             <label for="equiTipo">Equipamento</label>        
-                            <select id="equiTipo" required="required" class="form-control">
+                            <select id="equiTipo" required="required" class="form-control" name="equipamento.ID">
                                 <option value="1">Computador</option>
                                 <option value="2">Cabo</option>
                                 <option value="3">Projetor</option>
@@ -67,19 +62,11 @@
                         </div>
                         <div class="form-group">
                             <label for="locTipo">Local</label>
-                            <select id="locTipo" required="required" class="form-control">
-                                <option value="1">Sala</option>
-                                <option value="2">Laboratório</option>
-                                <option value="3">Diretoria</option>
-                            </select>
+                            <select id="locTipo" required="required" class="form-control" name="Local.Id"></select>
                         </div>
                         <div class="form-group">
                             <label for="priTipo">Prioridade</label>
-                            <select id="priTipo" required="required" class="form-control">
-                                <option value="1">Baixa</option>
-                                <option value="2">Média</option>
-                                <option value="3">Alta</option>
-                            </select>
+                            <select id="priTipo" required="required" class="form-control" name="prioridade.Id"></select>
                         </div>
                     </form>
                 </div>
@@ -91,26 +78,20 @@
         </div>
     </div>
     <div class="d-flex flex-wrap" id="chamados-cards"></div>
-        
-    <div class="alert alert-success alert-dismissible fade hide" id="alert-message" role="alert" style="position: absolute; top: 10px; right: 20px">
-        Chamado encerrado com sucesso
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+       
     <!-- Modal -->
     <div class="modal fade" id="encerrarModal" tabindex="-1" role="dialog" aria-labelledby="encerrarModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="encerrarModalLabel">Deseja encerrar o chamado?</h5>
+            <h5 class="modal-title" id="encerrarModalLabel">Deseja atender o chamado?</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-            <button type="button" class="btn btn-primary" id="chamado-encerrar">Encerrar</button>
+            <button type="button" class="btn btn-primary" id="chamado-encerrar">Atender</button>
             </div>
         </div>
         </div>
@@ -145,5 +126,5 @@
             $('#novoChamado').modal('hide');
         });
     </script>
-    <script src="misc/Chamados.js"></script>
+    <script type="module" src="misc/Chamados.js"></script>
 </asp:Content>

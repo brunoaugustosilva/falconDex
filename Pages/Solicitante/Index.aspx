@@ -16,10 +16,10 @@
 </head>
 <body>
     <div class="col">
-        <div class="row d-flex align-items-center">
+        <div class="row d-flex align-items-center border-bottom">
             <div class="col-1" title="Sair">
                 <a href="/index" class="badge badge-light">
-                    <i class="fa fa-sign-out fa-2x text-black font-weight-lighter"></i>
+                    <i class="fa fa-sign-out fa-2x text-black font-weight-lighter mr-2"></i>Sair
                 </a>
             </div>
             <div class="col-10 text-center">
@@ -29,78 +29,82 @@
                 <img class="img-fluid rounded" src="img/android-icon-36x36.png" alt="Logo da Falcon Dex" />
             </div>
         </div>
-        <div>
+        <nav aria-label="breadcrumb" class="mt-2">
+            <ol class="breadcrumb">
+                <span class="mr-2">Você está em:</span>
+                <li class="breadcrumb-item active" aria-current="page">Home</li>
+            </ol>
+        </nav>
+        <div class="d-flex p-2 flex-wrap flex-column">
             <form class="form-row" id="form2">
-                <div class="col-md-2 mt-2">
+                <div class="col-lg-3">
                     <button type="button" class="btn btn-primary" data-target="#novoChamado" data-toggle="modal">
                         <i class="fa fa-plus"> </i>  Novo chamado
                     </button>
                 </div>
-                <div class="col-md-5 mt-2 form-group mx-sm-3">
-                    <label for="searchInput" class="sr-only">Password</label>
-                    <input id="searchInput" type="search" class="form-control" placeholder="Digite para pesquisar"/>
+                <div class="col-lg-2 form-group">
+                    <select id="tipoFiltro" class="form-control"></select>
+                </div>
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <input id="searchInput" type="search" class="form-control" placeholder="Digite para pesquisar"/>
+                        <div class="input-group-append">
+                            <div class="input-group-text"><i class="fa fa-search"></i></div>
+                        </div>
+                    </div>
                 </div>
             </form>
-        </div>
         <!-- Abrir chamado -->
-        <div class="modal fade" id="novoChamado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Criar chamado</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="form1">
-                            <div class="form-group">
-                                <label for="cha_nome">Título</label>
-                                <input type="text" id="cha_nome" placeholder="Título" class="form-control" maxlength="100" required="required"/>
-                                <small class="form-text text-muted"><span id="nomeHelp" data-source="cha_nome">Por exemplo, Projetor queimado, cabo de rede sem funcionamento</span>
-                                </small>
-                            </div>
-                            <div class="form-group">
-                                <label for="descHelp">Descrição</label>
-                                <textarea id="cha_descricao" class="form-control" maxlength="300" required="required"></textarea>
-                                <small class="form-text text-muted"><span id="descHelp" data-source="cha_descricao">Descrição do chamado</span>
-                                </small>
-                            </div>
-                            <div class="form-group">
-                                <label for="equiTipo">Equipamento</label>        
-                                <select id="equiTipo" required="required" class="form-control">
-                                    <option value="1">Computador</option>
-                                    <option value="2">Cabo</option>
-                                    <option value="3">Projetor</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="locTipo">Local</label>
-                                <select id="locTipo" required="required" class="form-control">
-                                    <option value="1">Sala</option>
-                                    <option value="2">Laboratório</option>
-                                    <option value="3">Diretoria</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="priTipo">Prioridade</label>
-                                <select id="priTipo" required="required" class="form-control">
-                                    <option value="1">Baixa</option>
-                                    <option value="2">Média</option>
-                                    <option value="3">Alta</option>
-                                </select>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-primary" id="btnChamado" form="form1">Solicitar</button>
+            <div class="modal fade" id="novoChamado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Criar chamado</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="form1">
+                                <div class="form-group">
+                                    <label for="cha_nome">Título</label>
+                                    <input type="text" id="cha_nome" placeholder="Título" class="form-control" maxlength="100" required="required"/>
+                                    <small class="form-text text-muted"><span id="nomeHelp" data-source="cha_nome">Por exemplo, Projetor queimado, cabo de rede sem funcionamento</span>
+                                    </small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="descHelp">Descrição</label>
+                                    <textarea id="cha_descricao" class="form-control" maxlength="300" required="required"></textarea>
+                                    <small class="form-text text-muted"><span id="descHelp" data-source="cha_descricao">Descrição do chamado</span>
+                                    </small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="equiTipo">Equipamento</label>        
+                                    <select id="equiTipo" required="required" class="form-control">
+                                        <option value="1">Computador</option>
+                                        <option value="2">Cabo</option>
+                                        <option value="3">Projetor</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="locTipo">Local</label>
+                                    <select id="locTipo" required="required" class="form-control"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="priTipo">Prioridade</label>
+                                    <select id="priTipo" required="required" class="form-control"></select>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-primary" id="btnChamado" form="form1">Solicitar</button>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="d-flex flex-wrap" id="chamados-cards"></div>
         </div>
-        <div class="d-flex flex-wrap" id="chamados-cards"></div>
-        
         <div class="alert alert-success alert-dismissible fade hide" id="alert-message" role="alert" style="position: absolute; top: 10px; right: 20px">
             Chamado encerrado com sucesso
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -153,7 +157,7 @@
     <script src="Scripts/jquery-3.5.1.slim.min.js"></script>
     <script type="module" src="Scripts/popper.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
-    <script type="module" src="misc/Chamados.js"></script>
+    <script type="module" src="misc/ChamadosSolicitante.js"></script>
     <script type="text/javascript">
         $("#form1").submit(function (e) {
             $('#novoChamado').modal('hide');

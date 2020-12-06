@@ -16,31 +16,26 @@ namespace falconDex
 {
     public partial class Index : System.Web.UI.Page
     {
-        //Request.Headers.GetCookies("session-id").FirstOrDefault();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             //var cookieHeader = Request.Headers.GetCookies("session-id").FirstOrDefault();
-            string cookie = string.Empty;
+            var response = HttpContext.Current.Response;
+            var session = response.Cookies.Get("session-id");
 
-            try
-            {
-                cookie = "3333x";
+            if (session == null) {
+                //Response.Redirect(session.Values["permissao"])
+                Response.Write("erro no cookie");
             }
-            catch(Exception)
+            else if(!string.IsNullOrEmpty(session.Value))
             {
-                Response.Write("Erro no cookie: " + cookie);
-            }
+                string cookie = session.Value;
 
-            if (cookie != null)
-            {
-                int permissao = Int32.Parse(cookie.Substring(cookie.Length - 2, 1));
-
-                if (permissao == 3 || permissao == 2)
+                if (cookie == "3" || cookie == "2")
                 {
                     Response.Redirect("/inicio");
                 }
-                else
+                else if (cookie == "1")
                 {
                     Response.Redirect("/chamados");
                 }
@@ -80,14 +75,23 @@ namespace falconDex
                     Response.Redirect("/chamados");
                 }
 
-                //var resp = new HttpResponseMessage();
+                HttpCookie sessionId = new HttpCookie("session-id");
 
-                //var cookie = new CookieHeaderValue("session-id", DateTime.Now.ToString() + permissao);
-                //cookie. = DateTimeOffset.Now.AddDays(1);
-                //cookie.Domain = Request.RawUrl;
-                //cookie.Path = "/";
+                Session["permissao"] = "" + permissao;
 
-                //resp.Headers.Add(new CookieHeaderValue[] { cookie });
+                var response = HttpContext.Current.Response;
+
+                //Add key-values in the cookie
+                sessionId.Value = Session["permissao"].ToString();
+                //sessionId.Values.Add("permissao", "" + permissao);
+
+                //set cookie expiry date-time. Made it to last for next 12 hours.
+                sessionId.Expires = DateTime.Now.AddHours(12);
+
+                sessionId.HttpOnly = true;
+
+                //Most important, write the cookie to client.
+                response.Cookies.Add(sessionId);
             }
             else
             {
