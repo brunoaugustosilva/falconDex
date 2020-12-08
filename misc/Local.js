@@ -64,7 +64,7 @@
                             { data: 'Id' },
                             { data: 'Nome' },
                             { data: 'Bloco' },
-                            { data: 'status.Id' }
+                            { data: 'status.Nome' }
                             
                         ]
                     });

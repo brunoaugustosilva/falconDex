@@ -105,26 +105,54 @@
             </div>
             <div class="d-flex flex-wrap" id="chamados-cards"></div>
         </div>
-        <div class="alert alert-success alert-dismissible fade hide" id="alert-message" role="alert" style="position: absolute; top: 10px; right: 20px">
-            Chamado encerrado com sucesso
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="encerrarModal" tabindex="-1" role="dialog" aria-labelledby="encerrarModal" aria-hidden="true">
+        <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="encerrarModal" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="encerrarModalLabel">Deseja encerrar o chamado?</h5>
+                <h5 class="modal-title" id="feedbackModalLabel">Feedback</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
+              <div class="modal-body">
+                  <form class="rating" name="rating" id="formRating">
+                      <label>
+                        <input type="radio" name="Feed" value="1" />
+                        <span class="icon">★</span>
+                      </label>
+                      <label>
+                        <input type="radio" name="Feed" value="2" />
+                        <span class="icon">★</span>
+                        <span class="icon">★</span>
+                      </label>
+                      <label>
+                        <input type="radio" name="Feed" value="3" />
+                        <span class="icon">★</span>
+                        <span class="icon">★</span>
+                        <span class="icon">★</span>   
+                      </label>
+                      <label>
+                        <input type="radio" name="Feed" value="4" />
+                        <span class="icon">★</span>
+                        <span class="icon">★</span>
+                        <span class="icon">★</span>
+                        <span class="icon">★</span>
+                      </label>
+                      <label>
+                        <input type="radio" name="Feed" value="5" />
+                        <span class="icon">★</span>
+                        <span class="icon">★</span>
+                        <span class="icon">★</span>
+                        <span class="icon">★</span>
+                        <span class="icon">★</span>
+                      </label>
+                </form>
+              </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                <button type="button" class="btn btn-primary" id="chamado-encerrar">Encerrar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="submit" form="formRating" class="btn btn-primary" id="chamado-feedback">Concluir</button>
               </div>
             </div>
           </div>

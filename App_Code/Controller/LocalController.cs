@@ -26,7 +26,7 @@ namespace falconDex.Controller
         IDbCommand objCommand;
         IDataAdapter objDataAdapter;
         objConexao = Mapped.Connection();
-        objCommand = Mapped.Command("SELECT * FROM loc_local", objConexao);
+        objCommand = Mapped.Command("SELECT loc_id, loc_nome, loc_bloco, loc_status, sta_nome FROM loc_local l INNER JOIN sta_status s ON l.loc_status = s.sta_id", objConexao);
         objDataAdapter = Mapped.Adapter(objCommand);
         objDataAdapter.Fill(ds);
         dt = ds.Tables[0];
@@ -39,7 +39,8 @@ namespace falconDex.Controller
                           Bloco = r.Field<string>("loc_bloco"),
                           status = new Status
                           {
-                              Id = r.Field<Int32>("LOC_STATUS")
+                              Id = r.Field<Int32>("LOC_STATUS"),
+                              Nome = r.Field<string>("sta_nome")
                           }
                       })
                       .ToList();

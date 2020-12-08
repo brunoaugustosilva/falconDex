@@ -22,7 +22,14 @@ public class ChamadoController : ApiController
         IDbCommand objCommand;
         IDataAdapter objDataAdapter;
         objConexao = Mapped.Connection();
-        objCommand = Mapped.Command("SELECT * FROM cha_chamado", objConexao);
+        objCommand = Mapped.Command("SELECT cha_id, cha_name, cha_descricao, cha_criacao, c.USU_ID ABRI_ID, EQU_ID, c.LOC_ID LOCAL_ID, USU_RESP, " +
+            "c.PRI_ID PRIORI_ID, CHA_STATUS, CHA_FEED, abri.USU_NOME ABRI_NOME, resp.USU_NOME RESP_NOME, TIE_NOME, LOC_NOME, PRI_NOME, STA_NOME FROM cha_chamado c " +
+            "INNER JOIN usu_usuario abri ON abri.USU_ID = c.USU_ID " +
+            "INNER JOIN usu_usuario resp ON resp.USU_ID = c.USU_ID " +
+            "INNER JOIN TIE_tipo_EQUIPAMENTOS tie ON tie.TIE_ID = c.EQU_ID " +
+            "INNER JOIN loc_local loc ON loc.LOC_ID = c.LOC_ID " +
+            "INNER JOIN PRI_PRIORIDADE pri ON pri.PRI_ID = c.PRI_ID " +
+            "INNER JOIN STA_STATUS status ON status.STA_ID = c.CHA_STATUS", objConexao);
         objDataAdapter = Mapped.Adapter(objCommand);
         objDataAdapter.Fill(ds);
         dt = ds.Tables[0];
@@ -36,28 +43,35 @@ public class ChamadoController : ApiController
                           Data = r.Field<DateTime>("cha_criacao"),
                           abridor = new Usuario
                           {
-                              Id = r.Field<Int32>("USU_ID")
+                              Id = r.Field<Int32>("ABRI_ID"),
+                              Nome = r.Field<string>("ABRI_NOME")
                           },
                           equipamento = new TipoEquipamento
                           {
-                              ID = r.Field<Int32>("EQU_ID")
+                              ID = r.Field<Int32>("EQU_ID"),
+                              Nome = r.Field<string>("TIE_NOME")
                           },
                           Local = new Local
                           {
-                              Id = r.Field<Int32>("LOC_ID")
+                              Id = r.Field<Int32>("LOCAL_ID"),
+                              Nome = r.Field<string>("LOC_NOME")
                           },
                           Responsavel = new Usuario
                           {
-                              Id = r.Field<Int32>("USU_RESP")
+                              Id = r.Field<Int32>("USU_RESP"),
+                              Nome = r.Field<string>("RESP_NOME")
                           },
                           prioridade = new Prioridade
                           {
-                              Id = r.Field<Int32>("PRI_ID")
+                              Id = r.Field<Int32>("PRIORI_ID"),
+                              Nome = r.Field<string>("PRI_NOME")
                           },
                           status = new Status
                           {
-                              Id = r.Field<Int32>("CHA_STATUS")
-                          }
+                              Id = r.Field<Int32>("CHA_STATUS"),
+                              Nome = r.Field<string>("STA_NOME")
+                          },
+                          Feed = r.Field<int>("CHA_FEED")
                       })
                       .ToList();
 
@@ -110,7 +124,8 @@ public class ChamadoController : ApiController
                           status = new Status
                           {
                               Id = r.Field<Int32>("CHA_STATUS")
-                          }
+                          },
+                          Feed = r.Field<Int32>("CHA_FEED")
                       })
                       .ToList();
 
@@ -171,7 +186,8 @@ public class ChamadoController : ApiController
             Responsavel = new Usuario { Id = response.Responsavel.Id},
             Local = new Local { Id = response.Local.Id },
             prioridade = new Prioridade { Id = response.prioridade.Id },
-            status = new Status { Id = response.status.Id }
+            status = new Status { Id = response.status.Id },
+            Feed = response.Feed
         };
 
 
@@ -179,7 +195,7 @@ public class ChamadoController : ApiController
         System.Data.IDbCommand objCommand;
         string sql = "UPDATE cha_chamado SET " +
             "cha_name = ?name, cha_descricao = ?descricao, usu_id = ?abridor, " +
-            "equ_id = ?equipamento, loc_id = ?local, usu_resp = ?responsavel, pri_id = ?prioridade, cha_status = ?status" +
+            "equ_id = ?equipamento, loc_id = ?local, usu_resp = ?responsavel, pri_id = ?prioridade, cha_status = ?status, cha_feed = ?feed" +
             " WHERE cha_id = ?codigo";
         objConexao = Mapped.Connection();
         objCommand = Mapped.Command(sql, objConexao);
@@ -192,6 +208,7 @@ public class ChamadoController : ApiController
         objCommand.Parameters.Add(Mapped.Parameter("?responsavel", chamado.Responsavel.Id));
         objCommand.Parameters.Add(Mapped.Parameter("?prioridade", chamado.prioridade.Id));
         objCommand.Parameters.Add(Mapped.Parameter("?status", chamado.status.Id));
+        objCommand.Parameters.Add(Mapped.Parameter("?feed", chamado.Feed));
         objCommand.ExecuteNonQuery();
         objConexao.Close();
         objCommand.Dispose();

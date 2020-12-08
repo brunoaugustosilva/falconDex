@@ -95,7 +95,7 @@
                             { data: 'Nome' },
                             { data: 'Patrimonio' },
                             { data: 'Tipo.Nome' },
-                            { data: 'Status.Id' }
+                            { data: 'Status.Nome' }
                      ]
   
                     });

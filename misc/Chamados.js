@@ -16,6 +16,7 @@ var localItem = document.querySelector("#locTipo");
 var prioridadeItem = document.querySelector("#priTipo");
 //button
 var button = document.querySelector("#btnChamado");
+var btnAtender = document.querySelector("#chamado-atender");
 var btnEncerrar = document.querySelector("#chamado-encerrar");
 //forms
 var form1 = document.querySelector("#form1");
@@ -168,20 +169,20 @@ function setSlider(data) {
     var sliderDescription = document.querySelector("#slider-description");
     sliderDescription.textContent = data.Descricao;
     var sliderAbridor = document.querySelector("#slider-opener");
-    sliderAbridor.textContent = data.abridor.Id;
+    sliderAbridor.textContent = data.abridor.Nome;
     var sliderEquipamento = document.querySelector("#slider-equipament");
-    sliderEquipamento.textContent = data.equipamento.ID;//equipamentos[data.equipamento.ID - 1].Nome;
+    sliderEquipamento.textContent = data.equipamento.Nome;//equipamentos[data.equipamento.ID - 1].Nome;
     var sliderLocal = document.querySelector("#slider-local");
-    sliderLocal.textContent = data.Local.Id;//locais[ - 1].Nome;
+    sliderLocal.textContent = data.Local.Nome;//locais[ - 1].Nome;
     var sliderResponsavel = document.querySelector("#slider-resposavel");
-    sliderResponsavel.textContent = data.Responsavel.Id;
+    sliderResponsavel.textContent = data.Responsavel.Nome;
     var sliderPrioridade = document.querySelector("#slider-prioridade");
-    sliderPrioridade.textContent = data.prioridade.Id;//await prioridades[data.prioridade.Id - 1].Nome;
+    sliderPrioridade.textContent = data.prioridade.Nome;//await prioridades[data.prioridade.Id - 1].Nome;
     var sliderData = document.querySelector("#slider-data");
     var utc = new Date(data.Data);
     sliderData.textContent = utc.toLocaleDateString();
     var sliderStatus = document.querySelector("#slider-status");
-    sliderStatus.textContent = data.status.Id;//await statu[data.status.Id - 1].Nome;
+    sliderStatus.textContent = data.status.Nome;//await statu[data.status.Id - 1].Nome;
     var sliderFeed = document.querySelector("#slider-feed");
     sliderFeed.value = data.Feed;
     var slideClose = document.querySelector("#slider-close");
@@ -209,7 +210,7 @@ function getElement(element) {
     });
 }
 
-function encerrarChamado(element) {
+function getItemC(element) {
     element.addEventListener('click', e => {
         var chamadoId = e.target.getAttribute('data-chamado');
 
@@ -217,8 +218,12 @@ function encerrarChamado(element) {
     });
 }
 
-btnEncerrar.addEventListener('click', e => {
-    putChamado(chamadoSelecionado[0]);
+btnAtender.addEventListener('click', e => {
+    var item = chamadoSelecionado[0];
+
+    item.status.Id = '5';
+    item.Responsavel.Id = '3';
+    Put(item, "api/chamado/", item.Id);
 
     CHAMADOS = [];
 
@@ -231,17 +236,32 @@ btnEncerrar.addEventListener('click', e => {
         statusS = "5";
 
         searchChamado()
-        createCard(chamadoSelecionado[0]);
+        createCard(item);
         createAlert("Chamado selecionado com sucesso");
     })
 });
 
-async function putChamado(chamado) {
-    chamado.status.Id = '5';
-    chamado.Responsavel.Id = '3';
-    //console.log(JSON.stringify(chamado));
-    Put(chamado, "api/chamado/", chamado.Id);
-}
+btnEncerrar.addEventListener('click', e => {
+    var item = chamadoSelecionado[0];
+
+    item.status.Id = '3';
+    Put(item, "api/chamado/", item.Id);
+
+    CHAMADOS = [];
+
+    getAll("/api/chamado/").then(chamados => {
+        chamados.map(chamado => {
+            CHAMADOS.push(chamado);
+        });
+
+        statusSelected.options[2].selected = 'selected';
+        statusS = "3";
+
+        searchChamado()
+        createCard(item);
+        createAlert("Chamado encerrado com sucesso");
+    })
+});
 
 function createCard(chamado) {
     let card = document.createElement("div");
@@ -308,18 +328,20 @@ function createCard(chamado) {
     let modal = document.createElement('a');
     modal.href = "#";
     modal.classList.add('card-link');
-    modal.setAttribute('data-toggle', 'modal');
-    modal.setAttribute('data-target', '#encerrarModal');//data-chamado
-    modal.setAttribute('data-chamado', chamado.Id)
-        
+    modal.setAttribute('data-toggle', 'modal');//data-chamado
+   
     if (statusId == 1) {
         modal.textContent = 'Atender';
+        modal.setAttribute('data-target', '#atenderModal');
     }
     else if (statusId == 5) {
         modal.textContent = 'Encerrar';
+        modal.setAttribute('data-target', '#encerrarModal');
     }
 
-    encerrarChamado(modal);
+    modal.setAttribute('data-chamado', chamado.Id);
+
+    getItemC(modal);
 
     card_body.appendChild(card_title);
     card_body.appendChild(card_descricao);

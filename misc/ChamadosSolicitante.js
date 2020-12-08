@@ -16,10 +16,10 @@ var localItem = document.querySelector("#locTipo");
 var prioridadeItem = document.querySelector("#priTipo");
 //button
 var button = document.querySelector("#btnChamado");
-var btnEncerrar = document.querySelector("#chamado-encerrar");
 //forms
 var form1 = document.querySelector("#form1");
 var form2 = document.querySelector("#form2");
+var formRating = document.querySelector("#formRating");
 
 //Itens card
 var ChamadosCards = document.querySelector("#chamados-cards");
@@ -170,20 +170,20 @@ function setSlider(data) {
     var sliderDescription = document.querySelector("#slider-description");
     sliderDescription.textContent = data.Descricao;
     var sliderAbridor = document.querySelector("#slider-opener");
-    sliderAbridor.textContent = data.abridor.Id;
+    sliderAbridor.textContent = data.abridor.Nome;
     var sliderEquipamento = document.querySelector("#slider-equipament");
-    sliderEquipamento.textContent = data.equipamento.ID;//equipamentos[data.equipamento.ID - 1].Nome;
+    sliderEquipamento.textContent = data.equipamento.Nome;//equipamentos[data.equipamento.ID - 1].Nome;
     var sliderLocal = document.querySelector("#slider-local");
-    sliderLocal.textContent = data.Local.Id;//locais[ - 1].Nome;
+    sliderLocal.textContent = data.Local.Nome;//locais[ - 1].Nome;
     var sliderResponsavel = document.querySelector("#slider-resposavel");
-    sliderResponsavel.textContent = data.Responsavel.Id;
+    sliderResponsavel.textContent = data.Responsavel.Nome;
     var sliderPrioridade = document.querySelector("#slider-prioridade");
-    sliderPrioridade.textContent = data.prioridade.Id;//await prioridades[data.prioridade.Id - 1].Nome;
+    sliderPrioridade.textContent = data.prioridade.Nome;//await prioridades[data.prioridade.Id - 1].Nome;
     var sliderData = document.querySelector("#slider-data");
     var utc = new Date(data.Data);
     sliderData.textContent = utc.toLocaleDateString();
     var sliderStatus = document.querySelector("#slider-status");
-    sliderStatus.textContent = data.status.Id;//await statu[data.status.Id - 1].Nome;
+    sliderStatus.textContent = data.status.Nome;//await statu[data.status.Id - 1].Nome;
     var sliderFeed = document.querySelector("#slider-feed");
     sliderFeed.value = data.Feed;
     var slideClose = document.querySelector("#slider-close");
@@ -211,42 +211,12 @@ function getElement(element) {
     });
 }
 
-function encerrarChamado(element) {
+function getItemC(element) {
     element.addEventListener('click', e => {
         var chamadoId = e.target.getAttribute('data-chamado');
 
         chamadoSelecionado = CHAMADOS.filter(e => e.Id == chamadoId);
     });
-}
-
-btnEncerrar.addEventListener('click', e => {
-    putChamado(chamadoSelecionado[0]);
-
-    CHAMADOS = [];
-
-    getAll("/api/chamado/").then(chamados => {
-        chamados.map(chamado => {
-            CHAMADOS.push(chamado);
-        });
-
-        statusSelected.options[4].selected = 'selected';
-        statusS = "5";
-
-        searchChamado()
-
-        var isEmpty = ChamadosCards.querySelector(".card");
-        if (isEmpty == null) {
-            ChamadosCards.innerHTML = null;
-        }
-
-        createCard(chamadoSelecionado[0]);
-        createAlert("Chamado selecionado com sucesso");
-    })
-});
-
-async function putChamado(chamado) {
-    chamado.status.Id = '5';
-    Put(chamado, "api/chamado/", chamado.Id);
 }
 
 function createCard(chamado) {
@@ -315,14 +285,14 @@ function createCard(chamado) {
     modal.href = "#";
     modal.classList.add('card-link');
     modal.setAttribute('data-toggle', 'modal');
-    modal.setAttribute('data-target', '#encerrarModal');//data-chamado
+    modal.setAttribute('data-target', '#feedbackModal');//data-chamado
     modal.setAttribute('data-chamado', chamado.Id)
 
-    if (statusId == 5) {
+    if (statusId == 3) {
         modal.textContent = 'Dar Feedback';
     }
 
-    encerrarChamado(modal);
+    getItemC(modal);
 
     card_body.appendChild(card_title);
     card_body.appendChild(card_descricao);
@@ -439,6 +409,25 @@ function disabledButton() {
         button.setAttribute("disabled", "disabled");
     }
 }
+
+formRating.addEventListener("submit", e => {
+    e.preventDefault();
+
+    let formData = new FormData(formRating);
+
+    var object = {};
+    formData.forEach((value, key) => object[key] = parseInt(value));
+
+    var item = chamadoSelecionado[0];
+
+    const chamados = Object.assign(item, object);
+
+    //console.log(chamados);
+    Put(chamados, "api/chamado/", chamados.Id);
+
+    createAlert("Feedback Realizado");
+});
+
 
 function clean() {
     titulo.value = null;

@@ -19,7 +19,9 @@ public class EquipamentoController : ApiController
         IDbCommand objCommand;
         IDataAdapter objDataAdapter;
         objConexao = Mapped.Connection();
-        objCommand = Mapped.Command("SELECT * FROM EQU_EQUIPAMENTOS", objConexao);
+        objCommand = Mapped.Command("SELECT equ_id, equ_nome, equi_patrimonio, e.tie_id TIPO, equ_status, STA_NOME, TIE_NOME FROM EQU_EQUIPAMENTOS e " +
+            "INNER JOIN TIE_tipo_EQUIPAMENTOS tie ON tie.TIE_ID = e.tie_id " +
+            "INNER JOIN sta_status status ON status.STA_ID = e.equ_status", objConexao);
         objDataAdapter = Mapped.Adapter(objCommand);
         objDataAdapter.Fill(ds);
         dt = ds.Tables[0];
@@ -32,11 +34,13 @@ public class EquipamentoController : ApiController
                           Patrimonio = r.Field<string>("equi_patrimonio"),
                           Tipo = new TipoEquipamento
                           {
-                              ID = r.Field<Int32>("tie_id")
+                              ID = r.Field<Int32>("TIPO"),
+                              Nome = r.Field<string>("TIE_NOME")
                           },
                           Status = new Status
                           {
-                              Id = r.Field<Int32>("equ_status")
+                              Id = r.Field<Int32>("equ_status"),
+                              Nome = r.Field<string>("STA_NOME")
                           }
                       })
                       .ToList();
