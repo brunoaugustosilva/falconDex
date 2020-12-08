@@ -68,27 +68,29 @@
             </div>
         </div>
         <div class="p-3 d-flex flex-wrap" id="local-label"></div>
-        <table id="table_Equipamento" class=" p-3  flex-wrap display table">
-            <thead>
-                <tr class="odd">
-                    <th>Nome</th>
-                    <th>Patrimonio</th>
-                    <th>Tipo</th>
-                    <th>Status</th>
+        <div class="overflow-hidden">
+            <table id="table_Equipamento" class=" p-3  flex-wrap display table">
+                <thead>
+                    <tr class="odd">
+                        <th>Nome</th>
+                        <th>Patrimonio</th>
+                        <th>Tipo</th>
+                        <th>Status</th>
 
-                </tr>
-            </thead>
-            <tbody id="label_equipamento">
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Nome</th>
-                    <th>Patrimonio</th>
-                    <th>Tipo</th>
-                    <th>Status</th>
-                </tr>
-            </tfoot>
-        </table>
+                    </tr>
+                </thead>
+                <tbody id="label_equipamento">
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Patrimonio</th>
+                        <th>Tipo</th>
+                        <th>Status</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
 
     <script type="module" src="misc/Equipamento.js"></script>

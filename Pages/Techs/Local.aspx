@@ -54,28 +54,30 @@
             </div>
         </div>
         <div class="p-3 d-flex flex-wrap" id="local-label"></div>
-        <table id="table_Local" class=" p-3  flex-wrap display table">
-            <thead>
-                <tr class="odd">
-                    <th>Número</th>
-                    <th>Nome</th>
-                    <th>Bloco</th>
-                    <th>Status</th>
+        <div class="overflow-hidden">
+            <table id="table_Local" class=" p-3  flex-wrap display table">
+                <thead>
+                    <tr class="odd">
+                        <th>Número</th>
+                        <th>Nome</th>
+                        <th>Bloco</th>
+                        <th>Status</th>
 
-                </tr>
-            </thead>
-            <tbody id="label_bory">
+                    </tr>
+                </thead>
+                <tbody id="label_bory">
 
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Número</th>
-                    <th>Nome</th>
-                    <th>Bloco</th>
-                    <th>Status</th>
-                </tr>
-            </tfoot>
-        </table>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Número</th>
+                        <th>Nome</th>
+                        <th>Bloco</th>
+                        <th>Status</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
 
    <script type="module" src="misc/Local.js"></script>

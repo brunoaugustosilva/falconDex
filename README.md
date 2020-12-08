@@ -30,3 +30,15 @@ João Carlos
 ### Licença
 
 Este projeto está sob a licença MIT e não pode ser utilizada de forma comercial por terceiros.
+
+## Coisas a fazer
+
+Strings em todo o projeto: Possibilitando uso em diferentes idiomas
+
+Modificar o manifest.json.
+
+Modificar o header.
+
+Criar conteúdo para o SEO e o Robots.txt
+
+Modularização completa
