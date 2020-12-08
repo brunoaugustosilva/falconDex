@@ -145,7 +145,8 @@ public class ChamadoController : ApiController
             equipamento = new TipoEquipamento { ID = response.equipamento.ID },
             Local = new Local { Id = response.Local.Id },
             prioridade = new Prioridade { Id = response.prioridade.Id },
-            Data = response.Data
+            Data = response.Data,
+            Feed = 0
         };
 
         DateTime dateValue = DateTime.Now;
@@ -153,8 +154,8 @@ public class ChamadoController : ApiController
         IDbConnection objConexao;
         IDbCommand objCommand;
         string sql = "INSERT INTO cha_chamado" +
-            "(cha_name, cha_descricao, usu_id, equ_id, loc_id, pri_id, cha_criacao) " +
-            "VALUES (?name, ?descricao, ?abridor, ?equipamento, ?local, ?prioridade, ?criacao)";
+            "(cha_name, cha_descricao, usu_id, equ_id, loc_id, pri_id, cha_criacao, cha_feed) " +
+            "VALUES (?name, ?descricao, ?abridor, ?equipamento, ?local, ?prioridade, ?criacao, ?feed)";
         objConexao = Mapped.Connection();
         objCommand = Mapped.Command(sql, objConexao);
         objCommand.Parameters.Add(Mapped.Parameter("?name", chamado.Nome));
@@ -163,6 +164,7 @@ public class ChamadoController : ApiController
         objCommand.Parameters.Add(Mapped.Parameter("?equipamento", chamado.equipamento.ID));
         objCommand.Parameters.Add(Mapped.Parameter("?local", chamado.Local.Id));
         objCommand.Parameters.Add(Mapped.Parameter("?prioridade", chamado.prioridade.Id));
+        objCommand.Parameters.Add(Mapped.Parameter("?feed", chamado.Feed));
         objCommand.Parameters.Add(Mapped.Parameter("?criacao", dateValue));
 
         int i = objCommand.ExecuteNonQuery();

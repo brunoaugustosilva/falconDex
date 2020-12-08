@@ -53,10 +53,10 @@ namespace falconDex.Controller
     {
         var response = value;
 
-            Local local = new Local
-            {
-                Nome = response.Nome,
-                Bloco = response.Bloco
+        Local local = new Local
+        {
+            Nome = response.Nome,
+            Bloco = response.Bloco
         };
 
         IDbConnection objConexao;

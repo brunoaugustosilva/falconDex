@@ -13,7 +13,7 @@
         <div class="p-3">
 
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#novoLocal">
-                <span class="fa fa-plus"></span>Novo Local
+                <span class="fa fa-plus mr-2"></span>Novo Local
             </button>
 
             <div class="modal fade" id="novoLocal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -78,7 +78,5 @@
         </table>
     </div>
 
-   <script src="misc/Local.js"></script>
-
-
+   <script type="module" src="misc/Local.js"></script>
 </asp:Content>

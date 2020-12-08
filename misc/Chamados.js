@@ -431,8 +431,11 @@ form1.addEventListener("submit", e => {
         equipamento: { ID: equipamento.options[equipamento.selectedIndex].value },
         Local: { Id: localItem.options[localItem.selectedIndex].value },
         prioridade: { Id: prioridadeItem.options[prioridadeItem.selectedIndex].value },
-        Data: Date.now()
+        Data: Date.now(),
+        Feed: 0
     }
+
+    CHAMADOS = [];
 
     fetch("api/chamado", {
         method: "POST",
@@ -445,7 +448,15 @@ form1.addEventListener("submit", e => {
         response => response
     ).then(
         response => {
-            createCard(chamado);
+            ChamadosCards.innerHTML = null
+
+            getAll("/api/chamado/").then(chamados => {
+                chamados.map(chamado => {
+                    CHAMADOS.push(chamado)
+                });
+
+                searchChamado();
+            })
             createAlert("Chamado criado com sucesso");
         }
     ).catch(

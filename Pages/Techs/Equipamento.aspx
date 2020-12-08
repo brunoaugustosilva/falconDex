@@ -14,7 +14,7 @@
         <div class="p-3">
 
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#novoEquipamento">
-                <span class="fa fa-plus"></span>Novo Equipamento
+                <span class="fa fa-plus mr-2"></span>Novo Equipamento
             </button>
 
             <div class="modal fade" id="novoEquipamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -55,13 +55,7 @@
 
                                 <div class="form-group">
                                     <label for="equ_local">Local</label>
-                                    <select id="equ_local" required="required" class="form-control">
-                                        <option value="1">Sala</option>
-                                        <option value="2">Laboratório</option>
-                                        <option value="3">Auditório</option>
-                                        <option value="4">Biblioteca</option>
-                                        <option value="5">Diretória Acadêmica</option>
-                                    </select>
+                                    <select id="equ_local" required="required" class="form-control"></select>
                                 </div>
                             </form>
                         </div>
@@ -97,6 +91,6 @@
         </table>
     </div>
 
-    <script src="misc/Equipamento.js"></script>
+    <script type="module" src="misc/Equipamento.js"></script>
 
 </asp:Content>
