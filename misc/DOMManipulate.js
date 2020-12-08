@@ -32,6 +32,8 @@ export function createAlert(message = "alert") {
     divAlert.appendChild(buttonClose);
 
     document.body.appendChild(divAlert);
+
+    setTimeout(document.body.remove(divAlert), 2000);
 }
 
 export function appendOption(element, value, text) {
