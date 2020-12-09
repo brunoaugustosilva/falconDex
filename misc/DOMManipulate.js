@@ -33,7 +33,7 @@ export function createAlert(message = "alert") {
 
     document.body.appendChild(divAlert);
 
-    setTimeout(document.body.remove(divAlert), 2000);
+    //setTimeout(document.body.remove(divAlert), 2000);
 }
 
 export function appendOption(element, value, text) {
