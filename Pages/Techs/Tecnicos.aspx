@@ -2,11 +2,6 @@
 
 <asp:Content
     runat="server"
-    ContentPlaceHolderID="head">
-    <title>Técnicos</title>
-</asp:Content>
-<asp:Content
-    runat="server"
     ContentPlaceHolderID="ContentPlaceHolder1">
     <div class="p-3">
         <button class="btn btn-primary" data-toggle="modal" data-target="#novoUsuario"><i class="fa fa-user-plus mr-3"></i>Novo</button>

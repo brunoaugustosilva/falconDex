@@ -12,7 +12,7 @@ export function getAll(url = "string") {
 
 //POST
 export function Post(data = {}, url = 'string') {
-    fetch(url, {
+    return fetch(url, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -28,7 +28,7 @@ export function Post(data = {}, url = 'string') {
 
 //PUT
 export function Put(data = {}, url = 'string', id = 1) {
-    fetch(url + id, {
+    return fetch(url + id, {
         method: "PUT",
         body: JSON.stringify(data),
         headers: {

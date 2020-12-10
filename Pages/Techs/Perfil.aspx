@@ -3,12 +3,6 @@
 
 <asp:Content
     runat="server"
-    ContentPlaceHolderID="head">
-    <title>Perfil</title>
-</asp:Content>
-
-<asp:Content
-    runat="server"
     ContentPlaceHolderID="ContentPlaceHolder1">
 
     <div class="m-auto w-50">

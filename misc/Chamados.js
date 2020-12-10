@@ -4,14 +4,18 @@ import Fuse from 'https://cdn.jsdelivr.net/npm/fuse.js@6.4.3/dist/fuse.esm.js';
 
 import getTime from './Time.js';
 
-import { Put, getAll } from './FetchAPI.js';
+import { Post, Put, getAll } from './FetchAPI.js';
 
 import { appendClass, createAlert, appendOption } from './DOMManipulate.JS';
+
+import Dot from './DotObject.js';
+
+import { isSentence } from './Validator.js';
 
 //items
 var titulo = document.querySelector("#cha_nome");
 var descricao = document.querySelector("#cha_descricao");
-var equipamento = document.querySelector("#equiTipo");
+var equipamentoItem = document.querySelector("#equiTipo");
 var localItem = document.querySelector("#locTipo");
 var prioridadeItem = document.querySelector("#priTipo");
 //button
@@ -30,17 +34,10 @@ var search = document.querySelector("#searchInput");
 //status
 var statusSelected = document.querySelector("#tipoFiltro");
 
-//alert
-var message = document.querySelector("#alert-message");
-
 //chamados
 var chamadoSelecionado = [];
 
 //statics
-var locais = [];
-var equipamentos = [];
-var statu = [];
-var prioridades = [];
 var CHAMADOS = [];
 
 //terms
@@ -49,18 +46,9 @@ var statusS = "1";
 
 //options
 const options = {
-    // isCaseSensitive: false,
     includeScore: true,
-    // shouldSort: true,
-    //includeMatches: true,
-    // findAllMatches: false,
     minMatchCharLength: 0,
-    // location: 0,
-    // threshold: 0.6,
-    // distance: 100,
     useExtendedSearch: true,
-    // ignoreLocation: false,
-    // ignoreFieldNorm: false,
     keys: [
         "status.Id",
         "Nome",
@@ -77,31 +65,27 @@ var validation = {
 //FETCHS
 getAll("/api/tipoequipamento/").then(equipamentos =>
     equipamentos.map(equipamento => {
-        equipamentos.push(equipamento);
+        appendOption(equipamentoItem, equipamento.ID, equipamento.Nome);
     })
 )
 
 getAll("/api/status/").then(estados =>
     estados.map(estado => {
-        statu.push(estado);
         appendOption(statusSelected, estado.Id, estado.Nome);
     })
 )
 
 getAll("/api/prioridade/").then(prioridades =>
     prioridades.map(prioridade => {
-        prioridades.push(prioridade);
         appendOption(prioridadeItem, prioridade.Id, prioridade.Nome);
     })
 )
 
 getAll("/api/local/").then(locais =>
     locais.map(local => {
-        locais.push(local);
         appendOption(localItem, local.Id, local.Nome);
     })
 )
-
 
 getAll("/api/chamado/").then(chamados => {
     chamados.map(chamado => {
@@ -110,13 +94,11 @@ getAll("/api/chamado/").then(chamados => {
     searchChamado()
 })
 
-
 async function getChamado(id) {
     var result = CHAMADOS.filter(e => e.Id == id);
 
     setSlider(result[0]);
 }
-
 
 async function searchChamado() {
     ChamadosCards.innerHTML = null;
@@ -161,8 +143,6 @@ search.addEventListener("search", e => {
 });
 
 function setSlider(data) {
-
-    console.log(data);
     var slider = document.querySelector("#slider");
     var sliderTitle = document.querySelector("#slider-title");
     sliderTitle.textContent = data.Nome;
@@ -171,18 +151,18 @@ function setSlider(data) {
     var sliderAbridor = document.querySelector("#slider-opener");
     sliderAbridor.textContent = data.abridor.Nome;
     var sliderEquipamento = document.querySelector("#slider-equipament");
-    sliderEquipamento.textContent = data.equipamento.Nome;//equipamentos[data.equipamento.ID - 1].Nome;
+    sliderEquipamento.textContent = data.equipamento.Nome;
     var sliderLocal = document.querySelector("#slider-local");
-    sliderLocal.textContent = data.Local.Nome;//locais[ - 1].Nome;
+    sliderLocal.textContent = data.Local.Nome;
     var sliderResponsavel = document.querySelector("#slider-resposavel");
     sliderResponsavel.textContent = data.Responsavel.Nome;
     var sliderPrioridade = document.querySelector("#slider-prioridade");
-    sliderPrioridade.textContent = data.prioridade.Nome;//await prioridades[data.prioridade.Id - 1].Nome;
+    sliderPrioridade.textContent = data.prioridade.Nome;
     var sliderData = document.querySelector("#slider-data");
     var utc = new Date(data.Data);
     sliderData.textContent = utc.toLocaleDateString();
     var sliderStatus = document.querySelector("#slider-status");
-    sliderStatus.textContent = data.status.Nome;//await statu[data.status.Id - 1].Nome;
+    sliderStatus.textContent = data.status.Nome;
     var sliderFeed = document.querySelector("#slider-feed");
     sliderFeed.value = data.Feed;
     var slideClose = document.querySelector("#slider-close");
@@ -281,7 +261,6 @@ function createCard(chamado) {
     } else if (statusId == 2) {
         card.classList.add("border-danger");
     }
-
 
     card.style.width = "18rem";
 
@@ -396,65 +375,31 @@ descricao.addEventListener("keyup", e => {
     disabledButton();
 });
 
-
-function isSentence(entry) {
-    return entry.split(/\b\W+\b/).length > 1;
-}
-
 form1.addEventListener("submit", e => {
     e.preventDefault();
 
     let formData = new FormData(form1);
 
-    /*var object = {};
-    formData.forEach((value, key) => object[key] = value);
+    var chamado = {};
+    formData.forEach((value, key) => {
+        chamado[key] = value;
+    });
 
-    object["abridor.Id"] = 3;
-    object["Data"] = Date.now();
+    chamado["abridor"] = { Id: "3" };
+    chamado["Data"] = Date.now();
 
-    console.log(object);*/
+    var result = Dot(chamado);
 
-    var Id = 0;
-    //na atualização usar formData
-    getAll("/api/chamado/").then(chamados => {
-        chamados.map(chamado => {
-            Id = chamado.Id
-        });
-        Id++;
-    })
-
-    var chamado = {
-        Id: Id,
-        Nome: titulo.value,
-        Descricao: descricao.value,
-        abridor: { Id: "3" },
-        equipamento: { ID: equipamento.options[equipamento.selectedIndex].value },
-        Local: { Id: localItem.options[localItem.selectedIndex].value },
-        prioridade: { Id: prioridadeItem.options[prioridadeItem.selectedIndex].value },
-        Data: Date.now(),
-        Feed: 0
-    }
+    console.log(result);
 
     CHAMADOS = [];
 
-    fetch("api/chamado", {
-        method: "POST",
-        body: JSON.stringify(chamado),
-        headers: {
-            'Accept': 'application/json; charset=utf-8',
-            'Content-Type': 'application/json;charset=UTF-8'
-        }
-    }).then(
-        response => response
-    ).then(
-        response => {
-            ChamadosCards.innerHTML = null
-
+    Post(result, "api/chamado").then(
+        () => {
             getAll("/api/chamado/").then(chamados => {
                 chamados.map(chamado => {
                     CHAMADOS.push(chamado)
                 });
-
                 searchChamado();
             })
             createAlert("Chamado criado com sucesso");

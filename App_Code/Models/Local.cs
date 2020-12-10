@@ -13,7 +13,6 @@ namespace falconDex.Models
     {
         public int Id { get; set; }
         public String Nome { get; set; }
-
         public String Bloco { get; set; }
         public Status status { get; set; }
 

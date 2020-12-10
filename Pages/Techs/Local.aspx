@@ -2,15 +2,9 @@
 
 <asp:Content
     runat="server"
-    ContentPlaceHolderID="head">
-    <title>Local</title>
-</asp:Content>
-
-<asp:Content
-    runat="server"
     ContentPlaceHolderID="ContentPlaceHolder1">
     <div class="col">
-        <div class="p-3">
+        <div>
 
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#novoLocal">
                 <span class="fa fa-plus mr-2"></span>Novo Local
@@ -26,18 +20,18 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form id="form2">
+                            <form id="form1" name="form1">
                                 <div class="form-group">
-                                    <label for="loc_nome">Nome</label>
-                                    <input type="text" class="form-control" id="loc_nome" placeholder="Titulo" maxlength="100" required="required">
+                                    <label for="txtBloco">Nome</label>
+                                    <input type="text" class="form-control" id="txtBloco" name="Nome" placeholder="Titulo" maxlength="100" required="required">
                                     <small class="form-text text-muted">
                                         <span id="nomeHelp" data-source="loc_nome">Nome do local de maneira clara</span>
                                     </small>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="tipoBloco">Bloco</label>
-                                    <select class="form-control" id="tipoBloco" required="required">
+                                    <label for="cbBloco">Bloco</label>
+                                    <select class="form-control" id="cbBloco" name="bloco" required="required">
                                         <option value="Bloco A">Bloco A</option>
                                         <option value="Bloco B">Bloco B</option>
                                         <option value="Bloco C">Bloco C</option>
@@ -47,35 +41,23 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="submit" form="form2" class="btn btn-primary" id="btnLocal">Criar</button>
+                            <button type="submit" form="form1" class="btn btn-primary" id="btnLocal">Criar</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="p-3 d-flex flex-wrap" id="local-label"></div>
-        <div class="overflow-hidden">
-            <table id="table_Local" class=" p-3  flex-wrap display table">
+        <div class="overflow-hidden mt-2">
+            <table id="table_Local" class="table table-striped table-bordered" style="width: 100%">
                 <thead>
-                    <tr class="odd">
-                        <th>Número</th>
-                        <th>Nome</th>
-                        <th>Bloco</th>
-                        <th>Status</th>
-
-                    </tr>
-                </thead>
-                <tbody id="label_bory">
-
-                </tbody>
-                <tfoot>
                     <tr>
                         <th>Número</th>
                         <th>Nome</th>
                         <th>Bloco</th>
                         <th>Status</th>
                     </tr>
-                </tfoot>
+                </thead>
+                <tbody></tbody>
             </table>
         </div>
     </div>

@@ -10,7 +10,6 @@ using System.Web.UI;
 
 using falconDex.Controller;
 using falconDex.Models;
-using Microsoft.Net.Http.Headers;
 
 namespace falconDex
 {

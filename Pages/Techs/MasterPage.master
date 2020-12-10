@@ -27,14 +27,11 @@
     <meta name="msapplication-TileImage" content="/img/ms-icon-144x144.png" />
     <meta name="theme-color" content="#ffffff" />
 
-    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet"/> 
-
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/solid.min.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome.min.css" rel="stylesheet" />
     <link href="~/style/Style.css" rel="stylesheet" />
-
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
+    <link href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap5.min.css" rel="stylesheet"/> 
 </head>
 <body>
     <div class="row main">
@@ -84,12 +81,12 @@
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link lead row">
-                            <i class="fa fa-hand-o-up mr-3 col-1"></i><span class="col-1">Empréstimos</span>
+                            <i class="fa fa-share mr-3 col-1"></i><span class="col-1">Empréstimos</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="/graficos" class="nav-link lead row">
-                            <i class="fa fa-bar-chart mr-3 col-1"></i><span class="col-1">Gráficos</span>
+                            <i class="fa fa-chart-bar mr-3 col-1"></i><span class="col-1">Gráficos</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -99,7 +96,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="/index" class="nav-link lead row">
-                            <i class="fa fa-sign-out mr-3 col-1"></i><span class="col-1">SAIR</span>
+                            <i class="fa fa-sign-out-alt mr-3 col-1"></i><span class="col-1">SAIR</span>
                         </a>
                     </li>
                 </ul>
@@ -131,13 +128,13 @@
               </ol>
             </nav>
 
-            <div id="con" class="d-flex p-2 flex-wrap flex-column">
+            <div id="con" class="d-flex flex-wrap flex-column">
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
             </div>
 
 
-            <footer id="footer" class="p-3 mt-3 text-center">
+            <footer id="footer" class="mt-3 text-center">
                 <span class="text-center">Falcon-dex. Todos os direitos reservados &copy; 2020</span>
             </footer>
         </div>

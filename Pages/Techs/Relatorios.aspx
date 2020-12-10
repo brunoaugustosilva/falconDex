@@ -3,12 +3,6 @@
 
 <asp:Content
     runat="server"
-    ContentPlaceHolderID="head">
-    <title>Relatorios</title>
-</asp:Content>
-
-<asp:Content
-    runat="server"
     ContentPlaceHolderID="ContentPlaceHolder1">
 
     <div class="border p-3 d-flex justify-content-between flex-column rounded">

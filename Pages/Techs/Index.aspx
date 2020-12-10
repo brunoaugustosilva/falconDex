@@ -3,12 +3,6 @@
 
 <asp:content
     runat="server"
-    contentplaceholderid="head">
-    <title>Página Inicial</title>
-</asp:content>
-
-<asp:content
-    runat="server"
     contentplaceholderid="ContentPlaceHolder1" >
 
     <h4>Boa noite, Bruno</h4>

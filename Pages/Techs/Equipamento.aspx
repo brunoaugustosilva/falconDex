@@ -3,15 +3,9 @@
 
 <asp:Content
     runat="server"
-    ContentPlaceHolderID="head">
-    <title>Equipamento</title>
-</asp:Content>
-
-<asp:Content
-    runat="server"
     ContentPlaceHolderID="ContentPlaceHolder1">
     <div class="col">
-        <div class="p-3">
+        <div>
 
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#novoEquipamento">
                 <span class="fa fa-plus mr-2"></span>Novo Equipamento
@@ -27,68 +21,51 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form id="form3">
+                            <form id="form1" name="form1">
                                 <div class="form-group">
-                                    <label for="equ_nome">Nome</label>
-                                    <input type="text" class="form-control" id="equ_nome" placeholder="Titulo" maxlength="100" required="required">
+                                    <label for="txtNome">Nome</label>
+                                    <input type="text" class="form-control" id="txtNome" name="Nome" placeholder="Titulo" maxlength="100" required="required">
                                     <small class="form-text text-muted">
                                         <span id="nomeHelp" data-source="equ_nome">Nome do equipamento de maneira clara</span>
                                     </small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="equi_patrimonio">Patrimonio</label>
-                                    <input type="text" class="form-control" id="equi_patrimonio" placeholder="Patrimonio" maxlength="100" required="required">
+                                    <label for="txtPatrimonio">Patrimonio</label>
+                                    <input type="text" class="form-control" id="txtPatrimonio" name="Patrimonio" placeholder="Patrimonio" maxlength="100" required="required">
                                     <small class="form-text text-muted">
                                         <span id="patrimonioHelp" data-source="equi_patrimonio">Digite o patrimonio como esta no equipamento</span>
                                     </small>
                                 </div>
-
-
                                 <div class="form-group">
-                                    <label for="equiTipo">Equipamento</label>
-                                    <select id="equiTipo" required="required" class="form-control">
-                                        <option value="1">Computador</option>
-                                        <option value="2">Cabo</option>
-                                        <option value="3">Projetor</option>
-                                    </select>
+                                    <label for="cbmTipo">Tipo de equipamento</label>
+                                    <select id="cbmTipo" required="required" class="form-control" name="Tipo.ID"></select>
                                 </div>
-
                                 <div class="form-group">
-                                    <label for="equ_local">Local</label>
-                                    <select id="equ_local" required="required" class="form-control"></select>
+                                    <label for="cbmLocal">Local</label>
+                                    <select id="cbmLocal" required="required" class="form-control" name="Local.Id"></select>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="submit" form="form3" class="btn btn-primary" id="btnLocal">Criar</button>
+                            <button type="submit" form="form1" class="btn btn-primary" id="btnLocal">Criar local</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="p-3 d-flex flex-wrap" id="local-label"></div>
-        <div class="overflow-hidden">
-            <table id="table_Equipamento" class=" p-3  flex-wrap display table">
+        <div class="overflow-hidden mt-2">
+            <table id="table_Equipamento" class="table table-striped table-bordered">
                 <thead>
-                    <tr class="odd">
-                        <th>Nome</th>
-                        <th>Patrimonio</th>
-                        <th>Tipo</th>
-                        <th>Status</th>
-
-                    </tr>
-                </thead>
-                <tbody id="label_equipamento">
-                </tbody>
-                <tfoot>
                     <tr>
                         <th>Nome</th>
                         <th>Patrimonio</th>
                         <th>Tipo</th>
                         <th>Status</th>
                     </tr>
-                </tfoot>
+                </thead>
+                <tbody>
+                </tbody>
             </table>
         </div>
     </div>

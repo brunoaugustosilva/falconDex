@@ -42,3 +42,7 @@ Modificar o header.
 Criar conteúdo para o SEO e o Robots.txt
 
 Modularização completa
+
+## Reinstalar pacotes
+
+Update-Package -ProjectName MyProject -reinstall

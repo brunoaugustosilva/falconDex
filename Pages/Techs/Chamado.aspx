@@ -3,12 +3,6 @@
 
 <asp:Content
     runat="server"
-    ContentPlaceHolderID="head">
-    <title>Chamado</title>
-</asp:Content>
-
-<asp:Content
-    runat="server"
     ContentPlaceHolderID="ContentPlaceHolder1">
     <form class="form-row" id="form2">
         <div class="col-lg-3">
@@ -54,11 +48,7 @@
                         </div>
                         <div class="form-group">
                             <label for="equiTipo">Equipamento</label>        
-                            <select id="equiTipo" required="required" class="form-control" name="equipamento.ID">
-                                <option value="1">Computador</option>
-                                <option value="2">Cabo</option>
-                                <option value="3">Projetor</option>
-                            </select>
+                            <select id="equiTipo" required="required" class="form-control" name="equipamento.ID"></select>
                         </div>
                         <div class="form-group">
                             <label for="locTipo">Local</label>
@@ -122,7 +112,7 @@
                     </div>
                     <div class="slider-header-close">
                         <a href="#" id="slider-close" class="badge badge-light">
-                            <i class="slider-close fa fa-close fa-3x"></i>
+                            <i class="slider-close fa fa-times fa-3x"></i>
                         </a>
                     </div>
                 </div>
