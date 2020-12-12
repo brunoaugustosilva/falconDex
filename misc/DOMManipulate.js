@@ -33,6 +33,15 @@ export function createAlert(message = "alert") {
 
     document.body.appendChild(divAlert);
 
+    setTimeout(e => {
+        divAlert.classList.remove("show");
+        divAlert.classList.add("hide");
+    }, 2000)
+
+    setTimeout(e => {
+        document.body.removeChild(divAlert);
+    }, 3000)
+
     //setTimeout(document.body.remove(divAlert), 2000);
 }
 

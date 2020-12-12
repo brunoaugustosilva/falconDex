@@ -1,10 +1,10 @@
 ﻿'use strict';
 
-// var button = document.querySelector("#btnLocal");
-
-import { appendClass, createAlert, appendOption } from './DOMManipulate.JS';
+import { createAlert } from './DOMManipulate.JS';
 
 import { Put, getAll, Post } from './FetchAPI.js';
+
+import { get, cleanData } from './DotObject.js';
 
 var form1 = document.querySelector("#form1");
 
@@ -66,15 +66,15 @@ form1.addEventListener("submit", e => {
 
     let formData = new FormData(form1);
 
-    var local = {};
-    formData.forEach((value, key) => {
-        local[key] = value;
-    });
+    var local = get(formData);
 
     Post(local, "api/local/").then(
         response => {
             $("#table_Local").DataTable().ajax.reload();
             createAlert("Local adicionado com sucesso");
+            cleanData(formData);
+            form1.reset();
+            $("#novoLocal").modal('hide');
         }
     ).catch(
         error => console.error('Error:', error)

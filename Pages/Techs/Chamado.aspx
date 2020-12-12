@@ -5,15 +5,25 @@
     runat="server"
     ContentPlaceHolderID="ContentPlaceHolder1">
     <form class="form-row" id="form2">
-        <div class="col-lg-3">
+        <div class="col-lg-2 form-group">
             <button type="button" class="btn btn-primary" data-target="#novoChamado" data-toggle="modal">
                 <i class="fa fa-plus"> </i>  Novo chamado
             </button>
         </div>
         <div class="col-lg-2 form-group">
+            <label for="tipoQuantidade"><i class="fas fa-sort-amount-down mr-2"></i>Registros</label>
+            <select id="tipoQuantidade" class="form-control">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+            </select>
+        </div>
+        <div class="col-lg-2 form-group">
+            <label for="tipoFiltro">Estados</label>
             <select id="tipoFiltro" class="form-control"></select>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-5">
+            <label for="searchInput">Termo específico, aperte enter para pesquisar</label>
             <div class="input-group">
                 <input id="searchInput" type="search" class="form-control" placeholder="Digite para pesquisar"/>
                 <div class="input-group-append">
@@ -67,7 +77,8 @@
             </div>
         </div>
     </div>
-    <div class="d-flex flex-wrap" id="chamados-cards"></div>
+    <div id="paginationArea" class="d-flex justify-content-center mt-2"></div>
+    <div class="d-flex flex-wrap justify-content-center" id="chamados-cards"></div>
        
     <!-- Modal -->
     <div class="modal fade" id="atenderModal" tabindex="-1" role="dialog" aria-labelledby="encerrarModal" aria-hidden="true">

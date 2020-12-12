@@ -1,23 +1,20 @@
 ﻿'use strict';
 
 // var button = document.querySelector("#btnLocal");
-import { appendClass, createAlert, appendOption } from './DOMManipulate.JS';
+import { createAlert, appendOption } from './DOMManipulate.JS';
 
 import { Put, getAll, Post } from './FetchAPI.js';
 
-import Dot from './DotObject.js';
+import { get, cleanData } from './DotObject.js';
 
 var form1 = document.querySelector("#form1");
-var titulo = document.querySelector("#txtNome");
-var patrimonio = document.querySelector("#txtPatrimonio");
 var tipoSelect = document.querySelector("#cbmTipo");
-var local = document.querySelector("#cbmLocal"); //label
+var localSelect = document.querySelector("#cbmLocal"); //label
 
 // variaveis 
 getAll("/api/local/").then(locais =>
     locais.map(x => {
-        locais.push(x);
-        appendOption(local, x.Id, x.Nome);
+        appendOption(localSelect, x.Id, x.Nome);
     })
 )
 
@@ -74,8 +71,6 @@ $(document).ready(function () {
     });
 })
 
-
-
 getAll("/api/tipoequipamento/").then(tipos => {
     tipos.map(tipo => {
         appendOption(tipoSelect, tipo.ID, tipo.Nome);
@@ -87,18 +82,16 @@ form1.addEventListener("submit", e => {
 
     let formData = new FormData(form1);
 
-    var equipamento = {};
-    formData.forEach((value, key) => {
-        equipamento[key] = value;
-    });
-
-    var result = Dot(equipamento);
+    var result = get(formData);
 
     result["Usuario"] = { Id: "3" };
 
     Post(result, "api/equipamento").then(result => {
         $("#table_Equipamento").DataTable().ajax.reload();
         createAlert("Equipamento adicionado com sucesso");
+        cleanData(formData);
+        form1.reset();
+        $("#novoEquipamento").modal('hide');
     }).catch(error => {
         createAlert("Erro -> " + error);
     });

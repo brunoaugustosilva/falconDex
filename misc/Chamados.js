@@ -8,7 +8,7 @@ import { Post, Put, getAll } from './FetchAPI.js';
 
 import { appendClass, createAlert, appendOption } from './DOMManipulate.JS';
 
-import Dot from './DotObject.js';
+import { get, cleanData } from './DotObject.js';
 
 import { isSentence } from './Validator.js';
 
@@ -31,8 +31,12 @@ var ChamadosCards = document.querySelector("#chamados-cards");
 
 //search
 var search = document.querySelector("#searchInput");
+
 //status
 var statusSelected = document.querySelector("#tipoFiltro");
+
+//registros
+var tipoQuantidade = document.querySelector("#tipoQuantidade");
 
 //chamados
 var chamadoSelecionado = [];
@@ -43,6 +47,8 @@ var CHAMADOS = [];
 //terms
 var term = "";
 var statusS = "1";
+var quantidadeItens = "5";
+var value = "1";
 
 //options
 const options = {
@@ -127,17 +133,104 @@ async function searchChamado() {
         });
     }
 
+    var count = 0;
+
     result.map(e => {
-        createCard(e.item);
+        count++;
+        if ((count > (quantidadeItens * value) - quantidadeItens) && count <= quantidadeItens * value) {
+            createCard(e.item);
+        }
     });
+
+    count = 0;
+
+    //console.log(result.length + ": quantidade de itens"); //tamanho
+    //console.log(Math.ceil(result.length / quantidadeItens) + " Páginas"); //qtd de páginas
+
+    cleanPagination();
+    if (result.length > 0) {
+        createPagination(Math.ceil(result.length / quantidadeItens));
+        getPageItensLenght();
+    }
 
     if (result.length == 0) {
         createEmpty("Sem resultados: Limpe os filtros e tente novamente", ChamadosCards);
     }
 }
 
+function createPagination(pages = 1) {
+    var paginationArea = document.querySelector("#paginationArea");
+
+    var paginationNav = document.createElement('nav');
+    paginationNav.setAttribute('aria-label', 'Page navigation example');
+    paginationNav.id = 'cardPagination';
+    //<nav aria-label="Page navigation example" id="cardPagination">
+
+    var paginationUl = document.createElement('ul');
+    paginationUl.classList.add("pagination");
+    paginationUl.id = 'navPagination';
+
+    paginationUl.appendChild(createPaginationItem('Anterior', 'A'));
+
+    for (var i = 1; i <= pages; i++) {
+        paginationUl.appendChild(createPaginationItem(i, i));
+    }
+
+    paginationUl.appendChild(createPaginationItem('Próximo', 'P'));
+    paginationNav.appendChild(paginationUl);
+    paginationArea.appendChild(paginationNav);
+}
+
+function cleanPagination() {
+    var paginationArea = document.querySelector("#paginationArea");
+    paginationArea.innerHTML = null;
+}
+
+function createPaginationItem(text, id) {
+    var item = document.createElement('li');
+    item.classList.add('page-item');
+    item.setAttribute('data-page-id', id);
+
+    var itemLink = document.createElement('a');
+    itemLink.classList.add('page-link');
+    itemLink.href = "#";
+
+    itemLink.textContent = text;
+
+    item.appendChild(itemLink);
+
+    return item;
+}
+
+function getPageItensLenght() {
+    var pageItens = document.querySelectorAll("[data-page-id]");
+    var maxPage = pageItens.length - 2;
+
+    pageItens.forEach(item => {
+        item.addEventListener('click', e => {
+            var page = item.getAttribute('data-page-id');
+
+            if (!Number.isNaN(parseInt(page))) {
+                value = parseInt(page);
+                searchChamado();
+            }
+            else if (page == 'A' && value > 1) {
+                value--;
+                searchChamado();
+            }
+            else if (page == 'P' && value < maxPage) {
+                value++;
+                searchChamado();
+            }
+        });
+    });
+}
+
+
+
 search.addEventListener("search", e => {
     term = search.value;
+    value = '1';
 
     searchChamado();
 });
@@ -198,6 +291,8 @@ function getItemC(element) {
     });
 }
 
+//function chamadoBtnAction(action, )
+
 btnAtender.addEventListener('click', e => {
     var item = chamadoSelecionado[0];
 
@@ -246,12 +341,7 @@ btnEncerrar.addEventListener('click', e => {
 function createCard(chamado) {
     let card = document.createElement("div");
     card.setAttribute('id', 'chamado_num_' + chamado.Id);
-    card.classList.add("card");
-    card.classList.add("ml-1");
-    card.classList.add("mr-1");
-    card.classList.add("mt-1");
-    card.classList.add("animate__animated");//fadeInRight
-    card.classList.add("animate__fadeIn");
+    appendClass(card, ['card', 'ml-1', 'mr-1', 'mt-1', 'animate__animated', 'animate__fadeIn']);
 
     var statusId = chamado.status == undefined ? 1 : chamado.status.Id;
 
@@ -273,10 +363,8 @@ function createCard(chamado) {
     card_title.textContent = chamado.Nome;
 
     let card_descricao = document.createElement('h6');
+    appendClass(card_descricao, ['card-subtitle', 'mb-2', 'text-muted']);
     card_descricao.setAttribute('id', 'chamado_descricao_' + chamado.Id);
-    card_descricao.classList.add('card-subtitle');
-    card_descricao.classList.add('mb-2');
-    card_descricao.classList.add('text-muted');
     card_descricao.textContent = chamado.Descricao;
 
     let card_footer = document.createElement('div');
@@ -380,21 +468,16 @@ form1.addEventListener("submit", e => {
 
     let formData = new FormData(form1);
 
-    var chamado = {};
-    formData.forEach((value, key) => {
-        chamado[key] = value;
-    });
+    var chamado = get(formData);
 
     chamado["abridor"] = { Id: "3" };
     chamado["Data"] = Date.now();
 
-    var result = Dot(chamado);
-
-    console.log(result);
+    console.log(chamado);
 
     CHAMADOS = [];
 
-    Post(result, "api/chamado").then(
+    Post(chamado, "api/chamado").then(
         () => {
             getAll("/api/chamado/").then(chamados => {
                 chamados.map(chamado => {
@@ -403,14 +486,15 @@ form1.addEventListener("submit", e => {
                 searchChamado();
             })
             createAlert("Chamado criado com sucesso");
+            cleanData(formData);
+            form1.reset();
+            $('#novoChamado').modal('hide');
+            disabledButton();
         }
     ).catch(
         error => console.error('Error:', error)
     );
-    clean();
 })
-
-disabledButton();
 
 form2.addEventListener("submit", e => {
     e.preventDefault();
@@ -425,22 +509,21 @@ function disabledButton() {
     }
 }
 
-function clean() {
-    titulo.value = null;
-    titulo.classList.remove("is-valid");
-    descricao.value = null;
-    descricao.classList.remove("is-valid");
-    validation.Descricao = false
-    validation.Nome = false;
-    disabledButton();
-}
-
 //select
 statusSelected.addEventListener('change', e => {
     statusS = e.target.options[e.target.selectedIndex].value;
 
     searchChamado();
 });
+
+//result
+tipoQuantidade.addEventListener('change', e => {
+    quantidadeItens = e.target.options[e.target.selectedIndex].value;
+    value = "1";
+
+    searchChamado();
+});
+
 
 function createEmpty(textNode = "Base", element) {
     var content = document.createElement("div");

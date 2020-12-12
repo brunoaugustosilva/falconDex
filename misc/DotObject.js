@@ -1,5 +1,7 @@
-﻿export default function (obj) {
+﻿export function get(formData) {
     const result = {};
+
+    var obj = getFormData(formData);
 
     // For each object path (property key) in the object
     for (const objectPath in obj) {
@@ -18,4 +20,20 @@
     }
 
     return result;
+}
+
+export function getFormData(formData) {
+    let element = {};
+
+    formData.forEach((value, key) => {
+        element[key] = value;
+    })
+
+    return element;
+}
+
+export function cleanData(formData) {
+    formData.forEach(function (val, key, fD) {
+        formData.delete(key)
+    });
 }
