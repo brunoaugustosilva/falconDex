@@ -19,7 +19,7 @@
         <div class="col-lg-2 form-group">
             <select id="tipoFiltro" class="form-control"></select>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-4">
             <div class="input-group">
                 <input id="searchInput" type="search" class="form-control" placeholder="Digite para pesquisar"/>
                 <div class="input-group-append">
@@ -77,7 +77,39 @@
             </div>
         </div>
     </div>
-    <div class="d-flex flex-wrap" id="chamados-cards"></div>
+     <!-- Filtragem personalizada-->
+        <div id="filter" style="display:flex;">
+           <div class="d-flex flex-wrap "  id="chamados-cards"></div>
+
+           <div class="ui-search-filter-groups">
+            <div class="ui-search-search-result">
+                <span class="ui-search-search-result__quantity-results"></span>
+            </div>
+           <section class="ui-search-filter-groups" id="filtros">
+               <dl class="ui-search-filter-dl" role="listbox">
+                   <dt class="ui-search-filter-dt-title" role="presentation">Tecnicos</dt>
+                   <dd class="ui-search-filter-container" role="option">
+                       <a class="ui-search-link" href="#">
+                       <span class="ui-search-filter-name">Joãozinho</span>
+                       </a>
+                   </dd>
+
+                   <dd class="ui-search-filter-container" role="option">
+                       <a class="ui-search-link" href="#">
+                       <span class="ui-search-filter-name">Bruno</span>
+                       </a>
+                   </dd>
+
+                   <dd class="ui-search-filter-container" role="option">
+                       <a class="ui-search-link" href="#">
+                       <span class="ui-search-filter-name">Padrão</span>
+                       </a>
+                   </dd>
+               </dl>
+           </section>
+        </div>
+            
+        </div>
        
     <!-- Modal -->
     <div class="modal fade" id="atenderModal" tabindex="-1" role="dialog" aria-labelledby="encerrarModal" aria-hidden="true">

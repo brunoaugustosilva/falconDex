@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text.RegularExpressions;
 using System.Web;
-using System.Web.UI;
 
 using falconDex.Controller;
 using falconDex.Models;
-using Microsoft.Net.Http.Headers;
 
 namespace falconDex
 {
