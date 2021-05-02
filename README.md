@@ -5,31 +5,31 @@
 ---
 ### Tecnologias
 
-Esse sistema È desenvolvido utilizando as tecnologias
+Esse sistema √© desenvolvido utilizando as tecnologias
 
 ##### Asp.net
 
-IntegraÁ„o Web com a <strong>linguagem C#</strong> utilizando compiladores especÌficos.
+Integra√ß√£o Web com a <strong>linguagem C#</strong> utilizando compiladores espec√≠ficos.
 
 ##### Javascript
 
-Tratamento de dados no front-end e obtenÁ„o de dados externos como CDN's
+Tratamento de dados no front-end e obten√ß√£o de dados externos como CDN's
 
 ##### Bootstrap
 
-Framework visual desenvolvido pelo [Twitter](https://github.com/twbs/bootstrap) que auxilia na estilizaÁ„o de um site profissional.
+Framework visual desenvolvido pelo [Twitter](https://github.com/twbs/bootstrap) que auxilia na estiliza√ß√£o de um site profissional.
 
 ### Autores
 
 [Bruno Augusto](https://github.com/brunoaugustosilva)<br>
 [Bruno Teixeira](https://github.com/BrunoSingelo)<br>
-Jo„o Carlos
+[Jo√£o Carlos](https://github.com/joaocarlozzz)
 
-* Se vocÍ n„o for um dos autores <strong>Por que est· aqui?</strong>
+* Se voc√™ n√£o for um dos autores <strong>Por que est√° aqui?</strong>
 
-### LicenÁa
+### Licen√ßa
 
-Este projeto est· sob a licenÁa MIT e n„o pode ser utilizada de forma comercial por terceiros.
+Este projeto est√° sob a licen√ßa MIT e n√£o pode ser utilizada de forma comercial por terceiros.
 
 ## Coisas a fazer
 
@@ -39,6 +39,6 @@ Modificar o manifest.json.
 
 Modificar o header.
 
-Criar conte˙do para o SEO e o Robots.txt
+Criar conte√∫do para o SEO e o Robots.txt
 
-ModularizaÁ„o completa
+Modulariza√ß√£o completa
