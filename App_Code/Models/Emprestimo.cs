@@ -12,13 +12,10 @@ namespace falconDex.Models
     public class Emprestimo
     {
         public int Id { get; set; }
-        public string Nome { get; set; }
-        public string Patrimonio { get; set; }
-        public TipoEquipamento Tipo { get; set; }
-        public Status Status { get; set; }
-        public Local Local { get; set; }
+        public Equipamento Equipamento { get; set; }
         public Usuario Usuario { get; set; }
-        public Emprestimo Data { get; set; }
+        public DateTime Data { get; set; }
+        public Usuario Tecnico { get; set; }
 
         public Emprestimo()
         {

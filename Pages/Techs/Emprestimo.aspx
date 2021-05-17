@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="MasterPage.master" AutoEventWireup="true" CodeFile="Emprestimo.aspx.cs"
-    Inherits="Pages_Techs_Emprestimo" Title="Empréstimo" %>
+    Inherits="Pages_Techs_Emprestimo" Title="Emprestimo" %>
 
 <asp:Content
     runat="server"

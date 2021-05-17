@@ -38,14 +38,14 @@ public class EmprestimoController : ApiController
                           Patrimonio = r.Field<string>("equi_patrimonio"),
                           Tipo = new TipoEquipamento
                           {
-                              ID = r.Field<Int32>("TIPO"),
-                              Nome = r.Field<string>("TIE_NOME")
+                              ID = r.Field<Int32>("tie_id"),
+                              Nome = r.Field<string>("tied_nome")
                           },
-                          Data = r.Field<date>("emp_date"),
+                          Data = r.Field<DateTime>("emp_date"),
                           Status = new Status
                           {
                               Id = r.Field<Int32>("emp_status"),
-                              Nome = r.Field<string>("STA_NOME")
+                              Nome = r.Field<string>("sta_nome")
                           }
                           
                       })
@@ -65,9 +65,9 @@ public class EmprestimoController : ApiController
      {
          Emprestimo emp = new Emprestimo
          {
-             Nome = Equipamento.Nome,
+             Nome = emprestimo.Nome,
              Data = emprestimo.Data,
-             Usuario = Usuario.Nome
+             Usuario = emprestimo.Usuario
          };
 
          IDbConnection objConexao;
