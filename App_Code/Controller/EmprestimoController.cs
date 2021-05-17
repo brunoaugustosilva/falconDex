@@ -41,7 +41,7 @@ public class EmprestimoController : ApiController
                               ID = r.Field<Int32>("TIPO"),
                               Nome = r.Field<string>("TIE_NOME")
                           },
-                          Date = r.Field<string>("emp_data"),
+                          Data = r.Field<date>("emp_date"),
                           Status = new Status
                           {
                               Id = r.Field<Int32>("emp_status"),
@@ -65,19 +65,20 @@ public class EmprestimoController : ApiController
      {
          Emprestimo emp = new Emprestimo
          {
-             Nome = new Equipamento { Id = equipamento.Local.Id },
-             Date = emprestimo.Date,
-             Usuario = new Usuario { Id = emprestimo.Usuario.Id }
+             Nome = Equipamento.Nome,
+             Data = emprestimo.Data,
+             Usuario = Usuario.Nome
          };
 
          IDbConnection objConexao;
          IDbCommand objCommand;
-         string sql = "CALL INSERE_EMPRESTIMO(?nome, ?data, ?usuario);";
+         string sql = "CALL INSERE_EMPRESTIMO(?usuario, ?nome, ?data);";
          objConexao = Mapped.Connection();
          objCommand = Mapped.Command(sql, objConexao);
-         objCommand.Parameters.Add(Mapped.Parameter("?equipamento", emp.Equipamento.Nome));
-         objCommand.Parameters.Add(Mapped.Parameter("?data", emp.Data));
          objCommand.Parameters.Add(Mapped.Parameter("?usuario", emp.Usuario.Id));
+         objCommand.Parameters.Add(Mapped.Parameter("?nome", emp.Nome));
+         objCommand.Parameters.Add(Mapped.Parameter("?data", emp.Data));
+         
          
          int i = objCommand.ExecuteNonQuery();
          objConexao.Close();
