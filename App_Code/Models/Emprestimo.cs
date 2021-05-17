@@ -18,7 +18,7 @@ namespace falconDex.Models
         public Status Status { get; set; }
         public Local Local { get; set; }
         public Usuario Usuario { get; set; }
-        public Emprestimo Date { get; set; }
+        public Emprestimo Data { get; set; }
 
         public Emprestimo()
         {
