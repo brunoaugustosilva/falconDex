@@ -4,7 +4,7 @@
 }
 
 export function isLenghtMatches(text, min = 0, max = min + 1) {
-    return text.length >= min && text.length <= 32;
+    return text.length >= min && text.length <= max;
 }
 
 export function isSentence(entry) {

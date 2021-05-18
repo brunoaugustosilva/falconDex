@@ -15,7 +15,6 @@
     <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon-76x76.png" />
     <link rel="apple-touch-icon" sizes="114x114" href="/img/apple-icon-114x114.png" />
     <link rel="apple-touch-icon" sizes="120x120" href="/img/apple-icon-120x120.png" />
-    <link rel="apple-touch-icon" sizes="144x144" href="/img/apple-icon-144x144.png" />
     <link rel="apple-touch-icon" sizes="152x152" href="/img/apple-icon-152x152.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-icon-180x180.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/img/android-icon-192x192.png" />
@@ -58,7 +57,6 @@
                         >
                     </asp:RequiredFieldValidator>
                 </small>
-                <!--small id="emailHelp" class="form-text text-muted">Digite um e-mail válido</!--small-->
             </div>
 
             <div class="form-group">
@@ -74,7 +72,6 @@
                           >
                         </asp:RequiredFieldValidator>
                     </small>
-                <!--small id="passwordHelp" class="form-text text-muted">Digite uma senha de 8 a 32 caracteres</!--small-->
             </div>
 
             <asp:Button ID="btnEntrar" runat="server" Text="Entrar" CssClass="btn btn-primary btn-block rounded mt-4 mb-4" OnClick="btnEntrar_Click" />
@@ -95,6 +92,6 @@
     <script src="Scripts/jquery-3.5.1.slim.min.js"></script>
     <script type="module" src="Scripts/popper.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
-    <script src="misc/Validation.js"></script>
+    <script type="module" src="misc/Validation.js"></script>
 </body>
 </html>

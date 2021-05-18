@@ -20,8 +20,8 @@ public class EquipamentoController : ApiController
         IDataAdapter objDataAdapter;
         objConexao = Mapped.Connection();
         objCommand = Mapped.Command("SELECT equ_id, equ_nome, equi_patrimonio, e.tie_id TIPO, equ_status, STA_NOME, TIE_NOME FROM EQU_EQUIPAMENTOS e " +
-            "INNER JOIN TIE_tipo_EQUIPAMENTOS tie ON tie.TIE_ID = e.tie_id " +
-            "INNER JOIN sta_status status ON status.STA_ID = e.equ_status", objConexao);
+            "INNER JOIN TIE_tipo_EQUIPAMENTOS tie use index(tie_idx1) ON tie.TIE_ID = e.tie_id " +
+            "INNER JOIN sta_status status use index(sta_idx1) ON status.STA_ID = e.equ_status", objConexao);
         objDataAdapter = Mapped.Adapter(objCommand);
         objDataAdapter.Fill(ds);
         dt = ds.Tables[0];

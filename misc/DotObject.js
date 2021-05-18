@@ -33,7 +33,7 @@ export function getFormData(formData) {
 }
 
 export function cleanData(formData) {
-    formData.forEach(function (val, key, fD) {
+    formData.forEach((val, key, fD) => {
         formData.delete(key)
     });
 }

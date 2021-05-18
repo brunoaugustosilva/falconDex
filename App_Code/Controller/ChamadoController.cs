@@ -23,13 +23,13 @@ public class ChamadoController : ApiController
         IDataAdapter objDataAdapter;
         objConexao = Mapped.Connection();
         objCommand = Mapped.Command("SELECT cha_id, cha_name, cha_descricao, cha_criacao, c.USU_ID ABRI_ID, EQU_ID, c.LOC_ID LOCAL_ID, USU_RESP, " +
-            "c.PRI_ID PRIORI_ID, CHA_STATUS, CHA_FEED, abri.USU_NOME ABRI_NOME, resp.USU_NOME RESP_NOME, TIE_NOME, LOC_NOME, PRI_NOME, STA_NOME FROM cha_chamado c " +
-            "INNER JOIN usu_usuario abri ON abri.USU_ID = c.USU_ID " +
-            "INNER JOIN usu_usuario resp ON resp.USU_ID = c.USU_ID " +
-            "INNER JOIN TIE_tipo_EQUIPAMENTOS tie ON tie.TIE_ID = c.EQU_ID " +
-            "INNER JOIN loc_local loc ON loc.LOC_ID = c.LOC_ID " +
-            "INNER JOIN PRI_PRIORIDADE pri ON pri.PRI_ID = c.PRI_ID " +
-            "INNER JOIN STA_STATUS status ON status.STA_ID = c.CHA_STATUS", objConexao);
+            "c.PRI_ID PRIORI_ID, CHA_STATUS, CHA_FEED, abri.USU_NOME ABRI_NOME, resp.USU_NOME RESP_NOME, TIE_NOME, LOC_NOME, PRI_NOME, STA_NOME FROM cha_chamado c use index(cha_idx2)" +
+            "INNER JOIN usu_usuario abri use index(usu_idx1) ON abri.USU_ID = c.USU_ID " +
+            "INNER JOIN usu_usuario resp use index(usu_idx1) ON resp.USU_ID = c.USU_ID " +
+            "INNER JOIN TIE_tipo_EQUIPAMENTOS tie use index(tie_idx1) ON tie.TIE_ID = c.EQU_ID " +
+            "INNER JOIN loc_local loc use index(loc_idx1) ON loc.LOC_ID = c.LOC_ID " +
+            "INNER JOIN PRI_PRIORIDADE pri use index(pri_idx1) ON pri.PRI_ID = c.PRI_ID " +
+            "INNER JOIN STA_STATUS statu use index(sta_idx1) ON statu.STA_ID = c.CHA_STATUS", objConexao);
         objDataAdapter = Mapped.Adapter(objCommand);
         objDataAdapter.Fill(ds);
         dt = ds.Tables[0];

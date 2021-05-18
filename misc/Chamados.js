@@ -34,6 +34,13 @@ var search = document.querySelector("#searchInput");
 
 //status
 var statusSelected = document.querySelector("#tipoFiltro");
+var equipamentoItem2 = document.querySelector("#tipoEquipamento");
+var localItem2 = document.querySelector("#tipoLocal");
+var prioridadeItem2 = document.querySelector("#tipoPrioridade");
+var tecnicosItem = document.querySelector("#tipoAtendente");
+var datePicker1 = document.querySelector("#datePicker1");
+var datePicker2 = document.querySelector("#datePicker2");
+var cleanDates = document.querySelector("#cleanDates");
 
 //registros
 var tipoQuantidade = document.querySelector("#tipoQuantidade");
@@ -47,6 +54,14 @@ var CHAMADOS = [];
 //terms
 var term = "";
 var statusS = "1";
+var equipamentoId = "";
+var localId = "";
+var prioridadeId = "";
+var tecnicosId = "";
+var data1 = "";
+var data2 = "";
+var sort = "1";
+
 var quantidadeItens = "5";
 var value = "1";
 
@@ -58,7 +73,12 @@ const options = {
     keys: [
         "status.Id",
         "Nome",
-        "Descricao"
+        "Descricao",
+        "equipamento.ID",
+        "Responsavel.Id",
+        "Local.Id",
+        "prioridade.Id",
+        "Data",
     ]
 };
 
@@ -69,9 +89,17 @@ var validation = {
 }
 
 //FETCHS
+getAll("/api/tecnico/").then(estados =>
+    estados.map(tecnico => {
+        appendOption(tecnicosItem, tecnico.Id, tecnico.Nome);
+    })
+)
+
+
 getAll("/api/tipoequipamento/").then(equipamentos =>
     equipamentos.map(equipamento => {
         appendOption(equipamentoItem, equipamento.ID, equipamento.Nome);
+        appendOption(equipamentoItem2, equipamento.ID, equipamento.Nome);
     })
 )
 
@@ -84,12 +112,14 @@ getAll("/api/status/").then(estados =>
 getAll("/api/prioridade/").then(prioridades =>
     prioridades.map(prioridade => {
         appendOption(prioridadeItem, prioridade.Id, prioridade.Nome);
+        appendOption(prioridadeItem2, prioridade.Id, prioridade.Nome);
     })
 )
 
 getAll("/api/local/").then(locais =>
     locais.map(local => {
         appendOption(localItem, local.Id, local.Nome);
+        appendOption(localItem2, local.Id, local.Nome);
     })
 )
 
@@ -111,34 +141,31 @@ async function searchChamado() {
 
     const fuse = new Fuse(CHAMADOS, options);
 
-    if (term.length > 0) {
+    var itens = getAllTerms();
 
-        var result = fuse.search({
-            $and: [
-                { 'status.Id': statusS },
-                {
-                    $or: [
-                        { Nome: term },
-                        { Descricao: term }
-                    ]
-                }
-            ]
-        });
-    }
-    else {
-        var result = fuse.search({
-            $and: [
-                { 'status.Id': statusS },
-            ]
-        });
-    }
+    var result = fuse.search({
+        $and: itens
+    });
 
     var count = 0;
 
+    var empty = 0;
+
+    /*var teste = result.sort(e => {
+        console.log(ordenation(sort, e));
+        compare(ordenation(sort, e));
+    });
+
+    console.log(teste);*/
+
     result.map(e => {
         count++;
-        if ((count > (quantidadeItens * value) - quantidadeItens) && count <= quantidadeItens * value) {
-            createCard(e.item);
+        if (isInsideRange(count)) {
+            //console.log(new Date(e.item.Data));
+            if (betweenDates(new Date(e.item.Data))) {
+                createCard(e.item);
+                empty++;
+            }
         }
     });
 
@@ -149,13 +176,72 @@ async function searchChamado() {
 
     cleanPagination();
     if (result.length > 0) {
-        createPagination(Math.ceil(result.length / quantidadeItens));
+        var pages = Math.ceil(result.length / quantidadeItens);
+
+        createPagination(pages);
         getPageItensLenght();
     }
 
-    if (result.length == 0) {
+    if (result.length == 0 || empty == 0) {
         createEmpty("Sem resultados: Limpe os filtros e tente novamente", ChamadosCards);
     }
+}
+
+function getAllTerms() {
+    var bloco = [];
+
+    if (term.length > 0 && typeof term != "undefined") bloco.push({ Nome: term },{ Descricao: term });
+    if (statusS.length > 0 && typeof statusS != "undefined") bloco.push({ 'status.Id': statusS });
+    if (tecnicosId.length > 0 && typeof tecnicosId != "undefined") bloco.push({ 'Responsavel.Id': tecnicosId });
+    if (localId.length > 0 && typeof localId != "undefined") bloco.push({ 'Local.Id': localId });
+    if (prioridadeId.length > 0 && typeof prioridadeId != "undefined") bloco.push({ 'prioridade.Id': prioridadeId });
+    if (data1.length > 0 && typeof data1 != "undefined") bloco.push({ 'Data': data1 });
+
+    return bloco;
+}
+
+function ordenation(orderType, e) {
+    var orderEnumarator = [];
+
+    if (orderType = "1") {
+        orderEnumarator.push({ 'DATA': new Date(e.item.Data), 'ORDER': 'DESC'});
+    }
+    else if (orderType = "2") {
+        orderEnumarator.push({ 'DATA': new Date(e.item.Data), 'ORDER': 'ASC' });
+    }
+    else if (orderType = "3") {
+        orderEnumarator.push({ 'DATA': e.Nome, 'ORDER': 'DESC' });
+    }
+    else if (orderType = "4") {
+        orderEnumarator.push({ 'DATA': e.Nome, 'ORDER': 'ASC' });
+    }
+    return orderEnumarator;
+}
+
+
+function betweenDates(date) {
+
+    if (data1.length == 0 && data2.length == 0) {
+        return true
+    }
+
+    if (data1.length == 0 && date <= new Date(data2)) {
+        return true
+    }
+
+    if (data2.length == 0 && date >= new Date(data1)) {
+        return true
+    }
+
+    if (date >= new Date(data1) && date <= new Date(data2)) {
+        return true;
+    }
+
+    return false;
+}
+
+function isInsideRange(input) {
+    return (input > (quantidadeItens * value) - quantidadeItens) && input <= quantidadeItens * value;
 }
 
 function createPagination(pages = 1) {
@@ -226,7 +312,15 @@ function getPageItensLenght() {
     });
 }
 
-
+function compare(a, b) {
+    if (a < b) {
+        return -1;
+    }
+    if (a > b) {
+        return 1;
+    }
+    return 0;
+}
 
 search.addEventListener("search", e => {
     term = search.value;
@@ -367,6 +461,10 @@ function createCard(chamado) {
     card_descricao.setAttribute('id', 'chamado_descricao_' + chamado.Id);
     card_descricao.textContent = chamado.Descricao;
 
+    let card_status = document.createElement('span');
+    card_status.setAttribute('id', 'chamado_status_name' + chamado.Id);
+    card_status.textContent = chamado.status.Nome;
+
     let card_footer = document.createElement('div');
     card_footer.classList.add('card-footer');
 
@@ -412,6 +510,7 @@ function createCard(chamado) {
 
     card_body.appendChild(card_title);
     card_body.appendChild(card_descricao);
+    card_footer.appendChild(card_status);
     card_footer.appendChild(card_criacao);
     card_footer.appendChild(visualizar);
     card_footer.appendChild(modal);
@@ -524,6 +623,71 @@ tipoQuantidade.addEventListener('change', e => {
     searchChamado();
 });
 
+//equipamento
+equipamentoItem2.addEventListener('change', e => {
+    equipamentoId = e.target.options[e.target.selectedIndex].value;
+    value = "1";
+
+    searchChamado();
+});
+
+//local
+localItem2.addEventListener('change', e => {
+    localId = e.target.options[e.target.selectedIndex].value;
+
+    console.log(localId);
+    value = "1";
+
+    searchChamado();
+});
+
+//Prioridade
+prioridadeItem2.addEventListener('change', e => {
+    prioridadeId = e.target.options[e.target.selectedIndex].value;
+    value = "1";
+
+    searchChamado();
+});
+
+//Tecnicos
+tecnicosItem.addEventListener('change', e => {
+    tecnicosId = e.target.options[e.target.selectedIndex].value;
+    value = "1";
+
+    searchChamado();
+});
+
+//dataInicio
+$(datePicker1).on('pick.datepicker', function (e) {
+    if (e.date > new Date()) {
+        e.preventDefault();
+    }
+    data1 = $(datePicker1).datepicker('getDate');
+    value = "1";
+    console.log("data1 => " + data1);
+    searchChamado();
+});
+
+//dataFim
+$(datePicker2).on('pick.datepicker', function (e) {
+    if (e.date > new Date()) {
+        e.preventDefault();
+    }
+    data2 = $(datePicker2).datepicker('getDate');
+    value = "1";
+    console.log("data2 => " + data2);
+    searchChamado();
+});
+
+cleanDates.addEventListener('click', e => {
+    data1 = "";
+    $(datePicker1).datepicker('reset');
+    data2 = "";
+    $(datePicker2).datepicker('reset');
+    value = "1";
+
+    searchChamado();
+});
 
 function createEmpty(textNode = "Base", element) {
     var content = document.createElement("div");

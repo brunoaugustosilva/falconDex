@@ -25,15 +25,38 @@
     <link rel="manifest" href="/img/manifest.json" />
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="msapplication-TileImage" content="/img/ms-icon-144x144.png" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#ffffff" />  
+    <style type="text/css">
+        .bg-primary {
+            background-color: #007bff!important;
+            z-index: 100
+        }
+        @keyframes backgroundMode{
+            from{
+                background-color: #007bff!important;
+            }
+            to{
+                background-color: #fff;
+            }
+        }
 
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/solid.min.css" rel="stylesheet" />
-    <link href="~/Content/fontawesome.min.css" rel="stylesheet" />
-    <link href="~/style/Style.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap5.min.css" rel="stylesheet"/> 
+        body{
+            animation: backgroundMode 1s forwards;
+        }
+    </style>
 </head>
 <body>
+    <link rel="preload" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap5.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap5.min.css"></noscript>
+    <link rel="preload" href="/Content/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/Content/bootstrap.min.css"></noscript>
+    <link rel="preload" href="/Content/solid.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/Content/fontawesome.min.css"></noscript>
+    <link rel="preload" href="/Content/fontawesome.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/Content/fontawesome.min.css"></noscript>
+    <link rel="preload" href="/style/Style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/style/Style.css"></noscript>
+    
     <div class="row main">
         <nav class="col-lg-3 weapper menu navbar navbar-expand-lg navbar-dark bg-primary flex-column">
             <div class="container-fluid p-3">
@@ -141,8 +164,21 @@
 
     </div>
     <script type="module" src="Scripts/popper.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="./scripts/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="module">
+        window.addEventListener("load", e => {
+            $("#form1").submit(function (e) {
+                $('#novoChamado').modal('hide');
+            });
+            $('[data-toggle="datepicker"]').datepicker({
+                language: 'pt-BR',
+                format: 'dd/mm/yyyy'
+            });
+            
+        });
+    </script>
 </body>
 </html>

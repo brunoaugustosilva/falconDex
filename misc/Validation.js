@@ -1,85 +1,79 @@
-﻿(function () {
-    'use strict';
+﻿'use strict';
 
-    //index
-    var email = document.querySelector("#txtEmail");
-    var senha = document.querySelector("#txtSenha");
+import { isEmail, isLenghtMatches } from './Validator.js';
 
-    //BUTTONS
-    var submit = document.querySelector("#btnEntrar");
+//index
+var email = document.querySelector("#txtEmail");
+var senha = document.querySelector("#txtSenha");
 
-    //form
-    var form1 = document.querySelector("#form1");
+//BUTTONS
+var submit = document.querySelector("#btnEntrar");
 
-    var validation = {
-        email: false,
-        password: false
-    };
+//form
+var form1 = document.querySelector("#form1");
 
-    email.addEventListener("keyup", e => {
-        var emailTip = document.querySelector("[data-source='" + e.target.id + "']");
-        var text = e.target.value;
+var validation = {
+    email: false,
+    password: false
+};
 
-        if (!validateEmail(text)) {
-            emailTip.classList.remove("d-none");
-            emailTip.textContent = "Digite um e-mail válido";
-            e.target.classList.remove("is-valid");
-            e.target.classList.add("is-invalid");
-            validation.email = false;
-        }
-        else {
-            emailTip.classList.toggle("d-none");
-            e.target.classList.add("is-valid");
-            e.target.classList.remove("is-invalid");
-            emailTip.textContent = "";
-            validation.email = true;
-        }
+email.addEventListener("keyup", e => {
+    var emailTip = document.querySelector("[data-source='" + e.target.id + "']");
+    var text = e.target.value;
 
-        enabledButton();
-    });
-
-    function validateEmail(email) {
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
+    if (!isEmail(text)) {
+        emailTip.classList.remove("d-none");
+        emailTip.textContent = "Digite um e-mail válido";
+        e.target.classList.remove("is-valid");
+        e.target.classList.add("is-invalid");
+        validation.email = false;
     }
-
-
-    senha.addEventListener("keyup", e => {
-
-        var text = "";
-        senhaTip.textContent = "";
-
-        text = e.target.value;
-
-        if (text.length < 8 || text.length > 32) {
-            senhaTip.classList.remove("d-none");
-            senhaTip.textContent = "Digite uma senha entre 8 e 32 caracteres";
-            e.target.classList.remove("is-valid");
-            e.target.classList.add("is-invalid");
-            validation.password = false;
-        }
-        else {
-            senhaTip.classList.toggle("d-none");
-            e.target.classList.add("is-valid");
-            e.target.classList.remove("is-invalid");
-            senhaTip.textContent = "";
-            validation.password = true;
-        }
-
-        enabledButton();
-    });
+    else {
+        emailTip.classList.toggle("d-none");
+        e.target.classList.add("is-valid");
+        e.target.classList.remove("is-invalid");
+        emailTip.textContent = "";
+        validation.email = true;
+    }
 
     enabledButton();
+});
 
-    function enabledButton() {
-        console.log(validation);
+senha.addEventListener("keyup", e => {
 
-        if (validation.email == true && validation.password == true) {
-            submit.removeAttribute("disabled");
-        }
-        else {
-            submit.setAttribute("disabled", "true");
-        }
+    var text = "";
+    senhaTip.textContent = "";
+
+    text = e.target.value;
+
+    //verificar se o texto bate
+    if (!isLenghtMatches(text, 8, 32)) {
+        senhaTip.classList.remove("d-none");
+        senhaTip.textContent = "Digite uma senha entre 8 e 32 caracteres";
+        e.target.classList.remove("is-valid");
+        e.target.classList.add("is-invalid");
+        validation.password = false;
+    }
+    else {
+        senhaTip.classList.toggle("d-none");
+        e.target.classList.add("is-valid");
+        e.target.classList.remove("is-invalid");
+        senhaTip.textContent = "";
+        validation.password = true;
     }
 
-})();
+    enabledButton();
+});
+
+enabledButton();
+
+function enabledButton() {
+    console.log(validation);
+
+    if (validation.email == true && validation.password == true) {
+        submit.removeAttribute("disabled");
+    }
+    else {
+        submit.setAttribute("disabled", "true");
+    }
+}
