@@ -13,7 +13,7 @@ var form3 = document.querySelector("#form3");
 //var titulo = document.querySelector("#equ_nome");
 var equipamento = document.querySelector("#emp_equipamento"); //label
 var usuario = document.querySelector("#emp_solicitante");
-//var tipo = document.querySelector("#equiTipo");
+var dataEmprestimo = document.querySelector("#emp_data");
 //var EquipamentoLabel = document.querySelector("#label_equipamento");
 
 // variaveis 
@@ -113,7 +113,7 @@ async function getTipo() {
                         { data: 'Equipamento.Nome' },
                         { data: 'Usuario.Nome' },
                         { data: 'Data' },
-                        { data: 'Equipamento.Tecnico' }
+                        { data: 'Tecnico.Nome' }
                     ]
 
                 });
@@ -160,18 +160,18 @@ form3.addEventListener("submit", e => {
 
     //ASSINCRONO
 
-    var equipamento = {
-        Nome: titulo.value,
-        Patrimonio: patrimonio.value,
-        Tipo: { ID: tipo.options[tipo.selectedIndex].value },
-        local: { Id: local.options[local.selectedIndex].value },
-        Usuario: { Id: 1 }
-
+    var emprestimo = {
+        Equipamento: { Id: equipamento.options[equipamento.selectedIndex].value },
+        Data: dataEmprestimo.value,
+        Usuario: { Id: usuario.options[usuario.selectedIndex].value },
+        Tecnico: { Id: '1' }
     }
+
+    console.log(emprestimo);
 
     fetch("api/emprestimo", {
         method: "POST",
-        body: JSON.stringify(equipamento),
+        body: JSON.stringify(emprestimo),
         headers: {
             'Accept': 'application/json; charset=utf-8',
             'Content-Type': 'application/json;charset=UTF-8'
@@ -181,11 +181,11 @@ form3.addEventListener("submit", e => {
     ).then(
         response => {
             //console.log('Success:', response)
-            $("#table_Equipamento").DataTable().ajax.reload();
-            createAlert("Equipamento adicionado com sucesso");
+            $("#table_Emprestimo").DataTable().ajax.reload();
+            createAlert("empréstimo adicionado com sucesso");
         }
     ).catch(
-        error => console.error('Erro ao obter equipamento:', error)
+        error => console.error('Erro ao obter empréstimo:', error)
     );
     //LIMPAR CAMPOS
 

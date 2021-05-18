@@ -47,7 +47,7 @@
 
                                 <div class="form-group">
                                     <label for="emp_data">Data</label>
-                                    <select id="emp_data" required="required" class="form-control"></select>
+                                    <input type="date" id="emp_data" required="required" class="form-control"></input>
                                     <small class="form-text text-muted">
                                         <span id="dataHelp" data-source="emp_equipamento">Selecione a data do empréstimo</span>
                                     </small>

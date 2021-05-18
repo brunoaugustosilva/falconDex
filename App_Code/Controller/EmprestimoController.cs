@@ -19,7 +19,7 @@ public class EmprestimoController : ApiController
         IDbCommand objCommand;
         IDataAdapter objDataAdapter;
         objConexao = Mapped.Connection();
-        objCommand = Mapped.Command("SELECT e.emp_id, e.equ_id, equ.equ_nome, solicitante.usu_nome, tecnico.usu_nome, e.emp_data FROM emp_emprestimos e " +
+        objCommand = Mapped.Command("SELECT e.emp_id, e.equ_id equipId, equ.equ_nome equipNome, solicitante.usu_nome nomeSolicitante, tecnico.usu_nome nomeTecnico, e.emp_data dataEmprestimo FROM emp_emprestimos e " +
             " INNER JOIN equ_equipamentos equ ON equ.equ_id = e.equ_id " +
             " INNER JOIN usu_usuario solicitante ON solicitante.usu_id = e.usu_id " +
             " INNER JOIN usu_usuario tecnico ON tecnico.usu_id = e.usu_id_tecnico", objConexao);
@@ -33,18 +33,18 @@ public class EmprestimoController : ApiController
                           Id = r.Field<int>("emp_id"),
                           Equipamento = new Equipamento
                           {
-                              Id = r.Field<Int32>("e.equ_id"),
-                              Nome = r.Field<String>("e.equ_nome")
+                              Id = r.Field<Int32>("equipId"),
+                              Nome = r.Field<String>("equipNome")
                           },
                           Usuario = new Usuario
                           {
-                              Nome = r.Field<string>("solicitante.usu_nome")
+                              Nome = r.Field<string>("nomeSolicitante")
                           },
                           Tecnico = new Usuario
                           {
-                              Nome = r.Field<string>("tecnico.usu_nome")
+                              Nome = r.Field<string>("nomeTecnico")
                           },
-                          Data = r.Field<DateTime>("e.emp_data")  
+                          Data = r.Field<DateTime>("dataEmprestimo")  
                       })
                       .ToList();
 
@@ -63,18 +63,18 @@ public class EmprestimoController : ApiController
          Emprestimo emp = new Emprestimo
          {
              Equipamento = emprestimo.Equipamento,
-             Data = new DateTime(),
+             Data = emprestimo.Data,
              Usuario = emprestimo.Usuario,
              Tecnico = emprestimo.Tecnico
          };
 
          IDbConnection objConexao;
          IDbCommand objCommand;
-         string sql = "INSERT INTO equ_equipamentos (emp_id, usu_id, emp_data, usu_id_tecnico) " +
-            " VALUES (?emp_id, ?usu_id, ?emp_data, ?usu_tec) ";
+         string sql = "INSERT INTO emp_emprestimos (equ_id, usu_id, emp_data, usu_id_tecnico) " +
+            " VALUES (?equ_id, ?usu_id, ?emp_data, ?usu_tec) ";
          objConexao = Mapped.Connection();
          objCommand = Mapped.Command(sql, objConexao);
-         objCommand.Parameters.Add(Mapped.Parameter("?emp_id", emp.Equipamento.Id));
+         objCommand.Parameters.Add(Mapped.Parameter("?equ_id", emp.Equipamento.Id));
          objCommand.Parameters.Add(Mapped.Parameter("?usu_id", emp.Usuario.Id));
          objCommand.Parameters.Add(Mapped.Parameter("?emp_data", emp.Data));
         objCommand.Parameters.Add(Mapped.Parameter("?usu_tec", emp.Tecnico.Id));
