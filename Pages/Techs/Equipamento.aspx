@@ -12,11 +12,9 @@
     ContentPlaceHolderID="ContentPlaceHolder1">
     <div class="col">
         <div class="p-3">
-
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#novoEquipamento">
                 <span class="fa fa-plus mr-2"></span>Novo Equipamento
             </button>
-
             <div class="modal fade" id="novoEquipamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
