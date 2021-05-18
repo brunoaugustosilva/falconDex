@@ -32,6 +32,10 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
     <link href="~/style/Style.css" rel="stylesheet" />
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -144,8 +148,7 @@
 
     </div>
     <script type="module" src="Scripts/popper.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="./scripts/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script type="module" src="/misc/datepicker.esm.js"></script>
 </body>
 </html>

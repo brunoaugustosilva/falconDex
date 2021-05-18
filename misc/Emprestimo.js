@@ -1,16 +1,20 @@
 ﻿'use strict';
 
 // var button = document.querySelector("#btnLocal");
+import 'https://code.jquery.com/jquery-3.5.1.js';
+
+import 'https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js';
+
 import { appendClass, createAlert, appendOption } from './DOMManipulate.JS';
 
 import { Put, getAll } from './FetchAPI.js';
 
 var form3 = document.querySelector("#form3");
-var titulo = document.querySelector("#equ_nome");
-var Solicitante = document.querySelector("#equi_patrimonio");
-var tipo = document.querySelector("#equiTipo");
-var EquipamentoLabel = document.querySelector("#label_equipamento");
-var local = document.querySelector("#equ_local"); //label
+//var titulo = document.querySelector("#equ_nome");
+var equipamento = document.querySelector("#emp_equipamento"); //label
+var usuario = document.querySelector("#emp_solicitante");
+//var tipo = document.querySelector("#equiTipo");
+//var EquipamentoLabel = document.querySelector("#label_equipamento");
 
 // variaveis 
 
@@ -18,10 +22,17 @@ var TIPO = [];
 var status = [];
 var EQUIPAMENTOS = [];
 
-getAll("/api/emprestimo/").then(locais =>
-    locais.map(x => {
-        locais.push(x);
-        appendOption(local, x.Id, x.Nome);
+getAll("/api/solicitante/").then(usuarios =>
+    usuarios.map(x => {
+        //usuario.push(x);
+        appendOption(usuario, x.Id, x.Nome);
+    })
+)
+
+getAll("/api/equipamento/").then(equipamentos =>
+    equipamentos.map(x => {
+        //usuario.push(x);
+        appendOption(equipamento, x.Id, x.Nome);
     })
 )
 
@@ -99,10 +110,10 @@ async function getTipo() {
                         dataSrc: ''
                     },
                     columns: [
-                        { data: 'Nome' },
-                        { data: 'Patrimonio' },
-                        { data: 'Tipo.Nome' },
-                        { data: 'Status.Nome' }
+                        { data: 'Equipamento.Nome' },
+                        { data: 'Usuario.Nome' },
+                        { data: 'Data' },
+                        { data: 'Equipamento.Tecnico' }
                     ]
 
                 });
@@ -114,6 +125,7 @@ async function getTipo() {
 
 };
 getTipo();
+
 function createLabel(equipamento) {
 
     let tr = document.createElement("tr");
@@ -157,7 +169,7 @@ form3.addEventListener("submit", e => {
 
     }
 
-    fetch("api/equipamento", {
+    fetch("api/emprestimo", {
         method: "POST",
         body: JSON.stringify(equipamento),
         headers: {

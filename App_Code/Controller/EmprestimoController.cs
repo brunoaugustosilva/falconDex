@@ -19,9 +19,10 @@ public class EmprestimoController : ApiController
         IDbCommand objCommand;
         IDataAdapter objDataAdapter;
         objConexao = Mapped.Connection();
-        objCommand = Mapped.Command("SELECT equ_id, equ_nome, equi_patrimonio, e.tie_id TIPO, equ_status, STA_NOME, TIE_NOME FROM EQU_EQUIPAMENTOS e " +
-            "INNER JOIN TIE_tipo_EQUIPAMENTOS tie ON tie.TIE_ID = e.tie_id " +
-            "INNER JOIN sta_status status ON status.STA_ID = e.equ_status" , objConexao);
+        objCommand = Mapped.Command("SELECT e.emp_id, e.equ_id, equ.equ_nome, solicitante.usu_nome, tecnico.usu_nome, e.emp_data FROM emp_emprestimos e " +
+            " INNER JOIN equ_equipamentos equ ON equ.equ_id = e.equ_id " +
+            " INNER JOIN usu_usuario solicitante ON solicitante.usu_id = e.usu_id " +
+            " INNER JOIN usu_usuario tecnico ON tecnico.usu_id = e.usu_id_tecnico", objConexao);
         objDataAdapter = Mapped.Adapter(objCommand);
         objDataAdapter.Fill(ds);
         dt = ds.Tables[0];
@@ -30,24 +31,20 @@ public class EmprestimoController : ApiController
                       .Select(r => new Emprestimo
                       {
                           Id = r.Field<int>("emp_id"),
+                          Equipamento = new Equipamento
+                          {
+                              Id = r.Field<Int32>("e.equ_id"),
+                              Nome = r.Field<String>("e.equ_nome")
+                          },
                           Usuario = new Usuario
                           {
-                              Nome = r.Field<string>("usu_nome")
+                              Nome = r.Field<string>("solicitante.usu_nome")
                           },
-                          Nome = r.Field<string>("emp_nome"),
-                          Patrimonio = r.Field<string>("equi_patrimonio"),
-                          Tipo = new TipoEquipamento
+                          Tecnico = new Usuario
                           {
-                              ID = r.Field<Int32>("tie_id"),
-                              Nome = r.Field<string>("tied_nome")
+                              Nome = r.Field<string>("tecnico.usu_nome")
                           },
-                          Data = r.Field<DateTime>("emp_date"),
-                          Status = new Status
-                          {
-                              Id = r.Field<Int32>("emp_status"),
-                              Nome = r.Field<string>("sta_nome")
-                          }
-                          
+                          Data = r.Field<DateTime>("e.emp_data")  
                       })
                       .ToList();
 
@@ -65,22 +62,25 @@ public class EmprestimoController : ApiController
      {
          Emprestimo emp = new Emprestimo
          {
-             Nome = emprestimo.Nome,
-             Data = emprestimo.Data,
-             Usuario = emprestimo.Usuario
+             Equipamento = emprestimo.Equipamento,
+             Data = new DateTime(),
+             Usuario = emprestimo.Usuario,
+             Tecnico = emprestimo.Tecnico
          };
 
          IDbConnection objConexao;
          IDbCommand objCommand;
-         string sql = "CALL INSERE_EMPRESTIMO(?usuario, ?nome, ?data);";
+         string sql = "INSERT INTO equ_equipamentos (emp_id, usu_id, emp_data, usu_id_tecnico) " +
+            " VALUES (?emp_id, ?usu_id, ?emp_data, ?usu_tec) ";
          objConexao = Mapped.Connection();
          objCommand = Mapped.Command(sql, objConexao);
-         objCommand.Parameters.Add(Mapped.Parameter("?usuario", emp.Usuario.Id));
-         objCommand.Parameters.Add(Mapped.Parameter("?nome", emp.Nome));
-         objCommand.Parameters.Add(Mapped.Parameter("?data", emp.Data));
-         
-         
-         int i = objCommand.ExecuteNonQuery();
+         objCommand.Parameters.Add(Mapped.Parameter("?emp_id", emp.Equipamento.Id));
+         objCommand.Parameters.Add(Mapped.Parameter("?usu_id", emp.Usuario.Id));
+         objCommand.Parameters.Add(Mapped.Parameter("?emp_data", emp.Data));
+        objCommand.Parameters.Add(Mapped.Parameter("?usu_tec", emp.Tecnico.Id));
+
+
+        int i = objCommand.ExecuteNonQuery();
          objConexao.Close();
 
          objCommand.Dispose();

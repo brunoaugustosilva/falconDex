@@ -15,7 +15,8 @@ namespace falconDex.Models {
         public String Nome { get; set; }
         public String Email { get; set; }
         public String Senha { get; set; }
-
+        public Status status { get; set; }
+        public Permissao permissao { get; set; }
         public Usuario ()
         {
 

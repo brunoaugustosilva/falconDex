@@ -1,6 +1,9 @@
 ﻿'use strict';
 
 // var button = document.querySelector("#btnLocal");
+import 'https://code.jquery.com/jquery-3.5.1.js';
+
+import 'https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js';
 
 import { appendClass, createAlert, appendOption } from './DOMManipulate.JS';
 

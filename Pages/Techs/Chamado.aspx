@@ -3,26 +3,57 @@
 
 <asp:Content
     runat="server"
-    ContentPlaceHolderID="head">
-    <title>Chamado</title>
-</asp:Content>
-
-<asp:Content
-    runat="server"
     ContentPlaceHolderID="ContentPlaceHolder1">
-    <form class="form-row" id="form2">
-        <div class="col-lg-3">
+    <div class="d-flex flex-lg-row flex-column">
+    <form class="form w-lg-50 h-lg-50 vh-25" id="form2" style="overflow-y: auto">
+        <div class="form-group position-sticky" style="top: 0; flex: 3; background-color: white">
             <button type="button" class="btn btn-primary" data-target="#novoChamado" data-toggle="modal">
                 <i class="fa fa-plus"> </i>  Novo chamado
             </button>
         </div>
-        <div class="col-lg-2 form-group">
-            <select id="tipoFiltro" class="form-control"></select>
+        <div class="form-group">
+            <label for="tipoQuantidade" class="form-label"><i class="fas fa-sort-amount-down mr-2"></i>Registros</label>
+            <select id="tipoQuantidade" class="form-control form-control-sm">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+            </select>
         </div>
-        <div class="col-lg-6">
+        <div class="form-group">
+            <label for="tipoFiltro" class="form-label">Estados</label>
+            <select id="tipoFiltro" class="form-control form-control-sm"></select>
+        </div>
+        <div class="form-group">
+            <label for="tipoEquipamento" class="form-label">Tipo de equipamento</label>
+            <select id="tipoEquipamento" class="form-control form-control-sm"><option value="">Selecione</option></select>
+        </div>
+        <div class="form-group">
+            <label for="tipoLocal" class="form-label">Local</label>
+            <select id="tipoLocal" class="form-control form-control-sm"><option value="">Selecione</option></select>
+        </div>
+        <div class="form-group">
+            <label for="tipoAtendente" class="form-label">Atendente</label>
+            <select id="tipoAtendente" class="form-control form-control-sm"><option value="">Selecione</option></select>
+        </div>
+        <div class="form-group">
+            <label for="tipoPrioridade" class="form-label">Prioridade</label>
+            <select id="tipoPrioridade" class="form-control form-control-sm"><option value="">Selecione</option></select>
+        </div>
+        <div class="form-group">
+            <label for="tipoPeriodo" class="form-label">Período</label>
             <div class="input-group">
-                <input id="searchInput" type="search" class="form-control" placeholder="Digite para pesquisar"/>
-                <div class="input-group-append">
+              <input type="text" placeholder="Inicio" aria-label="Date" class="form-control form-control-sm start-date" style="width: 1rem" data-toggle="datepicker" id="datePicker1">
+              <input type="text" placeholder="Fim" aria-label="Date" class="form-control form-control-sm end-date" style="width: 1rem" data-toggle="datepicker"  id="datePicker2">
+            </div>
+            <button type="button" id="cleanDates" class="btn btn-light mt-2">
+                <i class="fa fa-eraser"> </i> Limpar datas
+            </button>
+        </div>
+        <div>
+            <label for="searchInput">Termo específico, aperte enter para pesquisar</label>
+            <div class="input-group">
+                <input id="searchInput" type="search" class="form-control form-control-sm" placeholder="Digite para pesquisar"/>
+                <div class="input-group-append ">
                     <div class="input-group-text"><i class="fa fa-search"></i></div>
                 </div>
             </div>
@@ -54,11 +85,7 @@
                         </div>
                         <div class="form-group">
                             <label for="equiTipo">Equipamento</label>        
-                            <select id="equiTipo" required="required" class="form-control" name="equipamento.ID">
-                                <option value="1">Computador</option>
-                                <option value="2">Cabo</option>
-                                <option value="3">Projetor</option>
-                            </select>
+                            <select id="equiTipo" required="required" class="form-control" name="equipamento.ID"></select>
                         </div>
                         <div class="form-group">
                             <label for="locTipo">Local</label>
@@ -77,7 +104,24 @@
             </div>
         </div>
     </div>
-    <div class="d-flex flex-wrap" id="chamados-cards"></div>
+    <div class="w-lg-50 h-75" style="flex: 5">
+        <div class="d-flex flex-column" style="position: sticky; top: 0;z-index: 10;background-color: white">
+            <div class="bd-highlight form-row">
+                <label for="orderSelection" class="col-sm-2 col-form-label">Ordenação</label>
+                <div class="col-sm-4">
+                    <select class="form-control" aria-label="Default select example" id="orderSelection">
+                        <option selected>Selecione</option>
+                        <option value="1">Ordenar do mais recente para o mais antigo</option>
+                        <option value="2">Ordenar do mais antigo para o mais recente</option>
+                        <option value="3">Ordenar de A-Z</option>
+                        <option value="4">Ordenar de Z-A</option>
+                    </select>
+                </div>
+            </div>
+            <div id="paginationArea" class="d-flex justify-content-center mt-2"></div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-center" id="chamados-cards"></div>
+    </div>
        
     <!-- Modal -->
     <div class="modal fade" id="atenderModal" tabindex="-1" role="dialog" aria-labelledby="encerrarModal" aria-hidden="true">
@@ -100,7 +144,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="encerrarModalLabel">Deseja encerar o chamado?</h5>
+            <h5 class="modal-title" id="encerrarModalLabel">Deseja encerrar o chamado?</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -122,7 +166,7 @@
                     </div>
                     <div class="slider-header-close">
                         <a href="#" id="slider-close" class="badge badge-light">
-                            <i class="slider-close fa fa-close fa-3x"></i>
+                            <i class="slider-close fa fa-times fa-3x"></i>
                         </a>
                     </div>
                 </div>
@@ -137,10 +181,8 @@
             </div>
         </div>
      </div>  
-    <script type="module">
-        $("#form1").submit(function (e) {
-            $('#novoChamado').modal('hide');
-        });
-    </script>
     <script type="module" src="misc/Chamados.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css"></noscript>
+    </div>
 </asp:Content>
