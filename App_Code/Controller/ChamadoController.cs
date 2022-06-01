@@ -135,90 +135,98 @@ public class ChamadoController : ApiController
     // POST api/<controller>
     public void Post([FromBody] Chamado value)
     {
-        var response = value;
-
-        Chamado chamado = new Chamado
+        try
         {
-            Nome = response.Nome,
-            Descricao = response.Descricao,
-            abridor = new Usuario { Id = response.abridor.Id },
-            equipamento = new TipoEquipamento { ID = response.equipamento.ID },
-            Local = new Local { Id = response.Local.Id },
-            prioridade = new Prioridade { Id = response.prioridade.Id },
-            Data = response.Data,
-            Feed = 0
-        };
+            var response = value;
 
-        DateTime dateValue = DateTime.Now;
+            Chamado chamado = new Chamado
+            {
+                Nome = response.Nome,
+                Descricao = response.Descricao,
+                abridor = new Usuario { Id = response.abridor.Id },
+                equipamento = new TipoEquipamento { ID = response.equipamento.ID },
+                Local = new Local { Id = response.Local.Id },
+                prioridade = new Prioridade { Id = response.prioridade.Id },
+                Data = response.Data,
+                Feed = 0
+            };
 
-        IDbConnection objConexao;
-        IDbCommand objCommand;
-        string sql = "INSERT INTO cha_chamado" +
-            "(cha_name, cha_descricao, usu_id, equ_id, loc_id, pri_id, cha_criacao, cha_feed) " +
-            "VALUES (?name, ?descricao, ?abridor, ?equipamento, ?local, ?prioridade, ?criacao, ?feed)";
-        objConexao = Mapped.Connection();
-        objCommand = Mapped.Command(sql, objConexao);
-        objCommand.Parameters.Add(Mapped.Parameter("?name", chamado.Nome));
-        objCommand.Parameters.Add(Mapped.Parameter("?descricao", chamado.Descricao));
-        objCommand.Parameters.Add(Mapped.Parameter("?abridor", chamado.abridor.Id));
-        objCommand.Parameters.Add(Mapped.Parameter("?equipamento", chamado.equipamento.ID));
-        objCommand.Parameters.Add(Mapped.Parameter("?local", chamado.Local.Id));
-        objCommand.Parameters.Add(Mapped.Parameter("?prioridade", chamado.prioridade.Id));
-        objCommand.Parameters.Add(Mapped.Parameter("?feed", chamado.Feed));
-        objCommand.Parameters.Add(Mapped.Parameter("?criacao", dateValue));
+            DateTime dateValue = DateTime.Now;
 
-        int i = objCommand.ExecuteNonQuery();
-        objConexao.Close();
+            IDbConnection objConexao;
+            IDbCommand objCommand;
+            string sql = "INSERT INTO cha_chamado" +
+                "(cha_name, cha_descricao, usu_id, equ_id, loc_id, pri_id, cha_criacao, cha_feed) " +
+                "VALUES (?name, ?descricao, ?abridor, ?equipamento, ?local, ?prioridade, ?criacao, ?feed)";
+            objConexao = Mapped.Connection();
+            objCommand = Mapped.Command(sql, objConexao);
+            objCommand.Parameters.Add(Mapped.Parameter("?name", chamado.Nome));
+            objCommand.Parameters.Add(Mapped.Parameter("?descricao", chamado.Descricao));
+            objCommand.Parameters.Add(Mapped.Parameter("?abridor", chamado.abridor.Id));
+            objCommand.Parameters.Add(Mapped.Parameter("?equipamento", chamado.equipamento.ID));
+            objCommand.Parameters.Add(Mapped.Parameter("?local", chamado.Local.Id));
+            objCommand.Parameters.Add(Mapped.Parameter("?prioridade", chamado.prioridade.Id));
+            objCommand.Parameters.Add(Mapped.Parameter("?feed", chamado.Feed));
+            objCommand.Parameters.Add(Mapped.Parameter("?criacao", dateValue));
 
-        objCommand.Dispose();
-        objConexao.Dispose();
-    }
+            int i = objCommand.ExecuteNonQuery();
+            objConexao.Close();
 
-    // PUT api/<controller>/5
-    public void Put(int id, [FromBody] Chamado value)
-    {
-        var response = value;
-
-        Chamado chamado = new Chamado
+            objCommand.Dispose();
+            objConexao.Dispose();
+        }
+        catch (Exception exc)
         {
-            Nome = response.Nome,
-            Descricao = response.Descricao,
-            abridor = new Usuario { Id = response.abridor.Id },
-            equipamento = new TipoEquipamento { ID = response.equipamento.ID },
-            Responsavel = new Usuario { Id = response.Responsavel.Id},
-            Local = new Local { Id = response.Local.Id },
-            prioridade = new Prioridade { Id = response.prioridade.Id },
-            status = new Status { Id = response.status.Id },
-            Feed = response.Feed
-        };
 
-
-        System.Data.IDbConnection objConexao;
-        System.Data.IDbCommand objCommand;
-        string sql = "UPDATE cha_chamado SET " +
-            "cha_name = ?name, cha_descricao = ?descricao, usu_id = ?abridor, " +
-            "equ_id = ?equipamento, loc_id = ?local, usu_resp = ?responsavel, pri_id = ?prioridade, cha_status = ?status, cha_feed = ?feed" +
-            " WHERE cha_id = ?codigo";
-        objConexao = Mapped.Connection();
-        objCommand = Mapped.Command(sql, objConexao);
-        objCommand.Parameters.Add(Mapped.Parameter("?codigo", id));
-        objCommand.Parameters.Add(Mapped.Parameter("?name", chamado.Nome));
-        objCommand.Parameters.Add(Mapped.Parameter("?descricao", chamado.Descricao));
-        objCommand.Parameters.Add(Mapped.Parameter("?abridor", chamado.abridor.Id));
-        objCommand.Parameters.Add(Mapped.Parameter("?equipamento", chamado.equipamento.ID));
-        objCommand.Parameters.Add(Mapped.Parameter("?local", chamado.Local.Id));
-        objCommand.Parameters.Add(Mapped.Parameter("?responsavel", chamado.Responsavel.Id));
-        objCommand.Parameters.Add(Mapped.Parameter("?prioridade", chamado.prioridade.Id));
-        objCommand.Parameters.Add(Mapped.Parameter("?status", chamado.status.Id));
-        objCommand.Parameters.Add(Mapped.Parameter("?feed", chamado.Feed));
-        objCommand.ExecuteNonQuery();
-        objConexao.Close();
-        objCommand.Dispose();
-        objConexao.Dispose();
+            string a = "";
+        }
     }
 
-    // DELETE api/<controller>/5
-    public void Delete(int id)
-    {
+        // PUT api/<controller>/5
+        public void Put(int id, [FromBody] Chamado value)
+        {
+            var response = value;
+
+            Chamado chamado = new Chamado
+            {
+                Nome = response.Nome,
+                Descricao = response.Descricao,
+                abridor = new Usuario { Id = response.abridor.Id },
+                equipamento = new TipoEquipamento { ID = response.equipamento.ID },
+                Responsavel = new Usuario { Id = response.Responsavel.Id },
+                Local = new Local { Id = response.Local.Id },
+                prioridade = new Prioridade { Id = response.prioridade.Id },
+                status = new Status { Id = response.status.Id },
+                Feed = response.Feed
+            };
+
+
+            System.Data.IDbConnection objConexao;
+            System.Data.IDbCommand objCommand;
+            string sql = "UPDATE cha_chamado SET " +
+                "cha_name = ?name, cha_descricao = ?descricao, usu_id = ?abridor, " +
+                "equ_id = ?equipamento, loc_id = ?local, usu_resp = ?responsavel, pri_id = ?prioridade, cha_status = ?status, cha_feed = ?feed" +
+                " WHERE cha_id = ?codigo";
+            objConexao = Mapped.Connection();
+            objCommand = Mapped.Command(sql, objConexao);
+            objCommand.Parameters.Add(Mapped.Parameter("?codigo", id));
+            objCommand.Parameters.Add(Mapped.Parameter("?name", chamado.Nome));
+            objCommand.Parameters.Add(Mapped.Parameter("?descricao", chamado.Descricao));
+            objCommand.Parameters.Add(Mapped.Parameter("?abridor", chamado.abridor.Id));
+            objCommand.Parameters.Add(Mapped.Parameter("?equipamento", chamado.equipamento.ID));
+            objCommand.Parameters.Add(Mapped.Parameter("?local", chamado.Local.Id));
+            objCommand.Parameters.Add(Mapped.Parameter("?responsavel", chamado.Responsavel.Id));
+            objCommand.Parameters.Add(Mapped.Parameter("?prioridade", chamado.prioridade.Id));
+            objCommand.Parameters.Add(Mapped.Parameter("?status", chamado.status.Id));
+            objCommand.Parameters.Add(Mapped.Parameter("?feed", chamado.Feed));
+            objCommand.ExecuteNonQuery();
+            objConexao.Close();
+            objCommand.Dispose();
+            objConexao.Dispose();
+        }
+
+        // DELETE api/<controller>/5
+        public void Delete(int id)
+        {
+        }
     }
-}

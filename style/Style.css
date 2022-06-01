@@ -11,6 +11,12 @@
     }
 }
 
+@media (min-width: 992px){
+    .col-lg-6 {
+        flex: auto;
+        max-width: 100%;
+    }
+}
 html, body {
     width: 100vw;
     height: 100vh;
@@ -84,6 +90,7 @@ html, body {
     box-shadow: 2px 4px 9px #0000003d;
     transform: translateX(-100%);
     -webkit-transform: translateX(-100%);
+    margin-left: auto;
 }
 
 .slide-in {

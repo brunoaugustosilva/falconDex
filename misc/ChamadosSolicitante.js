@@ -401,7 +401,7 @@ form1.addEventListener("submit", e => {
             })
             
             createAlert("Chamado criado com sucesso");
-        }
+        } 
     ).catch(
         error => console.error('Error:', error)
     );

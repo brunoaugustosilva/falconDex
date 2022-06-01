@@ -157,7 +157,7 @@ async function searchChamado() {
         console.log(ordenation(sort, e));
         compare(ordenation(sort, e));
     });
-    console.log(teste);*/
+    console.log(teste);*/s
 
     result.map(e => {
         count++;

@@ -127,7 +127,8 @@ form2.addEventListener("submit", e => {
         body: JSON.stringify(local),
         headers: {
             'Accept': 'application/json; charset=utf-8',
-            'Content-Type': 'application/json;charset=UTF-8'
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Access-Control-Allow-Origin': 'http://localhost:19006'
         }
     }).then(
         response => response

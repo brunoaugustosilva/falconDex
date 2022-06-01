@@ -1,6 +1,6 @@
 ﻿//GET
 export function getAll(url = "string") {
-    return fetch(url
+    return fetch(url, {}
     ).then(
         item => item.json()
     ).then(
@@ -17,7 +17,8 @@ export function Post(data = {}, url = 'string') {
         body: JSON.stringify(data),
         headers: {
             'Accept': 'application/json; charset=utf-8',
-            'Content-Type': 'application/json;charset=UTF-8'
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Access-Control-Allow-Origin': '*'
         }
     }).then(
         response => response
@@ -33,7 +34,8 @@ export function Put(data = {}, url = 'string', id = 1) {
         body: JSON.stringify(data),
         headers: {
             'Accept': 'application/json; charset=utf-8',
-            'Content-Type': 'application/json;charset=UTF-8'
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Access-Control-Allow-Origin': '*'
         }
     }).then(
         response => response

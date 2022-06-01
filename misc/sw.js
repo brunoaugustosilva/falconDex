@@ -1,4 +1,4 @@
-﻿var cacheFalcon = 'falconDexPWA' + new Date()
+﻿/*var cacheFalcon = 'falconDexPWA' + new Date()
 var arquivosToCache = ['/', '/img', '/misc/ChamadosSolicitante.js', '/style', '/', '/index.html', '/chamado.html', '/pages/Techs/Offline.aspx']
 
 self.addEventListener('install', event => {
@@ -35,4 +35,4 @@ self.addEventListener('activate', event => {
             );
         })
     );
-});
+});*/
